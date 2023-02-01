@@ -1,8 +1,7 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, non_constant_identifier_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'reading_excel.dart' as rb;
 import 'firebase.dart' as fb;
 
 var daily_events_list;
@@ -24,8 +23,18 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime convertToDateTime(String stringDate) {
+      List listDate = stringDate.split("/").map((x) => int.parse(x)).toList();
+      return DateTime.utc(listDate[2], listDate[0], listDate[1]);
+      //return DateTime.utc(year, month, day);
+    }
+
     //builds a snapshot of Firebase at the time its called
     //houses the snapshot in _usersStream
+    DateTime eventDate;
+    DateTime newYear = DateTime.utc(2023, 1, 1);
+    //   List listDate = stringDate.split("/").map((x) => int.parse(x)).toList();
+
     return StreamBuilder<QuerySnapshot>(
       stream: _usersStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -36,7 +45,6 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Text("Loading");
         }
-
         return SizedBox(
           width: MediaQuery.of(context).size.width,
           child: ListView(
@@ -53,11 +61,34 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                       .map((DocumentSnapshot document) {
                         Map<String, dynamic> data =
                             document.data()! as Map<String, dynamic>;
+                        // data.values.forEach((element) {
+                        //  eventDate = convertToDateTime(element["date"]);
+                        // var temp = element
+                        //eventDate = convertToDateTime(element);
+                        // if (eventDate.isAfter(newYear)) {
+                        //   data.remove(element);
+                        // }
+                        //   });
+                        // for (var e in data.entries) {
+                        //   eventDate =
+
+                        //       // map.keys.forEach((k)
+                        //       // var temp = convertToDateTime(e.["date"]);
+                        //       eventDate = DateTime.now();
+                        //   // eventDate = convertToDateTime(data["date"]);
+                        //   if (eventDate.isBefore(DateTime.now())) {
+                        //     data.remove(e);
+                        //   }
+                        // }
+                        // if eventDate isAfter now
+                        //delete from snapshot
+                        //  if (data["date"]) ;
                         return Card(
                             elevation: 6.0,
                             child: ListTile(
                               title: Text(data["title"]),
                               subtitle: Text(data["date"]),
+                              trailing: Text("3"),
                               onTap: () {
                                 AlertDialog alert = AlertDialog(
                                   title: Text(data["title"]),

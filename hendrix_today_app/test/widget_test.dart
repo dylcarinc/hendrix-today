@@ -1,9 +1,9 @@
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hendrix_today_app/home_screen.dart';
-import 'package:hendrix_today_app/calendar_screen.dart';
-import 'package:hendrix_today_app/search_screen.dart';
+import 'package:hendrix_today_app/HomeScreen.dart';
+import 'package:hendrix_today_app/CalendarScreen.dart';
+import 'package:hendrix_today_app/SearchScreen.dart';
 
 //worked before firebase implementation
 
