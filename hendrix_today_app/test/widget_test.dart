@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hendrix_today_app/HomeScreen.dart';
 import 'package:hendrix_today_app/CalendarScreen.dart';
 import 'package:hendrix_today_app/SearchScreen.dart';
-import 'package:hendrix_today_app/EventCalendar.dart';
 
 //worked before firebase implementation
 
