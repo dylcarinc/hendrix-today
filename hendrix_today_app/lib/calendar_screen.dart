@@ -1,5 +1,9 @@
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter/material.dart';
+import 'package:hendrix_today_app/home_screen.dart';
+import 'package:hendrix_today_app/calendar_screen.dart';
+import 'package:hendrix_today_app/search_screen.dart';
+import 'package:hendrix_today_app/firebase_options.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async'; // new
 import 'firebase.dart' as fb; //
