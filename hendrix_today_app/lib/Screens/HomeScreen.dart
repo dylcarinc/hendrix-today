@@ -1,9 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'reading_excel.dart' as rb;
-import 'firebase.dart' as fb;
+import 'package:hendrix_today_app/Objects/AppState.dart';
 
 var daily_events_list;
 var daily_announcements_list;
@@ -20,12 +17,19 @@ class MyHomeScreen extends StatefulWidget {
 
 class _MyHomeScreenState extends State<MyHomeScreen> {
   final Stream<QuerySnapshot> _usersStream =
-      fb.db.collection('eventsListed').snapshots();
+      db.collection('eventsListed').snapshots();
 
   @override
   Widget build(BuildContext context) {
+    DateTime convertToDateTime(String stringDate) {
+      List listDate = stringDate.split("/").map((x) => int.parse(x)).toList();
+      return DateTime.utc(listDate[2], listDate[0], listDate[1]);
+      //return DateTime.utc(year, month, day);
+    }
+
     //builds a snapshot of Firebase at the time its called
     //houses the snapshot in _usersStream
+
     return StreamBuilder<QuerySnapshot>(
       stream: _usersStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -36,7 +40,6 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Text("Loading");
         }
-
         return SizedBox(
           width: MediaQuery.of(context).size.width,
           child: ListView(

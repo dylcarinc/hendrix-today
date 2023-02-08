@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async'; // new
-import 'firebase.dart' as fb; //
+import 'package:hendrix_today_app/Objects/AppState.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -19,7 +19,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Color webOrange = const Color.fromARGB(255, 202, 81, 39);
   TextEditingController textController = TextEditingController();
   final Stream<QuerySnapshot> _usersStream =
-      fb.db.collection('eventsListed').snapshots();
+      db.collection('eventsListed').snapshots();
   List<String> events = [];
   List<String> searchedEvents = [];
 
