@@ -1,11 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hendrix_today_app/Objects/AppState.dart';
-import "package:intl/intl.dart";
-
-var daily_events_list;
-var daily_announcements_list;
-var daily_meetings_list;
+import 'package:hendrix_today_app/Objects/Event.dart';
+import 'package:provider/provider.dart';
 
 class MyHomeScreen extends StatefulWidget {
   const MyHomeScreen({super.key});
@@ -14,84 +10,17 @@ class MyHomeScreen extends StatefulWidget {
   State<MyHomeScreen> createState() => _MyHomeScreenState();
 }
 
-//got the code for below from: https://firebase.google.com/docs/firestore/query-data/listen#dart_1
-
 class _MyHomeScreenState extends State<MyHomeScreen> {
-  final Stream<QuerySnapshot> _usersStream =
-      db.collection('events').snapshots();
-
   @override
   Widget build(BuildContext context) {
-    // DateTime convertToDateTime(String stringDate) {
-    //   List listDate = stringDate.split("/").map((x) => int.parse(x)).toList();
-    //   return DateTime.utc(listDate[2], listDate[0], listDate[1]);
-    //   //return DateTime.utc(year, month, day);
-    // }
-
-    String timestampToString(Timestamp stamp) {
-      var dt = stamp.toDate();
-      final DateFormat formatter = DateFormat('MM/dd/yyyy');
-      final String date = formatter.format(dt);
-      return date;
-    }
-
-    //builds a snapshot of Firebase at the time its called
-    //houses the snapshot in _usersStream
-    return StreamBuilder<QuerySnapshot>(
-      stream: _usersStream,
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return const Text('Something went wrong');
-        }
-
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Text("Loading");
-        }
-        return SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: ListView(
-            key: const Key('daily_events_list'),
-            children: <Widget>[
-              //hendrix today banner
-              Image.asset('assets/webOrange_banner.png',
-                  key: const Key("Banner")),
-              ListBody(
-                  //pulls data (events) from snapshot and converts to map
-                  //then converts to list
-                  //then converts to card
-                  children: snapshot.data!.docs
-                      .map((DocumentSnapshot document) {
-                        Map<String, dynamic> data =
-                            document.data()! as Map<String, dynamic>;
-                        return Card(
-                            elevation: 6.0,
-                            child: ListTile(
-                              title: Text(data["title"]),
-                              subtitle: Text(timestampToString(data["date"])),
-                              onTap: () {
-                                AlertDialog alert = AlertDialog(
-                                  title: Text(data["title"]),
-                                  insetPadding: EdgeInsets.symmetric(
-                                      vertical: 200, horizontal: 50),
-                                  content:
-                                      Column(children: [Text(data["desc"])]),
-                                );
-
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return alert;
-                                  },
-                                );
-                              },
-                            ));
-                      })
-                      .toList()
-                      .cast()),
-            ],
-          ),
-        );
-      },
-    );
+    return SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: ListView(
+          children: <Widget>[
+            Image.asset('assets/webOrange_banner.png',
+                key: const Key("Banner")),
+            EventList(),
+          ],
+        ));
   }
 }
