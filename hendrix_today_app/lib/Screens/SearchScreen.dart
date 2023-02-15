@@ -19,7 +19,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Color webOrange = const Color.fromARGB(255, 202, 81, 39);
   TextEditingController textController = TextEditingController();
   final Stream<QuerySnapshot> _usersStream =
-      db.collection('eventsListed').snapshots();
+      db.collection('events').snapshots();
   List<String> events = [];
   List<String> searchedEvents = [];
 

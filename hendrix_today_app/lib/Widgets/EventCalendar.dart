@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async'; // new
 import 'package:hendrix_today_app/Objects/AppState.dart';
+import "package:intl/intl.dart";
 
 class EventCalendar extends StatefulWidget {
   const EventCalendar({super.key});
@@ -42,10 +43,17 @@ class _EventCalendarState extends State<EventCalendar> {
   }
 
   final Stream<QuerySnapshot> _usersStream =
-      db.collection('eventsListed').snapshots();
+      db.collection('events').snapshots();
 
   @override
   Widget build(BuildContext context) {
+    String timestampToString(Timestamp stamp) {
+      var dt = stamp.toDate();
+      final DateFormat formatter = DateFormat('MM/dd/yyyy');
+      final String date = formatter.format(dt);
+      return date;
+    }
+
     return StreamBuilder<QuerySnapshot>(
         stream: _usersStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -112,7 +120,7 @@ class _EventCalendarState extends State<EventCalendar> {
                             elevation: 6.0,
                             child: ListTile(
                               title: Text(data["title"]),
-                              subtitle: Text(data["date"]),
+                              subtitle: Text(timestampToString(data["date"])),
                               onTap: () {
                                 AlertDialog alert = AlertDialog(
                                   title: Text(data["title"]),

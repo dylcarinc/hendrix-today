@@ -11,7 +11,7 @@ class UserInformation extends StatefulWidget {
 
 class _UserInformationState extends State<UserInformation> {
   final Stream<QuerySnapshot> _usersStream =
-      db.collection('eventslisted').snapshots();
+      db.collection('events').snapshots();
 
   @override
   Widget build(BuildContext context) {

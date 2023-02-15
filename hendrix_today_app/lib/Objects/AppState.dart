@@ -50,7 +50,7 @@ class AppState extends ChangeNotifier {
 
         print("starting to listen");
         eventSubscription = FirebaseFirestore.instance
-            .collection('eventsListed') //GV had .doc(user.uid); document ref
+            .collection('events') //GV had .doc(user.uid); document ref
             .snapshots()
             .listen(
           (snapshot) {
