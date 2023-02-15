@@ -1,12 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-//initialize an instance of cloud firestore
+import 'AppState.dart';
 
 class Event {
   final String? title;
   final String? desc;
   final String? time;
-  final String? date;
+  final String? date; // change this to date
 
   Event({
     this.title,
@@ -14,39 +15,47 @@ class Event {
     this.time,
     this.date,
   });
+}
 
-  factory Event.fromFirestore(
-    DocumentSnapshot<Map<String, dynamic>> snapshot,
-    SnapshotOptions? options,
-  ) {
-    final data = snapshot.data();
-    return Event(
-      title: data?['title'],
-      date: data?['date'],
-      desc: data?['desc'],
-      time: data?['time'],
+class EventList extends StatefulWidget {
+  @override
+  EventListState createState() => EventListState();
+}
+
+class EventListState extends State<EventList> {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<AppState>(
+      builder: (context, appState, child) {
+        return ListView.builder(
+          shrinkWrap: true,
+          physics: ScrollPhysics(),
+          itemCount: appState.events.length,
+          itemBuilder: (context, index) {
+            final item = appState.events[index];
+            return Card(
+              child: ListTile(
+                title: Text(item.title.toString()),
+                subtitle: Text(item.date.toString()),
+                onTap: () {
+                  AlertDialog alert = AlertDialog(
+                    title: Text(item.title.toString()),
+                    insetPadding:
+                        EdgeInsets.symmetric(vertical: 200, horizontal: 50),
+                    content: Column(children: [Text(item.desc.toString())]),
+                  );
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return alert;
+                    },
+                  );
+                },
+              ),
+            );
+          },
+        );
+      },
     );
-  }
-
-  factory Event.getCurrentData(
-    DocumentSnapshot<Map<String, dynamic>> snapshot,
-    SnapshotOptions? options,
-  ) {
-    final currentData = snapshot.data();
-    return Event(
-      title: currentData?['title'],
-      date: currentData?['date'],
-      desc: currentData?['desc'],
-      time: currentData?['time'],
-    );
-  }
-
-  Map<String, dynamic> toFirestore() {
-    return {
-      if (title != null) "title": title,
-      if (date != null) "date": date,
-      if (time != null) "time": time,
-      if (desc != null) "desc": desc,
-    };
   }
 }
