@@ -1,12 +1,8 @@
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter/material.dart';
-import 'package:hendrix_today_app/home_screen.dart';
-import 'package:hendrix_today_app/calendar_screen.dart';
-import 'package:hendrix_today_app/search_screen.dart';
-import 'package:hendrix_today_app/firebase_options.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async'; // new
-import 'firebase.dart' as fb; //
+import 'package:hendrix_today_app/Objects/AppState.dart';
 
 class EventCalendar extends StatefulWidget {
   const EventCalendar({super.key});
@@ -46,7 +42,7 @@ class _EventCalendarState extends State<EventCalendar> {
   }
 
   final Stream<QuerySnapshot> _usersStream =
-      fb.db.collection('eventsListed').snapshots();
+      db.collection('eventsListed').snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -142,20 +138,5 @@ class _EventCalendarState extends State<EventCalendar> {
           );
           //);
         });
-  }
-}
-
-//creates calendar page in app
-class CalendarScreen extends StatefulWidget {
-  const CalendarScreen({super.key});
-
-  @override
-  State<CalendarScreen> createState() => _CalendarScreenState();
-}
-
-class _CalendarScreenState extends State<CalendarScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: EventCalendar());
   }
 }
