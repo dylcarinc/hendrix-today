@@ -1,8 +1,77 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../Objects/AppState.dart';
 import '../Objects/Event.dart';
+
+class EventList extends StatefulWidget {
+  @override
+  EventListState createState() => EventListState();
+}
+
+class EventListState extends State<EventList> {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<AppState>(
+      builder: (context, appState, child) {
+        return ListView.builder(
+          shrinkWrap: true,
+          physics: ScrollPhysics(),
+          itemCount: appState.events.length,
+          itemBuilder: (context, index) {
+            final item = appState.events[index];
+            return Card(
+              child: ListTile(
+                title: Text(item.title.toString()),
+                subtitle: Text(item.date.toString()),
+                onTap: () {
+                  AlertDialog alert = AlertDialog(
+                    title: Text(item.title.toString()),
+                    insetPadding:
+                        EdgeInsets.symmetric(vertical: 200, horizontal: 50),
+                    content: Column(children: [Text(item.desc.toString())]),
+                  );
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return alert;
+                    },
+                  );
+                },
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+}
+
+class EventList2 extends StatefulWidget {
+  @override
+  EventList2State createState() => EventList2State();
+}
+
+class EventList2State extends State<EventList2> {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<AppState>(
+      builder: (context, appState, child) {
+        return ListView.builder(
+          shrinkWrap: true,
+          physics: ScrollPhysics(),
+          itemCount: appState.events2.length,
+          itemBuilder: (context, index) {
+            final event = appState.events2[index];
+            return EventCard(event: event);
+          },
+        );
+      },
+    );
+  }
+}
 
 class EventCard extends StatelessWidget {
   void search() {
@@ -46,8 +115,10 @@ class EventCard extends StatelessWidget {
           child: ButtonBar(
             alignment: MainAxisAlignment.end,
             children: [
-              for (var i = 0; i < event.tags!.length; i++)
-                TagButton(onPressed: search, btnText: event.tags!.elementAt(i)),
+              if (event.tags!.isNotEmpty)
+                for (var i = 0; i < event.tags!.length; i++)
+                  TagButton(
+                      onPressed: search, btnText: event.tags!.elementAt(i)),
             ],
           ),
         )
@@ -86,3 +157,6 @@ class TagButton extends StatelessWidget {
     );
   }
 }
+
+ //  ```````````````````````````````` 
+ // my dog put her paw on by keyboard and wrote that.  who am i to tell her she cant code. 
