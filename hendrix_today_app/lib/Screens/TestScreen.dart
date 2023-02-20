@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart'; // new
 import 'package:hendrix_today_app/Objects/Event.dart';
 
-import '../Widgets/EventCard.dart';
+import '../Widgets/EventList.dart';
 
 class TestScreen extends StatefulWidget {
   const TestScreen({super.key});
@@ -13,17 +13,10 @@ class TestScreen extends StatefulWidget {
 }
 
 class _TestScreenState extends State<TestScreen> {
-  Event event = Event(
-      title: "title",
-      date: "date",
-      desc: "desc",
-      time: "time",
-      tags: ["tag1", "tag2"]);
-
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[EventList2(), EventCard(event: event)],
+      children: <Widget>[EventList2()],
     );
   }
 }

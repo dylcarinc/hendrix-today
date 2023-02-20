@@ -80,50 +80,81 @@ class EventCard extends StatelessWidget {
   EventCard({required this.event});
 
   final Event event;
+  List<Widget> tagButtonList = [];
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        child: Row(
-      children: [
-        Expanded(
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(15, 12, 10, 2),
-              child: Text(
-                event.title.toString(),
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
+    if (event.tags!.isNotEmpty) {
+      for (var i = 0; i < event.tags!.length; i++) {
+        tagButtonList.add(
+            TagButton(onPressed: search, btnText: event.tags!.elementAt(i)));
+      }
+    }
+
+    return GestureDetector(
+      child: Card(
+          child: Row(
+        children: [
+          Expanded(
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 12, 10, 2),
+                child: Text(
+                  event.title.toString(),
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(15, 0, 0, 15),
-              child: Text(
-                event.date.toString(),
-                style: TextStyle(
-                    fontSize: 14, color: Colors.black.withOpacity(.6)),
-              ),
-            )
-          ]),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 5),
-          child: ButtonBar(
-            alignment: MainAxisAlignment.end,
-            children: [
-              if (event.tags!.isNotEmpty)
-                for (var i = 0; i < event.tags!.length; i++)
-                  TagButton(
-                      onPressed: search, btnText: event.tags!.elementAt(i)),
-            ],
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 0, 0, 15),
+                child: Text(
+                  event.date.toString(),
+                  style: TextStyle(
+                      fontSize: 14, color: Colors.black.withOpacity(.6)),
+                ),
+              )
+            ]),
           ),
-        )
-      ],
-    ));
+          Padding(
+            padding: const EdgeInsets.only(right: 5),
+            child: ButtonBar(
+              alignment: MainAxisAlignment.end,
+              children: tagButtonList,
+            ),
+          )
+        ],
+      )),
+      onTap: () {
+        AlertDialog alert = AlertDialog(
+          title: Text(event.title.toString()),
+          insetPadding: EdgeInsets.symmetric(vertical: 200, horizontal: 50),
+          content: Column(children: [
+            Text(event.desc.toString()),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: ButtonBar(
+                alignment: MainAxisAlignment.end,
+                children: tagButtonList,
+              ),
+            ),
+          ]),
+        );
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return Column(
+              children: [
+                alert,
+              ],
+            );
+          },
+        );
+      },
+    );
   }
 }
 

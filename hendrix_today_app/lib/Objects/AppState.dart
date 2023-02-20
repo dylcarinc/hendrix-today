@@ -64,31 +64,32 @@ class AppState extends ChangeNotifier {
 
 Event event1 = Event(
     title: "Event1",
-    desc: "Event1",
+    desc: "this is a description of event 1",
     time: "1pm",
     date: "2/1/23",
     tags: ["Meeting"]);
 Event event2 = Event(
     title: "Event2",
-    desc: "Event2",
+    desc:
+        "here is a very long description of event 2. i want to make sure the alert dialog box doesnt look stupid. this is a neat app. i like working on it very much. however i keep getting side tracked.",
     time: "2pm",
     date: "2/2/23",
     tags: ["Scholarships"]);
 Event event3 = Event(
     title: "Event3",
-    desc: "Event3",
+    desc: "this is a description of event 3",
     time: "3pm",
     date: "2/3/23",
     tags: ["Psyschology"]);
 Event event4 = Event(
     title: "Event4",
-    desc: "Event4",
+    desc: "this is a description of event 4",
     time: "4pm",
     date: "2/4/23",
     tags: ["Jobs/Internships"]);
 Event event5 = Event(
     title: "Event5",
-    desc: "Event5",
+    desc: "this is a description of event 5",
     time: "5pm",
     date: "2/5/23",
     tags: ["Meeting"]);

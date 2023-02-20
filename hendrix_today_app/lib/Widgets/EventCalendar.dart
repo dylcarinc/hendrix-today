@@ -4,6 +4,8 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:hendrix_today_app/Objects/AppState.dart';
 
+import 'EventList.dart';
+
 class EventCalendar extends StatefulWidget {
   const EventCalendar({super.key});
 
