@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hendrix_today_app/Screens/SearchScreen.dart';
+import 'package:hendrix_today_app/Screens/testScreen.dart';
 import 'package:hendrix_today_app/Widgets/EventCalendar.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../Screens/HomeScreen.dart';
@@ -32,6 +33,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
       const MyHomeScreen(),
       const EventCalendar(),
       const SearchScreen(),
+      const TestScreen()
     ]; //Stores Pages for BottomNav
     titles = ["Hendrix Today", "HDX Calendar", "Search", "Test"];
     menuLinks = [
@@ -120,17 +122,17 @@ class _ScreenContainerState extends State<ScreenContainer> {
                 backgroundColor: Colors.teal,
                 child: Icon(Icons.search),
               )),
-          // Container(
-          //     key: const Key('TestButton'),
-          //     margin: EdgeInsets.all(10),
-          //     child: FloatingActionButton(
-          //       onPressed: () {
-          //         onItemTapped(3);
-          //         //action code for button 3
-          //       },
-          //       backgroundColor: Colors.teal,
-          //       child: Icon(Icons.emoji_nature),
-          //     )), // button third
+          Container(
+              key: const Key('TestButton'),
+              margin: EdgeInsets.all(10),
+              child: FloatingActionButton(
+                onPressed: () {
+                  onItemTapped(3);
+                  //action code for button 3
+                },
+                backgroundColor: Colors.teal,
+                child: Icon(Icons.emoji_nature),
+              )), // button third
           Container(
             key: const Key('MenuButton'),
             margin: EdgeInsets.all(10),
