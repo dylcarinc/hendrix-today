@@ -9,7 +9,7 @@ class Event {
   final String? title;
   final String? desc;
   final String? time;
-  final Timestamp? date; // change this to date
+  final DateTime? date; // change this to date
 
   Event({
     this.title,
@@ -18,16 +18,10 @@ class Event {
     this.date,
   });
 
-  String stampToString() {
-    var dt = date?.toDate();
+  String dateToString() {
     final DateFormat formatter = DateFormat('MM/dd/yyyy');
-    final String _date = formatter.format(dt ?? DateTime.now());
-    return _date;
-  }
-
-  DateTime stampToDate() {
-    var dt = date?.toDate();
-    return dt ?? DateTime.now();
+    final String tmpdate = formatter.format(date ?? DateTime.now());
+    return tmpdate;
   }
 }
 
@@ -50,7 +44,7 @@ class EventListState extends State<EventList> {
             return Card(
               child: ListTile(
                 title: Text(item.title.toString()),
-                subtitle: Text(item.date.toString()),
+                subtitle: Text(item.dateToString()),
                 onTap: () {
                   AlertDialog alert = AlertDialog(
                     title: Text(item.title.toString()),

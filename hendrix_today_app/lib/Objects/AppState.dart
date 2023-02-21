@@ -44,7 +44,7 @@ class AppState extends ChangeNotifier {
               title: document.data()['title'],
               desc: document.data()['desc'],
               time: document.data()['time'],
-              date: document.data()['date'],
+              date: DateUtils.dateOnly(document.data()['date'].toDate()),
             ));
           });
           print(snapshot.docChanges.toString()); //prints changes
