@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import "package:intl/intl.dart";
 
 import 'AppState.dart';
 
@@ -7,7 +9,7 @@ class Event {
   final String? title;
   final String? desc;
   final String? time;
-  final String? date; // change this to date
+  final Timestamp? date; // change this to date
 
   Event({
     this.title,
@@ -15,6 +17,18 @@ class Event {
     this.time,
     this.date,
   });
+
+  String stampToString() {
+    var dt = date?.toDate();
+    final DateFormat formatter = DateFormat('MM/dd/yyyy');
+    final String _date = formatter.format(dt ?? DateTime.now());
+    return _date;
+  }
+
+  DateTime stampToDate() {
+    var dt = date?.toDate();
+    return dt ?? DateTime.now();
+  }
 }
 
 class EventList extends StatefulWidget {
