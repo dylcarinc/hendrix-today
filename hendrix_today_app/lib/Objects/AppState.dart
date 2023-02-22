@@ -10,26 +10,14 @@ import 'package:firebase_auth/firebase_auth.dart' // new
 import 'package:firebase_core/firebase_core.dart'; // new
 import 'package:firebase_ui_auth/firebase_ui_auth.dart'; // new
 
-//github please acknowledge this file
-
-final db =
-    FirebaseFirestore.instance; //instance of the database (delete eventually)
-String userID = "";
-// for later: Good Vibes has good sign in/register/sign out/verification
-
 class AppState extends ChangeNotifier {
   List<Event> _events = [];
   List<Event> get events => _events;
+  List<Event> events2 = [event1, event2, event3, event4, event5];
 
   AppState() {
-    // put database helper here if needed (moodDbHelper/handler)
-    // notification servive (?)
-    // settings (?)
     init();
   }
-
-  bool _loggedIn = false; // ours
-  bool get loggedIn => _loggedIn; //ours
 
   bool firstSnapshot = true;
   StreamSubscription<QuerySnapshot>? eventSubscription;
@@ -43,56 +31,65 @@ class AppState extends ChangeNotifier {
     ]);
 
     FirebaseAuth.instance.userChanges().listen((user) {
-      if (user != null) {
-        _loggedIn = true;
-        eventSubscription?.cancel(); //WHY?
-        // cacheUsersAndMoods
+      eventSubscription?.cancel(); //WHY?
+      print("starting to listen");
+      eventSubscription = FirebaseFirestore.instance
+          .collection('events') //GV had .doc(user.uid); document ref
+          .snapshots()
+          .listen(
+        (snapshot) {
+          print("in snapshot");
+          _events = [];
+          snapshot.docs.forEach((document) {
+            _events.add(Event(
+              title: document.data()['title'],
+              desc: document.data()['desc'],
+              time: document.data()['time'],
+              date: DateUtils.dateOnly(document.data()['date'].toDate()),
+            ));
+          });
+          print(snapshot.docChanges.toString()); //prints changes
+          firstSnapshot = false;
+          notifyListeners();
+        },
+        onError: (error) {
+          print(error);
+        },
+      );
 
-        print("starting to listen");
-        eventSubscription = FirebaseFirestore.instance
-            .collection('eventsListed') //GV had .doc(user.uid); document ref
-            .snapshots()
-            .listen(
-          (snapshot) {
-            print("in snapshot");
-            _events = [];
-            snapshot.docs.forEach((document) {
-              _events.add(Event(
-                title: document.data()['title'],
-                desc: document.data()['desc'],
-                time: document.data()['time'],
-                date: document.data()['date'],
-              ));
-            });
-            print(snapshot.docChanges.toString()); //prints changes
-            // GV looks for new Good Vibes to notify the user
-            firstSnapshot = false;
-            notifyListeners();
-          },
-          onError: (error) {
-            print(error);
-          },
-        );
-      } else {
-        _loggedIn = false; // _loginState = ApplicationLoginState.loggedOut;
-        _events = [];
-
-        eventSubscription?.cancel();
-      }
       notifyListeners();
     });
-
-    /* 
-    void cacheEvents() -- for GV: (get 50 most recent, update mood map)
-      FirebaseFirestore.instance
-      .collection('collection')
-      .orderBy(order)
-      .limit(limit)
-      .get()
-      .then((data) {
-        for GV: update moodMap
-      }
-      notifyListeners();
-     */
   }
 }
+
+Event event1 = Event(
+    title: "Event1",
+    desc: "this is a description of event 1",
+    time: "1pm",
+    date: "2/1/23",
+    tags: ["Meeting"]);
+Event event2 = Event(
+    title: "Event2",
+    desc:
+        "here is a very long description of event 2. i want to make sure the alert dialog box doesnt look stupid. this is a neat app. i like working on it very much. however i keep getting side tracked.",
+    time: "2pm",
+    date: "2/2/23",
+    tags: ["Scholarships"]);
+Event event3 = Event(
+    title: "Event3",
+    desc: "this is a description of event 3",
+    time: "3pm",
+    date: "2/3/23",
+    tags: ["Psyschology"]);
+Event event4 = Event(
+    title: "Event4",
+    desc: "this is a description of event 4",
+    time: "4pm",
+    date: "2/4/23",
+    tags: ["Jobs/Internships"]);
+Event event5 = Event(
+    title: "Event5",
+    desc: "this is a description of event 5",
+    time: "5pm",
+    date: "2/5/23",
+    tags: ["Meeting"]);

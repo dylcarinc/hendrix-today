@@ -1,8 +1,11 @@
+import 'package:hendrix_today_app/Objects/Event.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:async'; // new
 import 'package:hendrix_today_app/Objects/AppState.dart';
+import "package:intl/intl.dart";
+
+import 'EventList.dart';
 
 class EventCalendar extends StatefulWidget {
   const EventCalendar({super.key});
@@ -14,79 +17,123 @@ class EventCalendar extends StatefulWidget {
 //creation of the TableCalendar
 //code obtained from TableCalendar repo: https://github.com/aleksanderwozniak/table_calendar
 class _EventCalendarState extends State<EventCalendar> {
+  late final ValueNotifier<List<Event>> _selectedEvents;
+  late var testEvents = [];
   CalendarFormat _calendarFormat = CalendarFormat.month;
+  RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.toggledOff;
   DateTime _focusedDay = DateTime.now();
+  DateTime calendarRoot = DateTime.now();
   DateTime? _selectedDay;
   late DateTime calendarStartDate;
   late DateTime calendarEndDate;
-  //late final ValueNotifier<List<Event>> _selectedEvents;
+  DateTime? _rangeStart;
+  DateTime? _rangeEnd;
 
   @override
   void initState() {
+    super.initState();
     _selectedDay = _focusedDay;
-    //_selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
+    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
   }
 
-  // List<Event> _getEventsForDay(DateTime day) {
-  // return kEvents[day] ?? [];
-  //}
+  @override
+  void dispose() {
+    _selectedEvents.dispose();
+    super.dispose();
+  }
+
+  List<DateTime> daysInRange(DateTime first, DateTime last) {
+    final dayCount = last.difference(first).inDays + 1;
+    return List.generate(
+      dayCount,
+      (index) => DateTime.utc(first.year, first.month, first.day + index),
+    );
+  }
+
+  List<Event> _getEventsForDay(DateTime day) {
+    // Implementation example
+    day = DateUtils.dateOnly(day);
+    List<Event> events = [];
+    for (Event event in testEvents) {
+      if (event.date == day) {
+        events.add(event);
+      }
+    }
+    return events;
+  }
+
+  List<Event> _getEventsForRange(DateTime start, DateTime end) {
+    // Implementation example
+    final days = daysInRange(start, end);
+
+    return [
+      for (final d in days) ..._getEventsForDay(d),
+    ];
+  }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     if (!isSameDay(_selectedDay, selectedDay)) {
       setState(() {
         _selectedDay = selectedDay;
         _focusedDay = focusedDay;
+        _rangeStart = null; // Important to clean those
+        _rangeEnd = null;
+        _rangeSelectionMode = RangeSelectionMode.toggledOff;
       });
-      //_selectedEvents.value = _getEventsForDay(selectedDay);
+
+      _selectedEvents.value = _getEventsForDay(selectedDay);
     }
   }
 
-  final Stream<QuerySnapshot> _usersStream =
-      db.collection('eventsListed').snapshots();
+  void _onRangeSelected(DateTime? start, DateTime? end, DateTime focusedDay) {
+    setState(() {
+      _selectedDay = null;
+      _focusedDay = focusedDay;
+      _rangeStart = start;
+      _rangeEnd = end;
+      _rangeSelectionMode = RangeSelectionMode.toggledOn;
+    });
+
+    // `start` or `end` could be null
+    if (start != null && end != null) {
+      _selectedEvents.value = _getEventsForRange(start, end);
+    } else if (start != null) {
+      _selectedEvents.value = _getEventsForDay(start);
+    } else if (end != null) {
+      _selectedEvents.value = _getEventsForDay(end);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-        stream: _usersStream,
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return const Text('Something went wrong');
-          }
-
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text("Loading");
-          }
-          //sets the bounds for the calendar at 6 months before and after the current date
-          final calendarRoot = DateTime.now();
-          final calendarStartDate = DateTime(
-              calendarRoot.year, calendarRoot.month - 6, calendarRoot.day);
-          final calendarEndDate = DateTime(
-              calendarRoot.year, calendarRoot.month + 6, calendarRoot.day);
-
-          return SizedBox(
-            child: ListView(children: [
+    calendarStartDate =
+        DateTime(calendarRoot.year, calendarRoot.month - 6, calendarRoot.day);
+    calendarEndDate =
+        DateTime(calendarRoot.year, calendarRoot.month + 6, calendarRoot.day);
+    return SizedBox(
+      child: Consumer<AppState>(
+        builder: (context, appState, _) {
+          testEvents = appState.events;
+          return Column(
+            children: [
               TableCalendar(
                 firstDay: calendarStartDate,
                 lastDay: calendarEndDate,
                 focusedDay: _focusedDay,
+                rangeStartDay: _rangeStart,
+                rangeEndDay: _rangeEnd,
                 calendarFormat: _calendarFormat,
+                rangeSelectionMode: _rangeSelectionMode,
+                eventLoader: _getEventsForDay,
                 selectedDayPredicate: (day) {
                   // Use `selectedDayPredicate` to determine which day is currently selected.
                   // If this returns true, then `day` will be marked as selected.
-
                   // Using `isSameDay` is recommended to disregard
                   // the time-part of compared DateTime objects.
                   return isSameDay(_selectedDay, day);
                 },
-                onDaySelected: (selectedDay, focusedDay) {
-                  if (!isSameDay(_selectedDay, selectedDay)) {
-                    // Call `setState()` when updating the selected day
-                    setState(() {
-                      _selectedDay = selectedDay;
-                      _focusedDay = focusedDay;
-                    });
-                  }
-                },
+                onDaySelected: _onDaySelected,
+                onRangeSelected: _onRangeSelected,
                 onFormatChanged: (format) {
                   if (_calendarFormat != format) {
                     // Call `setState()` when updating calendar format
@@ -100,43 +147,38 @@ class _EventCalendarState extends State<EventCalendar> {
                   _focusedDay = focusedDay;
                 },
               ),
-              ListBody(
-                  //height: MediaQuery.of(context).size.height,
-                  //width: MediaQuery.of(context).size.width,
-                  //children: //ListView(
-                  children: snapshot.data!.docs
-                      .map((DocumentSnapshot document) {
-                        Map<String, dynamic> data =
-                            document.data()! as Map<String, dynamic>;
-                        return Card(
-                            elevation: 6.0,
-                            child: ListTile(
-                              title: Text(data["title"]),
-                              subtitle: Text(data["date"]),
-                              onTap: () {
-                                AlertDialog alert = AlertDialog(
-                                  title: Text(data["title"]),
-                                  insetPadding: EdgeInsets.symmetric(
-                                      vertical: 200, horizontal: 50),
-                                  content:
-                                      Column(children: [Text(data["desc"])]),
-                                );
-
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return alert;
-                                  },
-                                );
-                              },
-                            ));
-                      })
-                      .toList()
-                      .cast()),
-              //),
-            ]),
+              //EventList()
+              const SizedBox(height: 8.0),
+              Expanded(
+                child: ValueListenableBuilder<List<Event>>(
+                  valueListenable: _selectedEvents,
+                  builder: (context, value, _) {
+                    return ListView.builder(
+                      itemCount: value.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 12.0,
+                            vertical: 4.0,
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border.all(),
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          child: ListTile(
+                            onTap: () => print('${value[index].title}'),
+                            title: Text('${value[index].title}'),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
           );
-          //);
-        });
+        },
+      ),
+    );
   }
 }
