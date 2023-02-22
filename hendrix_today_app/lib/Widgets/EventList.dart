@@ -62,9 +62,9 @@ class EventList2State extends State<EventList2> {
         return ListView.builder(
           shrinkWrap: true,
           physics: ScrollPhysics(),
-          itemCount: appState.events2.length,
+          itemCount: appState.events.length,
           itemBuilder: (context, index) {
-            final event = appState.events2[index];
+            final event = appState.events[index];
             return EventCard(event: event);
           },
         );
