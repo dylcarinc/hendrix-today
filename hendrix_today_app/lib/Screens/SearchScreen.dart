@@ -4,6 +4,8 @@
 import 'package:flutter/material.dart'; // new
 import 'package:hendrix_today_app/Objects/Event.dart';
 
+import '../Widgets/EventList.dart';
+
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
 

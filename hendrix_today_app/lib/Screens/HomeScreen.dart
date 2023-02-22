@@ -3,6 +3,8 @@ import 'package:hendrix_today_app/Objects/AppState.dart';
 import 'package:hendrix_today_app/Objects/Event.dart';
 import 'package:provider/provider.dart';
 
+import '../Widgets/EventList.dart';
+
 class MyHomeScreen extends StatefulWidget {
   const MyHomeScreen({super.key});
 
