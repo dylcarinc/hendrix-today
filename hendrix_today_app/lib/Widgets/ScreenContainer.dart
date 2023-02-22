@@ -21,7 +21,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
     "Events",
     "Announcements",
     "Meetings",
-    //"Test"
+    "Test"
   ];
   String dropdownValue = "Events";
 
@@ -32,9 +32,8 @@ class _ScreenContainerState extends State<ScreenContainer> {
       const MyHomeScreen(),
       const EventCalendar(),
       const SearchScreen(),
-      //TestScreen(),
     ]; //Stores Pages for BottomNav
-    titles = ["Hendrix Today", "HDX Calendar", "Search"];
+    titles = ["Hendrix Today", "HDX Calendar", "Search", "Test"];
     menuLinks = [
       "https://www.hendrix.edu/diningservices/default.aspx?id=1003",
       "https://www.hendrix.edu/diningservices/default.aspx?id=1004",
@@ -126,7 +125,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
           //     margin: EdgeInsets.all(10),
           //     child: FloatingActionButton(
           //       onPressed: () {
-          //         onItemTapped(2);
+          //         onItemTapped(3);
           //         //action code for button 3
           //       },
           //       backgroundColor: Colors.teal,
@@ -140,7 +139,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
                 backgroundColor: Color.fromARGB(255, 162, 131, 102),
                 child: const Icon(Icons.food_bank)),
           )
-          // Add more buttons here
+          //Add more buttons here
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
