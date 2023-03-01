@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../Objects/AppState.dart';
 import '../Objects/Event.dart';
@@ -32,6 +33,19 @@ class EventListState extends State<EventList> {
                     insetPadding:
                         EdgeInsets.symmetric(vertical: 200, horizontal: 50),
                     content: Column(children: [Text(item.desc.toString())]),
+                    actions: <Widget>[
+                      IconButton(
+                          color: Colors.black,
+                          onPressed: () {
+                            Navigator.pop(context);
+                            Share.share('"${item.title}" -${item.desc}',
+                                subject: 'Check out this quote!');
+                          },
+                          icon: Icon(
+                            Icons.ios_share,
+                            size: 20.0,
+                          )),
+                    ],
                   );
                   showDialog(
                     context: context,
