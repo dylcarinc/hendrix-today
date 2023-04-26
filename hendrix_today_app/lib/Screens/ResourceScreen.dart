@@ -34,9 +34,10 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
   // maybe do these in alphabetical order. could include a search bar if it gets too overwhelming
   final Map<String, List<String>> Locations = {
     "Career Services": [
-      "(501) 450-1440",
-      "2nd floor SLTC; Room 240",
-      "careerservices",
+      // office
+      "(501) 450-1440", // phone number
+      "2nd floor SLTC; Room 240", // location
+      "careerservices2", // name of the image file in maps
     ],
     "Counseling Services": [
       "501-450-1448",
@@ -177,36 +178,18 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
                                   child: Text(listInfo![1].toString()),
                                 ),*/
                                 Text("${listInfo![1].toString()}"),
-                                Image(
-                                    height: 300,
-                                    image: AssetImage(
-                                        "assets/maps/${listInfo![2].toString()}.jpg"))
+                                InteractiveViewer(
+                                    // how to zoom in!!!! https://stackoverflow.com/questions/64093990/flutter-how-to-add-a-zoom-functionality-to-image
+                                    boundaryMargin: EdgeInsets.all(20.0),
+                                    minScale:
+                                        0.1, // doesn't go into effect until after you have made the inital zoom
+                                    maxScale: 5,
+                                    child: Image(
+                                        height: 300,
+                                        image: AssetImage(
+                                            "assets/maps/${listInfo![2].toString()}.jpg")))
                               ],
                             )),
-
-                        /*
-                        SizedBox(
-                            // goal is to be able to click on this and have it expand
-                            // maybe have it sent to a new page instead of just getting slightly bigger?
-                            height: 90,
-                            child: AnimatedContainer(
-                                height: sideLength,
-                                width: sideLength,
-                                duration: const Duration(seconds: 2),
-                                curve: Curves.easeIn,
-                                child: Material(
-                                    child: InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            sideLength == 50
-                                                ? sideLength = 100
-                                                : sideLength = 50;
-                                          });
-                                        },
-                                        child: Image(
-                                          image: AssetImage(
-                                              "assets/maps/${listInfo![3].toString()}.jpg"),
-                                        )))))*/
                       ]));
                   showDialog(
                     context: context,
