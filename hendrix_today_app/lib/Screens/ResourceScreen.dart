@@ -31,16 +31,35 @@ _launchURL() async {
     */
 
 class _ResourcesScreenState extends State<ResourcesScreen> {
-  final Map<String, String> Locations = {
-    "Lost and Found": "1",
-    "Title IX": "2",
-    "Office of Diversity and Inclusion": "3",
-    "Deans Office": "4"
+  // maybe do these in alphabetical order. could include a search bar if it gets too overwhelming
+  final Map<String, List<String>> Locations = {
+    "Career Services": [
+      "(501) 450-1440",
+      "2nd floor SLTC; Room 240",
+      "careerservices",
+    ],
+    "Counseling Services": [
+      "501-450-1448",
+      "White house behind the Mills Building, 1541 Washington Ave",
+      "counselingservices"
+    ],
+    "Deans Office": ["(501) 450-1222 ", "2nd Floor SLTC, Room 211", "dean"],
+    "Lost and Found": ["(501) 329-6811", "1st Floor SLTC", "lostandfound"],
+    "Office of Diversity and Inclusion": [
+      "501-505-2951",
+      "2nd Floor SLTC, Room 245 & 246",
+      "dandi",
+    ],
+    "Title IX": ["501-505-2901", "1st Floor SLTC, Room ____", "titleIX"],
+    "Residential Life": ["501-450-1416", "2nd Floor SLTC, Room 251", "reslife"]
   };
 
   @override
   Widget build(BuildContext context) {
     String? _dropDownValue;
+    List<String>? listInfo;
+    // below would be used for animating the map to grow when touched
+    //double sideLength = 50;
     return Center(
         child: Column(children: <Widget>[
       SizedBox(height: 100),
@@ -62,7 +81,7 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
                 title: Text(
                   "Submit to Hendrix Today!",
                   style: TextStyle(
-                      fontSize: 29, color: Colors.white, fontFamily: 'Lora'),
+                      fontSize: 27, color: Colors.white, fontFamily: 'Lora'),
                   textAlign: TextAlign.center,
                 ),
                 leading: Icon(
@@ -105,17 +124,20 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
                 style: TextStyle(
                     color: Colors.black, fontSize: 30, fontFamily: 'Lora'),
                 items: [
+                  'Career Services',
+                  'Counseling Services',
+                  'Deans Office',
                   'Lost and Found',
-                  'Title IX',
                   'Office of Diversity and Inclusion',
-                  'Deans office'
+                  'Title IX',
+                  'Residential Life'
                 ].map(
                   (val) {
                     return DropdownMenuItem<String>(
                       value: val,
                       child: Text(
                         val,
-                        //style: TextStyle(fontFamily: 'Lora'),
+                        style: TextStyle(fontFamily: 'Lora'),
                       ),
                     );
                   },
@@ -124,16 +146,68 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
                   setState(
                     () {
                       _dropDownValue = val;
+                      listInfo = Locations[val];
+                      print(listInfo![0]);
                     },
                   );
                   AlertDialog alert = AlertDialog(
-                    title: Text(val.toString()),
-                    insetPadding:
-                        EdgeInsets.symmetric(vertical: 200, horizontal: 50),
-                    content: Column(children: [
-                      Text(Locations[val].toString()),
-                    ]),
-                  );
+                      title: Text(val.toString()), // location
+                      alignment: Alignment.center,
+                      insetPadding: EdgeInsets.all(20),
+                      content: Column(children: [
+                        Container(
+                            width: double.infinity,
+                            height: 400,
+                            child: Column(
+                              children: [
+                                ElevatedButton(
+                                  // phone number
+                                  onPressed: () {
+                                    UrlLauncher.launch(
+                                        "tel://${listInfo![0].toString()}");
+                                  },
+                                  child: Text(listInfo![0].toString()),
+                                ),
+                                /* email launch button 
+                                ElevatedButton(
+                                  onPressed: () {
+                                    UrlLauncher.launch(
+                                        "tel://${listInfo![0].toString()}");
+                                  },
+                                  child: Text(listInfo![1].toString()),
+                                ),*/
+                                Text("${listInfo![1].toString()}"),
+                                Image(
+                                    height: 300,
+                                    image: AssetImage(
+                                        "assets/maps/${listInfo![2].toString()}.jpg"))
+                              ],
+                            )),
+
+                        /*
+                        SizedBox(
+                            // goal is to be able to click on this and have it expand
+                            // maybe have it sent to a new page instead of just getting slightly bigger?
+                            height: 90,
+                            child: AnimatedContainer(
+                                height: sideLength,
+                                width: sideLength,
+                                duration: const Duration(seconds: 2),
+                                curve: Curves.easeIn,
+                                child: Material(
+                                    child: InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            sideLength == 50
+                                                ? sideLength = 100
+                                                : sideLength = 50;
+                                          });
+                                        },
+                                        child: Image(
+                                          image: AssetImage(
+                                              "assets/maps/${listInfo![3].toString()}.jpg"),
+                                        )))))*/
+                      ]));
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {

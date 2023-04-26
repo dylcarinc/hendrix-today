@@ -77,6 +77,16 @@ flutter:
   assets:
     - assets/banner.png
     - assets/webOrange_banner.png
+    - assets/maps/careerservices.jpg
+    - assets/maps/careerservices2.jpg
+    - assets/maps/lostandfound.jpg
+    - assets/maps/counselingservices.jpg
+    - assets/maps/dandi.jpg
+    - assets/maps/dean.jpg
+    - assets/maps/reslife.jpg
+    - assets/maps/titleIX.jpg
+    
+    
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
