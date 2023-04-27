@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hendrix_today_app/Screens/ResourceScreen.dart';
+//import 'package:hendrix_today_app/Screens/ResourceScreen2.dart'; IGNORE
 import 'package:hendrix_today_app/Screens/SearchScreen.dart';
 import 'package:hendrix_today_app/Screens/testScreen.dart';
 import 'package:hendrix_today_app/Widgets/EventCalendar.dart';
@@ -33,9 +35,16 @@ class _ScreenContainerState extends State<ScreenContainer> {
       const MyHomeScreen(),
       const EventCalendar(),
       const SearchScreen(),
-      const TestScreen()
+      const ResourcesScreen(),
+      //const resourcesscreen2() IGNORE. THIS WAS MY "GREAT IDEA" BUT IT'S NOT READY
     ]; //Stores Pages for BottomNav
-    titles = ["Hendrix Today", "HDX Calendar", "Search", "Test"];
+    titles = [
+      "Hendrix Today",
+      "HDX Calendar",
+      "Search",
+      "Resources Page",
+      //"R2" IGNORE
+    ];
     menuLinks = [
       "https://www.hendrix.edu/diningservices/default.aspx?id=1003",
       "https://www.hendrix.edu/diningservices/default.aspx?id=1004",
@@ -92,7 +101,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
           Container(
               key: const Key('CalendarButton'),
               margin: EdgeInsets.all(10),
-              child: FloatingActionButton(
+              child: FloatingActionButton.small(
                 onPressed: () {
                   onItemTapped(1);
                 },
@@ -103,7 +112,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
           Container(
               key: const Key('HomeButton'),
               margin: EdgeInsets.all(10),
-              child: FloatingActionButton(
+              child: FloatingActionButton.small(
                 onPressed: () {
                   onItemTapped(0);
                 },
@@ -114,7 +123,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
           Container(
               key: const Key('SearchButton'),
               margin: EdgeInsets.all(10),
-              child: FloatingActionButton(
+              child: FloatingActionButton.small(
                 onPressed: () {
                   onItemTapped(2);
                   //action code for button 3
@@ -122,25 +131,39 @@ class _ScreenContainerState extends State<ScreenContainer> {
                 backgroundColor: Colors.teal,
                 child: Icon(Icons.search),
               )),
+          // button third
           Container(
-              key: const Key('TestButton'),
+            key: const Key('MenuButton'),
+            margin: EdgeInsets.all(10),
+            child: FloatingActionButton.small(
+                onPressed: _launchURLApp,
+                backgroundColor: Color.fromARGB(255, 162, 131, 102),
+                child: const Icon(Icons.food_bank)),
+          ),
+          Container(
+              key: const Key('ResourcesPage'),
               margin: EdgeInsets.all(10),
-              child: FloatingActionButton(
+              child: FloatingActionButton.small(
                 onPressed: () {
                   onItemTapped(3);
                   //action code for button 3
                 },
-                backgroundColor: Colors.teal,
-                child: Icon(Icons.emoji_nature),
-              )), // button third
+                backgroundColor: Colors.blueGrey,
+                child: Icon(Icons.question_mark),
+              )),
+          /**
           Container(
-            key: const Key('MenuButton'),
-            margin: EdgeInsets.all(10),
-            child: FloatingActionButton(
-                onPressed: _launchURLApp,
-                backgroundColor: Color.fromARGB(255, 162, 131, 102),
-                child: const Icon(Icons.food_bank)),
-          )
+              key: const Key('ResourcesPage2'),
+              margin: EdgeInsets.all(10),
+              child: FloatingActionButton.small(
+                onPressed: () {
+                  onItemTapped(4);
+                  //action code for button 3
+                },
+                backgroundColor: Colors.yellow,
+                child: Icon(Icons.question_mark),
+              ))
+*/
           //Add more buttons here
         ],
       ),

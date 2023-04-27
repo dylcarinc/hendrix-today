@@ -1,5 +1,5 @@
 name: hendrix_today_app
-description: A new Flutter project.
+description: An app for the Hendrix Communications.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -77,6 +77,16 @@ flutter:
   assets:
     - assets/banner.png
     - assets/webOrange_banner.png
+    - assets/maps/careerservices.jpg
+    - assets/maps/careerservices2.jpg
+    - assets/maps/lostandfound.jpg
+    - assets/maps/counselingservices.jpg
+    - assets/maps/dandi.jpg
+    - assets/maps/dean.jpg
+    - assets/maps/reslife.jpg
+    - assets/maps/titleIX.jpg
+    
+    
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -90,6 +100,11 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+
+  fonts:
+      - family: Lora 
+        fonts:
+          - asset: fonts/Lora-Regular.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:
