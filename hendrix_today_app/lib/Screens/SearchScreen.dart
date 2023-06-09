@@ -1,5 +1,4 @@
 // a lot of code was written with the help of this video: https://www.youtube.com/watch?v=pUV5v240po0&ab_channel=dbestech
-// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart'; // new
 import 'package:hendrix_today_app/Objects/Event.dart';
