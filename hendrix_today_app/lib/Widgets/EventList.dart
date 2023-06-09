@@ -29,9 +29,10 @@ class EventListState extends State<EventList> {
                 subtitle: Text(item.date.toString()),
                 onTap: () {
                   AlertDialog alert = AlertDialog(
+                    scrollable: true,
                     title: Text(item.title.toString()),
                     insetPadding:
-                        EdgeInsets.symmetric(vertical: 200, horizontal: 50),
+                        EdgeInsets.symmetric(vertical: 100, horizontal: 50),
                     content: Column(children: [Text(item.desc.toString())]),
                     actions: <Widget>[
                       IconButton(
