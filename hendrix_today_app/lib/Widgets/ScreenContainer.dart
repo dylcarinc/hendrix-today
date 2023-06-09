@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hendrix_today_app/Screens/ResourceScreen.dart';
 //import 'package:hendrix_today_app/Screens/ResourceScreen2.dart'; IGNORE
 import 'package:hendrix_today_app/Screens/SearchScreen.dart';
-import 'package:hendrix_today_app/Screens/testScreen.dart';
 import 'package:hendrix_today_app/Widgets/EventCalendar.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../Screens/HomeScreen.dart';
