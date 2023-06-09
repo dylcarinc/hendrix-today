@@ -16,7 +16,7 @@ class RootApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(backgroundColor: webOrange),
+      theme: ThemeData(backgroundColor: webOrange, splashColor: Colors.black),
       //Start adding here
 
       initialRoute: '/home',
@@ -27,7 +27,6 @@ class RootApp extends StatelessWidget {
         },
         '/search': (context) => SearchScreen(),
         '/calendar': (context) => EventCalendar(),
-        // '/testing': (context) => TestScreen(),
         '/sign-in': ((context) {
           return SignInScreen(
             actions: [
