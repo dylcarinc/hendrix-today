@@ -56,11 +56,11 @@ class _SearchScreenState extends State<SearchScreen> {
 
 Widget showResults(List<Event> results) {
   if (results.isEmpty) {
-    return Text("There are no events containing that query. ");
+    return const Text("There are no events containing that query. ");
   } else {
     return ListView.builder(
       shrinkWrap: true,
-      physics: ScrollPhysics(),
+      physics: const ScrollPhysics(),
       itemCount: results.length,
       itemBuilder: (context, index) {
         return EventCard(event: results[index]);

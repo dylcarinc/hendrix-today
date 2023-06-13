@@ -165,7 +165,7 @@ class _EventCalendarState extends State<EventCalendar> {
                             borderRadius: BorderRadius.circular(12.0),
                           ),
                           child: ListTile(
-                            onTap: () => print('${value[index].title}'),
+                            onTap: () => debugPrint(value[index].title),
                             title: Text('${value[index].title}'),
                           ),
                         );

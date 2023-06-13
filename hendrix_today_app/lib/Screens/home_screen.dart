@@ -18,7 +18,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
           children: <Widget>[
             Image.asset('assets/webOrange_banner.png',
                 key: const Key("Banner")),
-            EventList(),
+            const EventList(),
           ],
         ));
   }

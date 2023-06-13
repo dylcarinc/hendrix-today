@@ -71,23 +71,22 @@ class _ScreenContainerState extends State<ScreenContainer> {
         backgroundColor: webOrange,
         title: Text(titles[selectedIndex]),
         leading: IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, "/sign-in");
-            },
-            icon: Icon(Icons.account_circle)),
+          onPressed: () => Navigator.pushNamed(context, "/sign-in"),
+          icon: const Icon(Icons.account_circle)),
         actions: [
           DropdownButton<String>(
-              value: dropdownValue,
-              style: const TextStyle(color: Colors.white),
-              dropdownColor: webOrange,
-              items: dropdownItems.map((itemone) {
-                return DropdownMenuItem(value: itemone, child: Text(itemone));
-              }).toList(),
-              onChanged: (newValue) {
-                setState(() {
-                  dropdownValue = newValue.toString();
-                });
-              }),
+            value: dropdownValue,
+            style: const TextStyle(color: Colors.white),
+            dropdownColor: webOrange,
+            items: dropdownItems.map((itemone) {
+              return DropdownMenuItem(value: itemone, child: Text(itemone));
+            }).toList(),
+            onChanged: (newValue) {
+              setState(() {
+                dropdownValue = newValue.toString();
+              });
+            },
+          ),
         ],
       ),
       body: Center(child: pages[selectedIndex]),
@@ -95,92 +94,53 @@ class _ScreenContainerState extends State<ScreenContainer> {
         //will break to another line on overflow
         direction: Axis.horizontal, //use vertical to show  on vertical axis
         children: <Widget>[
+          //button first
           Container(
-              key: const Key('CalendarButton'),
-              margin: EdgeInsets.all(10),
-              child: FloatingActionButton.small(
-                onPressed: () {
-                  onItemTapped(1);
-                },
-                backgroundColor: Colors.black87,
-                child: Icon(Icons.calendar_month),
-              )), //button first
-
+            key: const Key('HomeButton'),
+            margin: const EdgeInsets.all(10),
+            child: FloatingActionButton.small(
+              onPressed: () => onItemTapped(0),
+              backgroundColor: Colors.deepOrangeAccent,
+              child: const Icon(Icons.home),
+            )
+          ),
+          // button second
           Container(
-              key: const Key('HomeButton'),
-              margin: EdgeInsets.all(10),
-              child: FloatingActionButton.small(
-                onPressed: () {
-                  onItemTapped(0);
-                },
-                backgroundColor: Colors.deepOrangeAccent,
-                child: Icon(Icons.home),
-              )), // button second
-
-          Container(
-              key: const Key('SearchButton'),
-              margin: EdgeInsets.all(10),
-              child: FloatingActionButton.small(
-                onPressed: () {
-                  onItemTapped(2);
-                  //action code for button 3
-                },
-                backgroundColor: Colors.teal,
-                child: Icon(Icons.search),
-              )),
+            key: const Key('CalendarButton'),
+            margin: const EdgeInsets.all(10),
+            child: FloatingActionButton.small(
+              onPressed: () => onItemTapped(1),
+              backgroundColor: Colors.black87,
+              child: const Icon(Icons.calendar_month),
+            )
+          ),
           // button third
           Container(
-            key: const Key('MenuButton'),
-            margin: EdgeInsets.all(10),
+            key: const Key('SearchButton'),
+            margin: const EdgeInsets.all(10),
             child: FloatingActionButton.small(
-                onPressed: _launchURLApp,
-                backgroundColor: Color.fromARGB(255, 162, 131, 102),
-                child: const Icon(Icons.food_bank)),
+              onPressed: () => onItemTapped(2),
+              backgroundColor: Colors.teal,
+              child: const Icon(Icons.search),
+            )
           ),
           Container(
-              key: const Key('ResourcesPage'),
-              margin: EdgeInsets.all(10),
-              child: FloatingActionButton.small(
-                onPressed: () {
-                  onItemTapped(3);
-                  //action code for button 3
-                },
-                backgroundColor: Colors.blueGrey,
-                child: Icon(Icons.question_mark),
-              )),
-          /**
+            key: const Key('MenuButton'),
+            margin: const EdgeInsets.all(10),
+            child: FloatingActionButton.small(
+              onPressed: _launchURLApp,
+              backgroundColor: const Color.fromARGB(255, 162, 131, 102),
+              child: const Icon(Icons.food_bank)),
+          ),
           Container(
-              key: const Key('ResourcesPage2'),
-              margin: EdgeInsets.all(10),
-              child: FloatingActionButton.small(
-                onPressed: () {
-                  onItemTapped(4);
-                  //action code for button 3
-                },
-                backgroundColor: Colors.yellow,
-                child: Icon(Icons.question_mark),
-              ))
-*/
-          // Container(
-          //     key: const Key('TestButton'),
-          //     margin: EdgeInsets.all(10),
-          //     child: FloatingActionButton.small(
-          //       onPressed: () {
-          //         onItemTapped(3);
-          //         //action code for button 3
-          //       },
-          //       backgroundColor: Colors.teal,
-          //       child: Icon(Icons.emoji_nature),
-          //     )), // button third
-          // Container(
-          //   key: const Key('MenuButton'),
-          //   margin: EdgeInsets.all(10),
-          //   child: FloatingActionButton.small(
-          //       onPressed: _launchURLApp,
-          //       backgroundColor: Color.fromARGB(255, 162, 131, 102),
-          //       child: const Icon(Icons.food_bank)),
-          // )
-          //Add more buttons here
+            key: const Key('ResourcesPage'),
+            margin: const EdgeInsets.all(10),
+            child: FloatingActionButton.small(
+              onPressed: () => onItemTapped(3),
+              backgroundColor: Colors.blueGrey,
+              child: const Icon(Icons.question_mark),
+            ),
+          ),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

@@ -34,28 +34,28 @@ class AppState extends ChangeNotifier {
 
     FirebaseAuth.instance.userChanges().listen((user) {
       eventSubscription?.cancel();
-      print("starting to listen");
+      debugPrint("starting to listen");
       eventSubscription = FirebaseFirestore.instance
           .collection('events') //GV had .doc(user.uid); document ref
           .snapshots()
           .listen(
         (snapshot) {
-          print("in snapshot");
+          debugPrint("in snapshot");
           _events = [];
-          snapshot.docs.forEach((document) {
+          for (var document in snapshot.docs) {
             _events.add(Event(
               title: document.data()['title'],
               desc: document.data()['desc'],
               time: document.data()['time'],
               date: DateUtils.dateOnly(document.data()['date'].toDate()),
             ));
-          });
+          }
           //  print(snapshot.docChanges.toString()); //prints changes
           firstSnapshot = false;
           notifyListeners();
         },
         onError: (error) {
-          print(error);
+          debugPrint(error);
         },
       );
 

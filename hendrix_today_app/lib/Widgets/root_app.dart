@@ -15,7 +15,12 @@ class RootApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(backgroundColor: webOrange, splashColor: Colors.black),
+      theme: ThemeData(
+        backgroundColor: webOrange,
+          // `ColorScheme` is the recommended fix, but it has lots of other 
+          //required parameters.
+        splashColor: Colors.black
+      ),
       //Start adding here
 
       initialRoute: '/home',
@@ -24,8 +29,8 @@ class RootApp extends StatelessWidget {
           return Consumer<AppState>(
               builder: (context, appState, _) => const ScreenContainer());
         },
-        '/search': (context) => SearchScreen(),
-        '/calendar': (context) => EventCalendar(),
+        '/search': (context) => const SearchScreen(),
+        '/calendar': (context) => const EventCalendar(),
         '/sign-in': ((context) {
           return SignInScreen(
             actions: [
@@ -68,7 +73,6 @@ class RootApp extends StatelessWidget {
         }),
         '/profile': ((context) {
           return ProfileScreen(
-            providers: [],
             actions: [
               SignedOutAction(
                 ((context) {
