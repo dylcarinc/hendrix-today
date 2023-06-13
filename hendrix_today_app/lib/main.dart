@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'dart:async'; // new
-import 'package:firebase_core/firebase_core.dart'; // new
-import 'package:hendrix_today_app/Objects/AppState.dart';
-import 'package:hendrix_today_app/Widgets/RootApp.dart';
+
+import 'package:hendrix_today_app/widgets/root_app.dart';
+import 'package:hendrix_today_app/objects/app_state.dart';
+
+import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {

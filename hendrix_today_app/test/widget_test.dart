@@ -1,10 +1,10 @@
-import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hendrix_today_app/Screens/HomeScreen.dart';
-import 'package:hendrix_today_app/Screens/CalendarScreen.dart';
-import 'package:hendrix_today_app/Screens/SearchScreen.dart';
-import 'package:hendrix_today_app/Widgets/EventCalendar.dart';
+
+import 'package:hendrix_today_app/screens/home_screen.dart';
+import 'package:hendrix_today_app/screens/calendar_screen.dart';
+import 'package:hendrix_today_app/screens/search_screen.dart';
+import 'package:hendrix_today_app/widgets/event_calendar.dart';
 
 //worked before firebase implementation
 

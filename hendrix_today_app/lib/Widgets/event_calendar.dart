@@ -1,11 +1,10 @@
-import 'package:hendrix_today_app/Objects/Event.dart';
-import 'package:provider/provider.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter/material.dart';
-import 'package:hendrix_today_app/Objects/AppState.dart';
-import "package:intl/intl.dart";
 
-import 'EventList.dart';
+import 'package:hendrix_today_app/objects/app_state.dart';
+import 'package:hendrix_today_app/objects/event.dart';
+
+import 'package:table_calendar/table_calendar.dart';
+import 'package:provider/provider.dart';
 
 class EventCalendar extends StatefulWidget {
   const EventCalendar({super.key});
@@ -166,7 +165,7 @@ class _EventCalendarState extends State<EventCalendar> {
                             borderRadius: BorderRadius.circular(12.0),
                           ),
                           child: ListTile(
-                            onTap: () => print('${value[index].title}'),
+                            onTap: () => debugPrint(value[index].title),
                             title: Text('${value[index].title}'),
                           ),
                         );

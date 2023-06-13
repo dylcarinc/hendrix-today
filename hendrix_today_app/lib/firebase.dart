@@ -1,6 +1,3 @@
-import 'package:hendrix_today_app/Objects/AppState.dart';
-import 'package:hendrix_today_app/Objects/Event.dart';
-
 // if this function is useful, move it to AppState,
 // if not, delete
 

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hendrix_today_app/Objects/AppState.dart';
-import 'package:hendrix_today_app/Objects/Event.dart';
-import 'package:provider/provider.dart';
 
-import '../Widgets/EventList.dart';
+import 'package:hendrix_today_app/widgets/event_list.dart';
 
 class MyHomeScreen extends StatefulWidget {
   const MyHomeScreen({super.key});
@@ -21,7 +18,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
           children: <Widget>[
             Image.asset('assets/webOrange_banner.png',
                 key: const Key("Banner")),
-            EventList(),
+            const EventList(),
           ],
         ));
   }

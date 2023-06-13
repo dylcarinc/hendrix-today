@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_ui_auth/firebase_ui_auth.dart'; // new
-import 'package:hendrix_today_app/Objects/AppState.dart';
-import 'package:hendrix_today_app/Widgets/ScreenContainer.dart';
-import 'package:hendrix_today_app/Screens/SearchScreen.dart';
-import 'package:provider/provider.dart';
 
-import 'package:hendrix_today_app/Widgets/EventCalendar.dart';
+import 'package:hendrix_today_app/screens/search_screen.dart';
+import 'package:hendrix_today_app/widgets/event_calendar.dart';
+import 'package:hendrix_today_app/widgets/screen_container.dart';
+import 'package:hendrix_today_app/objects/app_state.dart';
+
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
+import 'package:provider/provider.dart';
 
 class RootApp extends StatelessWidget {
   const RootApp({super.key});
@@ -14,7 +15,12 @@ class RootApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(backgroundColor: webOrange),
+      theme: ThemeData(
+        backgroundColor: webOrange,
+          // `ColorScheme` is the recommended fix, but it has lots of other 
+          //required parameters.
+        splashColor: Colors.black
+      ),
       //Start adding here
 
       initialRoute: '/home',
@@ -23,9 +29,8 @@ class RootApp extends StatelessWidget {
           return Consumer<AppState>(
               builder: (context, appState, _) => const ScreenContainer());
         },
-        '/search': (context) => SearchScreen(),
-        '/calendar': (context) => EventCalendar(),
-        // '/testing': (context) => TestScreen(),
+        '/search': (context) => const SearchScreen(),
+        '/calendar': (context) => const EventCalendar(),
         '/sign-in': ((context) {
           return SignInScreen(
             actions: [
@@ -68,7 +73,6 @@ class RootApp extends StatelessWidget {
         }),
         '/profile': ((context) {
           return ProfileScreen(
-            providers: [],
             actions: [
               SignedOutAction(
                 ((context) {
