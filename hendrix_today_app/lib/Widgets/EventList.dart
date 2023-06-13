@@ -62,45 +62,23 @@ class EventListState extends State<EventList> {
   }
 }
 
-class EventList2 extends StatefulWidget {
-  @override
-  EventList2State createState() => EventList2State();
-}
-
-class EventList2State extends State<EventList2> {
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<AppState>(
-      builder: (context, appState, child) {
-        return ListView.builder(
-          shrinkWrap: true,
-          physics: ScrollPhysics(),
-          itemCount: appState.events.length,
-          itemBuilder: (context, index) {
-            final event = appState.events[index];
-            return EventCard(event: event);
-          },
-        );
-      },
-    );
-  }
-}
-
 class EventCard extends StatelessWidget {
-  void search() {
-    //placeholder
-  }
-  EventCard({required this.event});
+  EventCard({super.key, required this.event});
 
   final Event event;
   List<Widget> tagButtonList = [];
 
+  void applyTagFilter(){} // TODO
+
   @override
   Widget build(BuildContext context) {
-    if (event.tags!.isNotEmpty) {
+    if (event.tags != null && event.tags!.isNotEmpty) {
       for (var i = 0; i < event.tags!.length; i++) {
         tagButtonList.add(
-            TagButton(onPressed: search, btnText: event.tags!.elementAt(i)));
+          TagButton(
+            onPressed: applyTagFilter,
+            btnText: event.tags!.elementAt(i)
+          ));
       }
     }
 
@@ -116,7 +94,7 @@ class EventCard extends StatelessWidget {
                 child: Text(
                   event.title.toString(),
                   textAlign: TextAlign.left,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 18,
                   ),
@@ -144,7 +122,10 @@ class EventCard extends StatelessWidget {
       onTap: () {
         AlertDialog alert = AlertDialog(
           title: Text(event.title.toString()),
-          insetPadding: EdgeInsets.symmetric(vertical: 200, horizontal: 50),
+          insetPadding: const EdgeInsets.symmetric(
+            vertical: 200,
+            horizontal: 50
+          ),
           content: Column(children: [
             Text(event.desc.toString()),
             Padding(
@@ -172,7 +153,7 @@ class EventCard extends StatelessWidget {
 }
 
 class TagButton extends StatelessWidget {
-  TagButton({required this.onPressed, required this.btnText});
+  const TagButton({super.key, required this.onPressed, required this.btnText});
 
   final String btnText;
   final GestureTapCallback onPressed;
@@ -184,9 +165,7 @@ class TagButton extends StatelessWidget {
     return SizedBox(
       height: height / 30,
       child: ElevatedButton(
-        onPressed: () {
-          // search for things w/ that tag
-        },
+        onPressed: onPressed,
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(
                 const Color.fromARGB(255, 255, 165, 86)),
