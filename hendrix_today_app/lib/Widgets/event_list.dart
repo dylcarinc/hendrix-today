@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+
+import 'package:hendrix_today_app/objects/app_state.dart';
+import 'package:hendrix_today_app/objects/event.dart';
+
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-
-import '../Objects/AppState.dart';
-import '../Objects/Event.dart';
 
 class EventList extends StatefulWidget {
   @override

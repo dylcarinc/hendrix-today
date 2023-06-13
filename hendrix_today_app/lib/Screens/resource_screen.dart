@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hendrix_today_app/Objects/AppState.dart';
-import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
-import 'package:url_launcher/url_launcher.dart';
+
+import 'package:url_launcher/url_launcher.dart' as url_launcher;
 //import 'package:dropdown_formfield/dropdown_formfield.dart';
 
 // get HDX type face imported and make it look better
@@ -17,8 +16,8 @@ _launchURL() async {
   const url =
       'https://forms.office.com/Pages/ResponsePage.aspx?id=jMH2DNLQP0qD0GY9Ygpj020T9lhtzfhCi8WBPrgNg0xURFZXMEEyUzUwR0lNSzZTTDdWWEQwOERSWiQlQCN0PWcu';
   final uri = Uri.parse(url);
-  if (await canLaunchUrl(uri)) {
-    await launchUrl(uri);
+  if (await url_launcher.canLaunchUrl(uri)) {
+    await url_launcher.launchUrl(uri);
   } else {
     throw 'Could not launch $url';
   }
@@ -164,7 +163,7 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
                                 ElevatedButton(
                                   // phone number
                                   onPressed: () {
-                                    UrlLauncher.launch(
+                                    url_launcher.launch(
                                         "tel://${listInfo![0].toString()}");
                                   },
                                   child: Text(listInfo![0].toString()),
@@ -226,7 +225,7 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
                   textAlign: TextAlign.center,
                 ),
                 leading: Icon(Icons.phone, size: 50, color: Colors.white),
-                onTap: () => UrlLauncher.launch("tel://5014507711"),
+                onTap: () => url_launcher.launch("tel://5014507711"),
               ))),
     ]));
   }

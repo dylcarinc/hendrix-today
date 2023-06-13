@@ -1,10 +1,11 @@
 // a lot of code was written with the help of this video: https://www.youtube.com/watch?v=pUV5v240po0&ab_channel=dbestech
+import 'package:flutter/material.dart';
 
-import 'package:flutter/material.dart'; // new
-import 'package:hendrix_today_app/Objects/AppState.dart';
+import 'package:hendrix_today_app/objects/app_state.dart';
+import 'package:hendrix_today_app/objects/event.dart';
+import 'package:hendrix_today_app/widgets/event_list.dart';
+
 import 'package:provider/provider.dart';
-import '../Objects/Event.dart';
-import '../Widgets/EventList.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});

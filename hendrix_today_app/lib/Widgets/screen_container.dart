@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hendrix_today_app/Screens/ResourceScreen.dart';
-import 'package:hendrix_today_app/Screens/SearchScreen.dart';
-import 'package:hendrix_today_app/Widgets/EventCalendar.dart';
+
+import 'package:hendrix_today_app/screens/resource_screen.dart';
+import 'package:hendrix_today_app/screens/search_screen.dart';
+import 'package:hendrix_today_app/screens/home_screen.dart';
+import 'package:hendrix_today_app/widgets/event_calendar.dart';
+
 import 'package:url_launcher/url_launcher.dart';
-import '../Screens/HomeScreen.dart';
 
 class ScreenContainer extends StatefulWidget {
   const ScreenContainer({super.key});

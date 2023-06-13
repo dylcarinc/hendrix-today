@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hendrix_today_app/Screens/CalendarScreen.dart';
-import 'package:hendrix_today_app/Screens/HomeScreen.dart';
-import 'package:hendrix_today_app/Widgets/ScreenContainer.dart';
-import 'package:hendrix_today_app/main.dart';
-import 'package:hendrix_today_app/Screens/SearchScreen.dart';
-import "package:hendrix_today_app/Widgets/ScreenContainer.dart";
+
+import 'package:hendrix_today_app/screens/calendar_screen.dart';
+import 'package:hendrix_today_app/screens/home_screen.dart';
+import 'package:hendrix_today_app/screens/search_screen.dart';
+import 'package:hendrix_today_app/widgets/screen_container.dart';
 
 //code for expecting a page found here: https://stackoverflow.com/a/51983194
 //worked before firebase implementation

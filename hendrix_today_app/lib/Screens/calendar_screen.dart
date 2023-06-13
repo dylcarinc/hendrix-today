@@ -1,5 +1,6 @@
-import 'package:hendrix_today_app/Widgets/EventCalendar.dart';
 import 'package:flutter/material.dart';
+
+import 'package:hendrix_today_app/widgets/event_calendar.dart';
 
 //creates calendar page in app
 class CalendarScreen extends StatefulWidget {

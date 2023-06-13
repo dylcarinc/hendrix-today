@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../Widgets/EventList.dart';
+import 'package:hendrix_today_app/widgets/event_list.dart';
 
 class MyHomeScreen extends StatefulWidget {
   const MyHomeScreen({super.key});

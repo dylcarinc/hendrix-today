@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_ui_auth/firebase_ui_auth.dart'; // new
-import 'package:hendrix_today_app/Objects/AppState.dart';
-import 'package:hendrix_today_app/Widgets/ScreenContainer.dart';
-import 'package:hendrix_today_app/Screens/SearchScreen.dart';
-import 'package:provider/provider.dart';
 
-import 'package:hendrix_today_app/Widgets/EventCalendar.dart';
+import 'package:hendrix_today_app/screens/search_screen.dart';
+import 'package:hendrix_today_app/widgets/event_calendar.dart';
+import 'package:hendrix_today_app/widgets/screen_container.dart';
+import 'package:hendrix_today_app/objects/app_state.dart';
+
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
+import 'package:provider/provider.dart';
 
 class RootApp extends StatelessWidget {
   const RootApp({super.key});
