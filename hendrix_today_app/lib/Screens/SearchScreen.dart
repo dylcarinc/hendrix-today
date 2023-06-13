@@ -1,8 +1,9 @@
 // a lot of code was written with the help of this video: https://www.youtube.com/watch?v=pUV5v240po0&ab_channel=dbestech
 
 import 'package:flutter/material.dart'; // new
-import 'package:hendrix_today_app/Objects/Event.dart';
-
+import 'package:hendrix_today_app/Objects/AppState.dart';
+import 'package:provider/provider.dart';
+import '../Objects/Event.dart';
 import '../Widgets/EventList.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -15,54 +16,54 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   Color webOrange = const Color.fromARGB(255, 202, 81, 39);
   TextEditingController textController = TextEditingController();
-
-  List<String> events = [];
-  List<String> searchedEvents = [];
-
-  @override
-  initState() {
-    searchedEvents = events;
-    super.initState();
-  }
-
-  void runFilter(String query) {
-    List<String> results = [];
-    if (query.isEmpty) {
-      results = events;
-    } else {
-      for (String event in events) {
-        if (event.toLowerCase().contains(query.toLowerCase())) {
-          results.add(event);
-        }
-      }
-    }
-
-    setState(() {
-      searchedEvents = results;
-    });
-  }
+  List<Event> events = [];
+  List<Event> results = [];
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      child: ListView(
-        key: const Key('daily_event_list'),
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              onChanged: (value) => runFilter(value),
-              decoration: const InputDecoration(
-                  labelText: 'Enter search query',
-                  suffixIcon: Icon(Icons.search)),
+    return ChangeNotifierProvider<AppState>(
+        create: (context) => AppState(),
+        child: Consumer<AppState>(builder: (context, appState, child) {
+          events = appState.events;
+          return SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: ListView(
+              key: const Key('daily_event_list'),
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    onChanged: (value) {
+                      results = appState.searchEvents(value);
+                      setState(() {});
+                    },
+                    decoration: const InputDecoration(
+                        labelText: 'Enter search query',
+                        labelStyle: TextStyle(color: Colors.black),
+                        focusColor: Color.fromARGB(255, 202, 81, 39),
+                        suffixIcon: Icon(Icons.search),
+                        iconColor: Colors.black),
+                  ),
+                ),
+                showResults(results)
+              ],
             ),
-          ),
-          ListBody(
-            children: [EventList()],
-          )
-        ],
-      ),
+          );
+        }));
+  }
+}
+
+Widget showResults(List<Event> results) {
+  if (results.isEmpty) {
+    return Text("There are no events containing that query. ");
+  } else {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: ScrollPhysics(),
+      itemCount: results.length,
+      itemBuilder: (context, index) {
+        return EventCard(event: results[index]);
+      },
     );
   }
 }

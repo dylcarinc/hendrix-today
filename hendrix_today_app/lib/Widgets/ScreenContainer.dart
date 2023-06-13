@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hendrix_today_app/Screens/ResourceScreen.dart';
-//import 'package:hendrix_today_app/Screens/ResourceScreen2.dart'; IGNORE
 import 'package:hendrix_today_app/Screens/SearchScreen.dart';
 import 'package:hendrix_today_app/Widgets/EventCalendar.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -23,7 +22,6 @@ class _ScreenContainerState extends State<ScreenContainer> {
     "Events",
     "Announcements",
     "Meetings",
-    "Test"
   ];
   String dropdownValue = "Events";
 
@@ -35,14 +33,12 @@ class _ScreenContainerState extends State<ScreenContainer> {
       const EventCalendar(),
       const SearchScreen(),
       const ResourcesScreen(),
-      //const resourcesscreen2() IGNORE. THIS WAS MY "GREAT IDEA" BUT IT'S NOT READY
-    ]; //Stores Pages for BottomNav
+    ];
     titles = [
       "Hendrix Today",
       "HDX Calendar",
       "Search",
       "Resources Page",
-      //"R2" IGNORE
     ];
     menuLinks = [
       "https://www.hendrix.edu/diningservices/default.aspx?id=1003",
@@ -163,6 +159,25 @@ class _ScreenContainerState extends State<ScreenContainer> {
                 child: Icon(Icons.question_mark),
               ))
 */
+          // Container(
+          //     key: const Key('TestButton'),
+          //     margin: EdgeInsets.all(10),
+          //     child: FloatingActionButton.small(
+          //       onPressed: () {
+          //         onItemTapped(3);
+          //         //action code for button 3
+          //       },
+          //       backgroundColor: Colors.teal,
+          //       child: Icon(Icons.emoji_nature),
+          //     )), // button third
+          // Container(
+          //   key: const Key('MenuButton'),
+          //   margin: EdgeInsets.all(10),
+          //   child: FloatingActionButton.small(
+          //       onPressed: _launchURLApp,
+          //       backgroundColor: Color.fromARGB(255, 162, 131, 102),
+          //       child: const Icon(Icons.food_bank)),
+          // )
           //Add more buttons here
         ],
       ),
