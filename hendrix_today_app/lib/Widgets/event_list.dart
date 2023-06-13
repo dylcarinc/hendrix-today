@@ -45,10 +45,7 @@ class EventListState extends State<EventList> {
                           Share.share('"${item.title}" -${item.desc}',
                             subject: 'Check out this quote!');
                         },
-                        icon: const Icon(
-                          Icons.ios_share,
-                          size: 20.0,
-                        )
+                        icon: const Icon(Icons.share_outlined)
                       ),
                     ],
                   );
