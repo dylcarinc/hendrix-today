@@ -21,17 +21,16 @@ class EventDialog extends StatelessWidget {
       actions: <Widget>[
         IconButton(
           color: Colors.black,
-          onPressed: () {
-            Navigator.pop(context);
-            Share.share('"${event.title}" -${event.desc}',
-              subject: 'Check out this quote!');
-          },
+          onPressed: () => Share.share(
+            '"${event.title}" -${event.desc}',
+            subject: 'Check out this quote!'
+          ),
           icon: const Icon(Icons.share_outlined)
         ),
         IconButton(
           color: Colors.black,
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.close_outlined),
+          icon: const Icon(Icons.close),
         )
       ],
     );
