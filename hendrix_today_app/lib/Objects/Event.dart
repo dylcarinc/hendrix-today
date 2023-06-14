@@ -15,8 +15,11 @@ class Event {
     this.tags,
   });
 
+  /// Formats this [Event]'s date in a human-readable form.
+  /// 
+  /// Example: `2023-06-14` becomes `Wed, Jun 14, 2023`
   String dateToString() {
-    final DateFormat formatter = DateFormat('MM/dd/yyyy');
+    final DateFormat formatter = DateFormat('EEE, MMM d, yyyy');
     final String tmpdate = formatter.format(date ?? DateTime.now());
     return tmpdate;
   }
