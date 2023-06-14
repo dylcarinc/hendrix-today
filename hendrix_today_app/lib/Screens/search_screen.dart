@@ -16,9 +16,8 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   Color webOrange = const Color.fromARGB(255, 202, 81, 39);
-  TextEditingController textController = TextEditingController();
   List<Event> events = [];
-  List<Event> results = [];
+  List<Event> searchResults = [];
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +33,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
-                    onChanged: (value) {
-                      results = appState.searchEvents(value);
-                      setState(() {});
-                    },
+                    onChanged: (value) => setState(() {
+                      searchResults = appState.searchEvents(value);
+                    }),
                     decoration: const InputDecoration(
                         labelText: 'Enter search query',
                         labelStyle: TextStyle(color: Colors.black),
@@ -46,7 +44,9 @@ class _SearchScreenState extends State<SearchScreen> {
                         iconColor: Colors.black),
                   ),
                 ),
-                showResults(results)
+                searchResults.isNotEmpty
+                  ? EventList(events: searchResults)
+                  : const _EmptySearchLabel(),
               ],
             ),
           );
@@ -54,17 +54,16 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 }
 
-Widget showResults(List<Event> results) {
-  if (results.isEmpty) {
-    return const Text("There are no events containing that query. ");
-  } else {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const ScrollPhysics(),
-      itemCount: results.length,
-      itemBuilder: (context, index) {
-        return EventCard(event: results[index]);
-      },
+class _EmptySearchLabel extends StatelessWidget {
+  const _EmptySearchLabel();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 10),
+        child: Text("There are no events containing that query."),
+      ),
     );
   }
 }
