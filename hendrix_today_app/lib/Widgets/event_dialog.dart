@@ -28,6 +28,11 @@ class EventDialog extends StatelessWidget {
           },
           icon: const Icon(Icons.share_outlined)
         ),
+        IconButton(
+          color: Colors.black,
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.close_outlined),
+        )
       ],
     );
   }
