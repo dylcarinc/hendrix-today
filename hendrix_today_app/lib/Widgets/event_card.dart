@@ -27,7 +27,7 @@ class EventCard extends StatelessWidget {
     return Card(
       child: ListTile(
         title: Text(event.title.toString()),
-        subtitle: Text(event.dateToString()),
+        subtitle: Text(event.displayDate()),
         onTap: () {
           showDialog(
             context: context,

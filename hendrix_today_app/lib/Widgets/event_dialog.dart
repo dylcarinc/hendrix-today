@@ -20,7 +20,8 @@ class EventDialog extends StatelessWidget {
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(event.dateToString()),
+          Text('Date: ${event.displayDate()}'),
+          Text('Time: ${event.displayTime()}'),
           const SizedBox(height: 20),
           Text(event.desc.toString()),
         ],
