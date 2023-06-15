@@ -17,7 +17,15 @@ class EventDialog extends StatelessWidget {
         vertical: 100,
         horizontal: 50
       ),
-      content: Column(children: [Text(event.desc.toString())]),
+      content: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Date: ${event.displayDate()}'),
+          Text('Time: ${event.displayTime()}'),
+          const SizedBox(height: 20),
+          Text(event.desc.toString()),
+        ],
+      ),
       actions: <Widget>[
         IconButton(
           color: Colors.black,
