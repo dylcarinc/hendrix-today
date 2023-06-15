@@ -15,6 +15,10 @@ class Event {
     this.tags,
   });
 
+  factory Event.fromFirebase(Map<String, dynamic> data) {
+    throw UnimplementedError();
+  }
+
   String dateToString() {
     final DateFormat formatter = DateFormat('MM/dd/yyyy');
     final String tmpdate = formatter.format(date ?? DateTime.now());
