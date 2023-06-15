@@ -14,13 +14,13 @@ class EventList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AppState>(
       builder: (context, appState, child) {
-        return ListView.builder(
+        return ListView(
           shrinkWrap: true,
           physics: const ScrollPhysics(),
-          itemCount: events.length,
-          itemBuilder: (context, index) => EventCard(
-            event: events[index]
-          ),
+          children: [
+            for (Event e in events) EventCard(event: e),
+            const SizedBox(height: 85),
+          ],
         );
       },
     );
