@@ -53,20 +53,4 @@ class AppState extends ChangeNotifier {
       notifyListeners();
     });
   }
-
-  List<Event> searchEvents(String searchQuery) {
-    List<Event> results = [];
-    if (searchQuery.isEmpty) {
-      results = _events;
-    } else {
-      for (Event e in _events) {
-        if (e.title!.toLowerCase().contains(searchQuery.toLowerCase()) |
-            (e.desc!.toLowerCase().contains(searchQuery.toLowerCase()))) {
-          results.add(e);
-        }
-      }
-    }
-    notifyListeners();
-    return results;
-  }
 }

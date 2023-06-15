@@ -31,8 +31,10 @@ class _SearchScreenState extends State<SearchScreen> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
-              onChanged: (value) => setState(() {
-                searchResults = appState.searchEvents(value);
+              onChanged: (searchQuery) => setState(() {
+                searchResults = events.where(
+                  (event) => event.containsString(searchQuery)
+                ).toList();
               }),
               decoration: const InputDecoration(
                   labelText: 'Enter search query',
