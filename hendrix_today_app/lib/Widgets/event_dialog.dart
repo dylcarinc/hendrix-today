@@ -13,28 +13,28 @@ class EventDialog extends StatelessWidget {
     return AlertDialog(
       scrollable: true,
       title: Text(event.title.toString()),
-      insetPadding: const EdgeInsets.symmetric(
-        vertical: 100,
-        horizontal: 50
-      ),
+      insetPadding: const EdgeInsets.symmetric(vertical: 100, horizontal: 50),
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Date: ${event.displayDate()}'),
-          Text('Time: ${event.displayTime()}'),
+          Text(
+            'Date: ${event.displayDate()}',
+            style: const TextStyle(fontStyle: FontStyle.italic),
+          ),
+          Text(
+            'Time: ${event.displayTime()}',
+            style: const TextStyle(fontStyle: FontStyle.italic),
+          ),
           const SizedBox(height: 20),
           Text(event.desc.toString()),
         ],
       ),
       actions: <Widget>[
         IconButton(
-          color: Colors.black,
-          onPressed: () => Share.share(
-            '"${event.title}" -${event.desc}',
-            subject: 'Check out this quote!'
-          ),
-          icon: const Icon(Icons.share_outlined)
-        ),
+            color: Colors.black,
+            onPressed: () => Share.share('"${event.title}" -${event.desc}',
+                subject: 'Check out this quote!'),
+            icon: const Icon(Icons.share_outlined)),
         IconButton(
           color: Colors.black,
           onPressed: () => Navigator.pop(context),

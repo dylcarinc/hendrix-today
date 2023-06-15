@@ -10,7 +10,6 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     // This block may be useful when we start working on event tags
     //
     // List<Widget> tagButtonList = [];
@@ -27,7 +26,10 @@ class EventCard extends StatelessWidget {
     return Card(
       child: ListTile(
         title: Text(event.title.toString()),
-        subtitle: Text(event.displayDate()),
+        subtitle: Text(
+          event.displayDate(),
+          style: const TextStyle(fontStyle: FontStyle.italic),
+        ),
         onTap: () {
           showDialog(
             context: context,
