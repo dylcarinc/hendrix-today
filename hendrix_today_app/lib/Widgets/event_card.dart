@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import 'package:hendrix_today_app/objects/event.dart';
@@ -24,18 +26,31 @@ class EventCard extends StatelessWidget {
     // }
 
     return Card(
-      child: ListTile(
-        title: Text(event.title.toString()),
-        subtitle: Text(
-          event.displayDate(),
-          style: const TextStyle(fontStyle: FontStyle.italic),
+      child: Container(
+        // From https://www.flutterbeads.com/card-border-in-flutter/
+        decoration: const BoxDecoration(
+          border: Border(
+            left: BorderSide(
+                color: Color.fromARGB(255, 202, 81, 39),
+                width: 5), // this color should come from the style
+          ),
         ),
-        onTap: () {
-          showDialog(
-            context: context,
-            builder: (context) => EventDialog(event: event),
-          );
-        },
+        child: ListTile(
+          title: Text(event.title.toString(),
+              style: const TextStyle(
+                fontVariations: [FontVariation('wght', 600.0)],
+              )),
+          subtitle: Text(
+            event.displayDate(),
+            style: const TextStyle(fontStyle: FontStyle.italic),
+          ),
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (context) => EventDialog(event: event),
+            );
+          },
+        ),
       ),
     );
   }
