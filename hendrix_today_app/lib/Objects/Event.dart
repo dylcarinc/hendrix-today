@@ -30,4 +30,16 @@ class Event {
 
   /// Returns this [Event]'s time, or `'None available'` if it is null.
   String displayTime() => time ?? 'None available';
+
+  /// Checks if `searchQuery` appears in this [Event]'s title or description 
+  /// (case-insensitive).
+  bool containsString(String searchQuery) =>
+    title!.toLowerCase().contains(searchQuery.toLowerCase()) |
+    desc!.toLowerCase().contains(searchQuery.toLowerCase());
+  
+  /// Checks if this [Event]'s date falls in a given date range. Note that the 
+  /// time field of `Event.date` is set to midnight.
+  bool matchesDateRange(DateTime startDate, DateTime endDate) =>
+    date!.compareTo(startDate) > 0 && 
+    date!.compareTo(endDate) < 0;
 }

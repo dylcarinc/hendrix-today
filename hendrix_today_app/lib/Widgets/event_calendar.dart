@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:hendrix_today_app/objects/app_state.dart';
 import 'package:hendrix_today_app/objects/event.dart';
+import 'package:hendrix_today_app/widgets/event_list.dart';
 
 import 'package:table_calendar/table_calendar.dart';
 import 'package:provider/provider.dart';
@@ -147,31 +148,10 @@ class _EventCalendarState extends State<EventCalendar> {
                 },
               ),
               //EventList()
-              const SizedBox(height: 8.0),
               Expanded(
                 child: ValueListenableBuilder<List<Event>>(
                   valueListenable: _selectedEvents,
-                  builder: (context, value, _) {
-                    return ListView.builder(
-                      itemCount: value.length,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 12.0,
-                            vertical: 4.0,
-                          ),
-                          decoration: BoxDecoration(
-                            border: Border.all(),
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          child: ListTile(
-                            onTap: () => debugPrint(value[index].title),
-                            title: Text('${value[index].title}'),
-                          ),
-                        );
-                      },
-                    );
-                  },
+                  builder: (context, events, _) => EventList(events: events),
                 ),
               ),
             ],
