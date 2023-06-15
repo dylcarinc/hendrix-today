@@ -26,6 +26,9 @@ class EventCard extends StatelessWidget {
     // }
 
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(0.0),
+      ),
       child: Container(
         // From https://www.flutterbeads.com/card-border-in-flutter/
         decoration: const BoxDecoration(
