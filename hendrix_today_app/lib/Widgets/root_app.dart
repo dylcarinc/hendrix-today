@@ -16,11 +16,11 @@ class RootApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        backgroundColor: webOrange,
-          // `ColorScheme` is the recommended fix, but it has lots of other 
+          backgroundColor: webOrange,
+          // `ColorScheme` is the recommended fix, but it has lots of other
           //required parameters.
-        splashColor: Colors.black
-      ),
+          fontFamily: 'Merriweather-Sans',
+          splashColor: Colors.black),
       //Start adding here
 
       initialRoute: '/home',
