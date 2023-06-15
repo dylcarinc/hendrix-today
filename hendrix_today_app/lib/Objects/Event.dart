@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart'
+    show DateUtils;
+
 import 'package:intl/intl.dart';
 
 class Event {
@@ -37,9 +40,7 @@ class Event {
     title!.toLowerCase().contains(searchQuery.toLowerCase()) |
     desc!.toLowerCase().contains(searchQuery.toLowerCase());
   
-  /// Checks if this [Event]'s date falls in a given date range. Note that the 
-  /// time field of `Event.date` is set to midnight.
-  bool matchesDateRange(DateTime startDate, DateTime endDate) =>
-    date!.compareTo(startDate) > 0 && 
-    date!.compareTo(endDate) < 0;
+  /// Checks if this [Event]'s date is the same day as `match`. Note that the 
+  /// time field of `Event.date` is set to midnight UTC.
+  bool matchesDate(DateTime match) => DateUtils.isSameDay(date, match);
 }
