@@ -35,7 +35,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: TextField(
                     onChanged: (searchQuery) => setState(() {
                       searchResults = events.where(
-                        (e) => e.containsString(searchQuery)
+                        (event) => event.containsString(searchQuery)
                         ).toList();
                     }),
                     decoration: const InputDecoration(

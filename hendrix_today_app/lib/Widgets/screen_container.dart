@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hendrix_today_app/screens/calendar_screen.dart';
 
 import 'package:hendrix_today_app/screens/resource_screen.dart';
 import 'package:hendrix_today_app/screens/search_screen.dart';
 import 'package:hendrix_today_app/screens/home_screen.dart';
-import 'package:hendrix_today_app/widgets/event_calendar.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
@@ -32,7 +32,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
     super.initState();
     pages = [
       const MyHomeScreen(),
-      const EventCalendar(),
+      const CalendarScreen(),
       const SearchScreen(),
       const ResourcesScreen(),
     ];

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:hendrix_today_app/screens/calendar_screen.dart';
 import 'package:hendrix_today_app/screens/search_screen.dart';
-import 'package:hendrix_today_app/widgets/event_calendar.dart';
 import 'package:hendrix_today_app/widgets/screen_container.dart';
 import 'package:hendrix_today_app/objects/app_state.dart';
 
@@ -30,7 +30,7 @@ class RootApp extends StatelessWidget {
               builder: (context, appState, _) => const ScreenContainer());
         },
         '/search': (context) => const SearchScreen(),
-        '/calendar': (context) => const EventCalendar(),
+        '/calendar': (context) => const CalendarScreen(),
         '/sign-in': ((context) {
           return SignInScreen(
             actions: [
