@@ -21,11 +21,11 @@ class _ScreenContainerState extends State<ScreenContainer> {
   List<String> titles = [];
   List<String> menuLinks = []; //contains the title of each page
   final List<String> dropdownItems = [
-    "Events",
-    "Announcements",
-    "Meetings",
+    "events",
+    "announcements",
+    "meetings",
   ];
-  String dropdownValue = "Events";
+  String dropdownValue = "events";
 
   @override
   void initState() {
@@ -37,10 +37,10 @@ class _ScreenContainerState extends State<ScreenContainer> {
       const ResourcesScreen(),
     ];
     titles = [
-      "Hendrix Today",
-      "HDX Calendar",
-      "Search",
-      "Resources Page",
+      "hendrix today",
+      "HDX calendar",
+      "search",
+      "resources",
     ];
     menuLinks = [
       "https://www.hendrix.edu/diningservices/default.aspx?id=1003",
@@ -69,24 +69,36 @@ class _ScreenContainerState extends State<ScreenContainer> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: webOrange,
-        title: Text(titles[selectedIndex]),
-        leading: IconButton(
-          onPressed: () => Navigator.pushNamed(context, "/sign-in"),
-          icon: const Icon(Icons.account_circle)),
+        title: Text(titles[selectedIndex],
+            style: const TextStyle(
+              fontFamily: 'MuseoBold',
+              fontSize: 30,
+            )),
+        //     leading: IconButton(
+        //       onPressed: () => Navigator.pushNamed(context, "/sign-in"),
+        //       icon: const Icon(Icons.account_circle)),
         actions: [
-          DropdownButton<String>(
-            value: dropdownValue,
-            style: const TextStyle(color: Colors.white),
-            dropdownColor: webOrange,
-            items: dropdownItems.map((itemone) {
-              return DropdownMenuItem(value: itemone, child: Text(itemone));
-            }).toList(),
-            onChanged: (newValue) {
-              setState(() {
-                dropdownValue = newValue.toString();
-              });
-            },
-          ),
+          selectedIndex == 0
+              ? DropdownButton<String>(
+                  value: dropdownValue,
+                  style: const TextStyle(color: Colors.white),
+                  dropdownColor: webOrange,
+                  items: dropdownItems.map((itemone) {
+                    return DropdownMenuItem(
+                        value: itemone,
+                        child: Text(itemone,
+                            style: const TextStyle(
+                              fontFamily: 'Museo',
+                              fontSize: 15,
+                            )));
+                  }).toList(),
+                  onChanged: (newValue) {
+                    setState(() {
+                      dropdownValue = newValue.toString();
+                    });
+                  },
+                )
+              : Container(),
         ],
       ),
       body: Center(child: pages[selectedIndex]),
@@ -96,41 +108,38 @@ class _ScreenContainerState extends State<ScreenContainer> {
         children: <Widget>[
           //button first
           Container(
-            key: const Key('HomeButton'),
-            margin: const EdgeInsets.all(10),
-            child: FloatingActionButton.small(
-              onPressed: () => onItemTapped(0),
-              backgroundColor: Colors.deepOrangeAccent,
-              child: const Icon(Icons.home),
-            )
-          ),
+              key: const Key('HomeButton'),
+              margin: const EdgeInsets.all(10),
+              child: FloatingActionButton.small(
+                onPressed: () => onItemTapped(0),
+                backgroundColor: Colors.deepOrangeAccent,
+                child: const Icon(Icons.home),
+              )),
           // button second
           Container(
-            key: const Key('CalendarButton'),
-            margin: const EdgeInsets.all(10),
-            child: FloatingActionButton.small(
-              onPressed: () => onItemTapped(1),
-              backgroundColor: Colors.black87,
-              child: const Icon(Icons.calendar_month),
-            )
-          ),
+              key: const Key('CalendarButton'),
+              margin: const EdgeInsets.all(10),
+              child: FloatingActionButton.small(
+                onPressed: () => onItemTapped(1),
+                backgroundColor: Colors.black87,
+                child: const Icon(Icons.calendar_month),
+              )),
           // button third
           Container(
-            key: const Key('SearchButton'),
-            margin: const EdgeInsets.all(10),
-            child: FloatingActionButton.small(
-              onPressed: () => onItemTapped(2),
-              backgroundColor: Colors.teal,
-              child: const Icon(Icons.search),
-            )
-          ),
+              key: const Key('SearchButton'),
+              margin: const EdgeInsets.all(10),
+              child: FloatingActionButton.small(
+                onPressed: () => onItemTapped(2),
+                backgroundColor: Colors.teal,
+                child: const Icon(Icons.search),
+              )),
           Container(
             key: const Key('MenuButton'),
             margin: const EdgeInsets.all(10),
             child: FloatingActionButton.small(
-              onPressed: _launchURLApp,
-              backgroundColor: const Color.fromARGB(255, 162, 131, 102),
-              child: const Icon(Icons.food_bank)),
+                onPressed: _launchURLApp,
+                backgroundColor: const Color.fromARGB(255, 162, 131, 102),
+                child: const Icon(Icons.food_bank)),
           ),
           Container(
             key: const Key('ResourcesPage'),
