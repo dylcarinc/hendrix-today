@@ -38,7 +38,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
     ];
     titles = [
       "hendrix today",
-      "HDX calendar",
+      "calendar",
       "search",
       "resources",
     ];
@@ -78,7 +78,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
         //       onPressed: () => Navigator.pushNamed(context, "/sign-in"),
         //       icon: const Icon(Icons.account_circle)),
         actions: [
-          selectedIndex == 0
+          selectedIndex < 2
               ? DropdownButton<String>(
                   value: dropdownValue,
                   style: const TextStyle(color: Colors.white),
