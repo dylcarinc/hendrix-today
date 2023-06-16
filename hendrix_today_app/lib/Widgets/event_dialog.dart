@@ -13,6 +13,7 @@ class EventDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      titlePadding: EdgeInsets.fromLTRB(0, 24, 18, 0),
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(0.0))),
       title: Stack(children: [
@@ -22,7 +23,7 @@ class EventDialog extends StatelessWidget {
             border: Border(
               left: BorderSide(
                   color: Color.fromARGB(255, 202, 81, 39),
-                  width: 10), // this color should come from the style
+                  width: 16), // this color should come from the style
             ),
           ),
           padding: const EdgeInsetsDirectional.only(start: 8.0, end: 20.0),
@@ -50,27 +51,31 @@ class EventDialog extends StatelessWidget {
           ]),
         ),
         Positioned(
-          top: -16.0,
-          right: -16.0,
-          child: IconButton(
-              color: const Color.fromARGB(255, 202, 81, 39),
-              icon: const Icon(
-                Icons.close,
-              ),
-              onPressed: () => Navigator.pop(context)),
+          top: -15.0,
+          right: -15.0,
+          child: Column(
+            children: [
+              IconButton(
+                  padding: EdgeInsets.all(0),
+                  color: const Color.fromARGB(255, 202, 81, 39),
+                  icon: const Icon(
+                    Icons.close,
+                  ),
+                  onPressed: () => Navigator.pop(context)),
+              IconButton(
+                  color: const Color.fromARGB(255, 202, 81, 39),
+                  onPressed: () => Share.share(
+                      '"${event.title}" -${event.desc}',
+                      subject: 'Check out this event!'),
+                  icon: const Icon(Icons.share_outlined)),
+            ],
+          ),
         ),
       ]),
       insetPadding: const EdgeInsets.symmetric(vertical: 100, horizontal: 50),
       content: SingleChildScrollView(
         child: Text(event.desc.toString()),
       ),
-      actions: <Widget>[
-        IconButton(
-            color: const Color.fromARGB(255, 202, 81, 39),
-            onPressed: () => Share.share('"${event.title}" -${event.desc}',
-                subject: 'Check out this event!'),
-            icon: const Icon(Icons.share_outlined)),
-      ],
     );
   }
 }
