@@ -79,24 +79,26 @@ class _ScreenContainerState extends State<ScreenContainer> {
         //       icon: const Icon(Icons.account_circle)),
         actions: [
           selectedIndex < 2
-              ? DropdownButton<String>(
-                  value: dropdownValue,
-                  style: const TextStyle(color: Colors.white),
-                  dropdownColor: webOrange,
-                  items: dropdownItems.map((itemone) {
-                    return DropdownMenuItem(
-                        value: itemone,
-                        child: Text(itemone,
-                            style: const TextStyle(
-                              fontFamily: 'Museo',
-                              fontSize: 15,
-                            )));
-                  }).toList(),
-                  onChanged: (newValue) {
-                    setState(() {
-                      dropdownValue = newValue.toString();
-                    });
-                  },
+              ? DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    value: dropdownValue,
+                    style: const TextStyle(color: Colors.white),
+                    dropdownColor: webOrange,
+                    items: dropdownItems.map((itemone) {
+                      return DropdownMenuItem(
+                          value: itemone,
+                          child: Text(itemone,
+                              style: const TextStyle(
+                                fontFamily: 'Museo',
+                                fontSize: 15,
+                              )));
+                    }).toList(),
+                    onChanged: (newValue) {
+                      setState(() {
+                        dropdownValue = newValue.toString();
+                      });
+                    },
+                  ),
                 )
               : Container(),
         ],
