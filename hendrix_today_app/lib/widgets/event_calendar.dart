@@ -87,6 +87,9 @@ class _EventCalendarState extends State<EventCalendar> {
                   _selectedEvents.value = _getEventsForDay(_selectedDay);
                   setState(() {});
                 },
+                onCalendarCreated: (pageController) {
+                  _selectedEvents.value = _getEventsForDay(_selectedDay);
+                },
               ),
               //EventList()
               Expanded(
