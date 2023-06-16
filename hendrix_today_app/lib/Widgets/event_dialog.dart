@@ -15,53 +15,61 @@ class EventDialog extends StatelessWidget {
     return AlertDialog(
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(0.0))),
-      title: Container(
-        // From https://www.flutterbeads.com/card-border-in-flutter/
-        decoration: const BoxDecoration(
-          border: Border(
-            left: BorderSide(
-                color: Color.fromARGB(255, 202, 81, 39),
-                width: 10), // this color should come from the style
+      title: Stack(children: [
+        Container(
+          // From https://www.flutterbeads.com/card-border-in-flutter/
+          decoration: const BoxDecoration(
+            border: Border(
+              left: BorderSide(
+                  color: Color.fromARGB(255, 202, 81, 39),
+                  width: 10), // this color should come from the style
+            ),
           ),
+          padding: const EdgeInsetsDirectional.only(start: 8.0, end: 20.0),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(event.title.toString(),
+                style: const TextStyle(fontWeight: FontWeight.bold)),
+            const SizedBox(height: 10),
+            Text(
+              event.displayDate(),
+              style: const TextStyle(
+                fontStyle: FontStyle.italic,
+                fontSize: 14,
+                fontVariations: [FontVariation('wght', 200.0)],
+              ),
+            ),
+            Text(
+              event.displayTime(),
+              style: const TextStyle(
+                fontStyle: FontStyle.italic,
+                fontSize: 14,
+                fontVariations: [FontVariation('wght', 200.0)],
+              ),
+            ),
+          ]),
         ),
-        padding: const EdgeInsetsDirectional.only(start: 8.0),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(event.title.toString(),
-              style: const TextStyle(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 10),
-          Text(
-            event.displayDate(),
-            style: const TextStyle(
-              fontStyle: FontStyle.italic,
-              fontSize: 14,
-              fontVariations: [FontVariation('wght', 200.0)],
-            ),
-          ),
-          Text(
-            event.displayTime(),
-            style: const TextStyle(
-              fontStyle: FontStyle.italic,
-              fontSize: 14,
-              fontVariations: [FontVariation('wght', 200.0)],
-            ),
-          ),
-        ]),
-      ),
+        Positioned(
+          top: -16.0,
+          right: -16.0,
+          child: IconButton(
+              color: const Color.fromARGB(255, 202, 81, 39),
+              icon: const Icon(
+                Icons.close,
+              ),
+              onPressed: () => Navigator.pop(context)),
+        ),
+      ]),
       insetPadding: const EdgeInsets.symmetric(vertical: 100, horizontal: 50),
       content: SingleChildScrollView(
         child: Text(event.desc.toString()),
       ),
       actions: <Widget>[
         IconButton(
-            color: Colors.black,
+            color: const Color.fromARGB(255, 202, 81, 39),
             onPressed: () => Share.share('"${event.title}" -${event.desc}',
-                subject: 'Check out this quote!'),
+                subject: 'Check out this event!'),
             icon: const Icon(Icons.share_outlined)),
-        IconButton(
-          color: Colors.black,
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.close),
-        )
       ],
     );
   }
