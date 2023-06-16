@@ -106,6 +106,12 @@ flutter:
       - family: Lora 
         fonts:
           - asset: fonts/Lora-Regular.ttf
+      - family: Museo 
+        fonts:
+          - asset: fonts/Museo_Slab_300.otf
+      - family: MuseoBold
+        fonts:
+          - asset: fonts/Museo_Slab_900.otf
       - family: Merriweather-Sans
         fonts:
           - asset: fonts/MerriweatherSans-VariableFont_wght.ttf

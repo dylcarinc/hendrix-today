@@ -20,8 +20,8 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
         width: MediaQuery.of(context).size.width,
         child: ListView(
           children: <Widget>[
-            Image.asset('assets/webOrange_banner.png',
-                key: const Key("Banner")),
+            //Image.asset('assets/webOrange_banner.png',
+            //    key: const Key("Banner")),
             EventList(events: allEvents),
           ],
         ));

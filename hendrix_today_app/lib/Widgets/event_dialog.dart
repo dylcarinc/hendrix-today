@@ -21,7 +21,7 @@ class EventDialog extends StatelessWidget {
           border: Border(
             left: BorderSide(
                 color: Color.fromARGB(255, 202, 81, 39),
-                width: 5), // this color should come from the style
+                width: 10), // this color should come from the style
           ),
         ),
         padding: const EdgeInsetsDirectional.only(start: 8.0),
@@ -30,7 +30,7 @@ class EventDialog extends StatelessWidget {
               style: const TextStyle(fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           Text(
-            'Date: ${event.displayDate()}',
+            event.displayDate(),
             style: const TextStyle(
               fontStyle: FontStyle.italic,
               fontSize: 14,
@@ -38,7 +38,7 @@ class EventDialog extends StatelessWidget {
             ),
           ),
           Text(
-            'Time: ${event.displayTime()}',
+            event.displayTime(),
             style: const TextStyle(
               fontStyle: FontStyle.italic,
               fontSize: 14,
