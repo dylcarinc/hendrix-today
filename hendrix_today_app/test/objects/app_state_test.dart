@@ -7,39 +7,39 @@ import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 
 void main() {
 
-  // Do not alter without thoughtfully updating dependent unit tests
-  final List<Map<String, dynamic>> fakeEvents = [
-    {
-      "title": "Test Title",
-      "desc": "lorem ipsum dolor sit amet",
-      "time": "12:00-1:00 PM",
-      "date": DateTime(2023, 6, 14),
-    },
-    {
-      "title": "Other",
-      "date": DateTime(2023, 6, 15),
-    },
-  ];
-
-  AppState buildMockAppState({
-    required bool signedIn,
-    required List<Map<String, dynamic>> events
-  }) {
-    final auth = MockFirebaseAuth(signedIn: signedIn);
+  test('AppState maintains an updated list of events', () async {
+    final auth = MockFirebaseAuth(signedIn: false);
     final firestore = FakeFirebaseFirestore();
-    for (var event in events) {
-      firestore.collection("events").add(event);
+    final fakeEvents = [
+      {
+        "title": "Test event",
+        "desc": "Test description",
+        "time": "5pm",
+        "date": DateTime(2023, 6, 15),
+      },
+      {
+        "title": "Other",
+        "desc": "foo",
+        "time": "12pm",
+        "date": DateTime(2023, 6, 16),
+      },
+    ];
+    for (var event in fakeEvents) {
+      await firestore.collection("events").add(event);
     }
-    return AppState(auth, firestore);
-  }
+    final appState = AppState(auth, firestore);
 
-  test('App state provides a searchable catalog of events', () async {
+    expect(appState.events.length, 2,
+      reason: "The mock Firestore started with 2 events.");
 
-    final appState = buildMockAppState(signedIn: false, events: fakeEvents);
+    await firestore.collection("events").add({
+      "title": "Three",
+      "desc": "bar",
+      "time": "10am",
+      "date": DateTime(2023, 6, 17),
+    });
 
-    expect(appState.searchEvents("").length, fakeEvents.length,
-      reason: "Empty search should return all events");
-    expect(appState.searchEvents("lorem ipsum").length, 1,
-      reason: "Only one event should match ");
+    expect(appState.events.length, 3,
+      reason: "A third event was added to the mock Firestore.");
   });
 }

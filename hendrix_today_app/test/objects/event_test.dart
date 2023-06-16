@@ -12,7 +12,7 @@ void main() {
       "tags": ["test", "Meetings"],
     };
 
-    final Event event = Event.fromFirebase(testData);
+    final event = Event.fromFirebase(testData);
 
     expect(event.title, testData["title"], reason: "Titles must match");
     expect(event.desc, testData["desc"], reason: "Descriptions must match");
@@ -21,26 +21,76 @@ void main() {
     expect(event.tags, testData["tags"], reason: "Tags must match");
   });
 
-  test('Event data can be missing', () {
-    final Map<String, dynamic> testData = {
-      "title": null,
-      "desc": null,
-      "time": null,
+  test('Event date should display as a formatted String', () {
+    final Map<String, dynamic> withDate = {
+      "title": "foo",
+      "desc": "bar",
+      "time": "5pm",
+      "date": DateTime(2023, 6, 14),
+    };
+    final Map<String, dynamic> withoutDate = {
+      "title": "foo",
+      "desc": "bar",
+      "time": "5pm",
       "date": null,
-      "tags": null,
     };
 
-    final Event event = Event.fromFirebase(testData);
+    final eventWithDate = Event.fromFirebase(withDate);
+    final eventWithoutDate = Event.fromFirebase(withoutDate);
 
-    expect(event.title.runtimeType, String, 
-      reason: "Title must be a non-nullable String");
-    expect(event.desc.runtimeType, String,
-      reason: "Description must be a non-nullable String");
-    expect(event.time.runtimeType, String,
-      reason: "Time must be a non-nullable String");
-    expect(event.date.runtimeType, DateTime,
-      reason: "Date must be a non-nullable DateTime");
-    expect(event.tags.runtimeType, List<String>,
-      reason: "Tags must be a non-nullable List<String>");
+    expect(eventWithDate.displayDate(), "Wed, Jun 14, 2023");
+    expect(eventWithoutDate.displayDate(), "None available");
+  });
+
+  test('Event time should display as a formatted String', () {
+    final Map<String, dynamic> withTime = {
+      "title": "foo",
+      "desc": "bar",
+      "time": "5pm",
+      "date": DateTime(2023, 6, 14),
+    };
+    final Map<String, dynamic> withoutTime = {
+      "title": "foo",
+      "desc": "bar",
+      "time": null,
+      "date": DateTime(2023, 6, 14),
+    };
+
+    final eventWithTime = Event.fromFirebase(withTime);
+    final eventWithoutTime = Event.fromFirebase(withoutTime);
+
+    expect(eventWithTime.displayTime(), "5pm");
+    expect(eventWithoutTime.displayTime(), "None available");
+  });
+
+  test('Event should appropriately respond to search queries', () {
+    final Map<String, dynamic> testData = {
+      "title": "Some Test Data",
+      "desc": "This will never see the light of day",
+      "time": "3:00 PM",
+      "date": DateTime(2023, 6, 14),
+    };
+
+    final event = Event.fromFirebase(testData);
+
+    expect(event.containsString("light"), true);
+    expect(event.containsString("Some"), true);
+    expect(event.containsString("fworbel"), false);
+  });
+
+  test('Event should appropriately match with DateTimes by day', () {
+    final Map<String, dynamic> testData = {
+      "title": "Some Test Data",
+      "desc": "This will never see the light of day",
+      "time": "3:00 PM",
+      "date": DateTime(2023, 6, 14),
+    };
+
+    final event = Event.fromFirebase(testData);
+
+    expect(event.matchesDate(DateTime(2023, 6, 14)), true);
+    expect(event.matchesDate(DateTime(2022, 6, 14)), false);
+    expect(event.matchesDate(DateTime(2023, 7, 14)), false);
+    expect(event.matchesDate(DateTime(2023, 6, 4)), false);
   });
 }

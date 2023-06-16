@@ -15,8 +15,6 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  Color webOrange = const Color.fromARGB(255, 202, 81, 39);
-  List<Event> events = [];
   List<Event> searchResults = [];
 
   @override
@@ -32,7 +30,7 @@ class _SearchScreenState extends State<SearchScreen> {
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               onChanged: (searchQuery) => setState(() {
-                searchResults = events.where(
+                searchResults = appState.events.where(
                   (event) => event.containsString(searchQuery)
                 ).toList();
               }),

@@ -24,13 +24,11 @@ class AppState extends ChangeNotifier {
 
     auth.userChanges().listen((user) {
       eventSubscription?.cancel();
-      debugPrint("starting to listen");
       eventSubscription = firestore
           .collection('events') //GV had .doc(user.uid); document ref
           .snapshots()
           .listen(
         (snapshot) {
-          debugPrint("in snapshot");
           _events = [];
           for (var document in snapshot.docs) {
             _events.add(Event(
