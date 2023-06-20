@@ -32,6 +32,7 @@ class Event {
   final DateTime beginPosting;
   final DateTime endPosting;
   final DateTime? applyDeadline;
+  final List<String> tags;
 
   /// Default [Event] constructor. When constructing events from Firebase data, 
   /// please consider using `Event.fromFirebase(Map<String, dynamic> data)`.
@@ -47,6 +48,7 @@ class Event {
     required this.beginPosting,
     required this.endPosting,
     required this.applyDeadline,
+    required this.tags,
   });
 
   /// Converts Firebase data into an [Event]. The return value will be null if 
@@ -85,6 +87,10 @@ class Event {
     final DateTime? applyDeadline =
       cast<Timestamp>(data["applyDeadline"])?.toDate();
 
+    final List<String> tags =
+      (cast<String>(data["tags"]) ?? "")
+      .split(';');
+
     return Event(
       title: title,
       desc: desc,
@@ -97,6 +103,7 @@ class Event {
       beginPosting: beginPosting,
       endPosting: endPosting,
       applyDeadline: applyDeadline,
+      tags: tags,
     );
   }
 
