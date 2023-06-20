@@ -13,7 +13,7 @@ class EventDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      titlePadding: EdgeInsets.fromLTRB(0, 24, 18, 0),
+      titlePadding: const EdgeInsets.fromLTRB(0, 24, 18, 0),
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(0.0))),
       title: Stack(children: [
@@ -41,7 +41,7 @@ class EventDialog extends StatelessWidget {
               ),
             ),
             Text(
-              event.displayTime(),
+              event.time,
               style: const TextStyle(
                 fontStyle: FontStyle.italic,
                 fontSize: 14,
@@ -56,7 +56,7 @@ class EventDialog extends StatelessWidget {
           child: Column(
             children: [
               IconButton(
-                  padding: EdgeInsets.all(0),
+                  padding: const EdgeInsets.all(0),
                   color: const Color.fromARGB(255, 202, 81, 39),
                   icon: const Icon(
                     Icons.close,
