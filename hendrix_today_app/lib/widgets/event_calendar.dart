@@ -34,10 +34,15 @@ class _EventCalendarState extends State<EventCalendar> {
     super.dispose();
   }
 
+  /// Gets the events/announcements/etc. for the given day while also applying 
+  /// relevant filters like the type filter dropdown on the app bar.
   List<Event> _getEventsForDay(DateTime day) {
-    return Provider.of<AppState>(context, listen: false)
+    final appState = Provider.of<AppState>(context, listen: false);
+    return appState
         .events
-        .where((event) => event.matchesDate(day))
+        .where((event) =>
+          event.matchesDate(day) &&
+          event.eventType == appState.eventTypeFilter)
         .toList();
   }
 
