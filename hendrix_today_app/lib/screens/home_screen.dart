@@ -17,19 +17,19 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
-    final filteredEvents = appState.events
+    final homePageEvents = appState.events
       .where((Event e) =>
         e.eventType == appState.eventTypeFilter &&
         e.inPostingRange(DateTime.now()),)
       .toList();
-    
+
     return SizedBox(
         width: MediaQuery.of(context).size.width,
         child: ListView(
           children: <Widget>[
             //Image.asset('assets/webOrange_banner.png',
             //    key: const Key("Banner")),
-            EventList(events: filteredEvents),
+            EventList(events: homePageEvents),
           ],
         ));
   }
