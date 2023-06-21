@@ -17,33 +17,22 @@ class EventCalendar extends StatefulWidget {
 //creation of the TableCalendar
 //code obtained from TableCalendar repo: https://github.com/aleksanderwozniak/table_calendar
 class _EventCalendarState extends State<EventCalendar> {
-  late final ValueNotifier<List<Event>> _selectedEvents;
   DateTime _focusedDay = DateTime.now();
   DateTime calendarRoot = DateTime.now();
   DateTime _selectedDay = DateTime.now();
 
-  @override
-  void initState() {
-    super.initState();
-    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay));
-  }
-
-  @override
-  void dispose() {
-    _selectedEvents.dispose();
-    super.dispose();
-  }
+  List<Event> _applyEventFilters(AppState appState, DateTime day) =>
+    appState.events
+    .where((event) =>
+      event.matchesDate(day) &&
+      event.eventType == appState.eventTypeFilter)
+    .toList();
 
   /// Gets the events/announcements/etc. for the given day while also applying 
   /// relevant filters like the type filter dropdown on the app bar.
   List<Event> _getEventsForDay(DateTime day) {
     final appState = Provider.of<AppState>(context, listen: false);
-    return appState
-        .events
-        .where((event) =>
-          event.matchesDate(day) &&
-          event.eventType == appState.eventTypeFilter)
-        .toList();
+    return _applyEventFilters(appState, day);
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
@@ -52,8 +41,6 @@ class _EventCalendarState extends State<EventCalendar> {
         _selectedDay = selectedDay;
         _focusedDay = focusedDay;
       });
-
-      _selectedEvents.value = _getEventsForDay(selectedDay);
     }
   }
 
@@ -89,18 +76,15 @@ class _EventCalendarState extends State<EventCalendar> {
                   _selectedDay = DateTime(
                       focusedDay.year, focusedDay.month, _selectedDay.day);
                   _focusedDay = focusedDay;
-                  _selectedEvents.value = _getEventsForDay(_selectedDay);
                   setState(() {});
-                },
-                onCalendarCreated: (pageController) {
-                  _selectedEvents.value = _getEventsForDay(_selectedDay);
                 },
               ),
               //EventList()
               Expanded(
-                child: ValueListenableBuilder<List<Event>>(
-                  valueListenable: _selectedEvents,
-                  builder: (context, events, _) => EventList(events: events),
+                child: Consumer<AppState>(
+                  builder: (context, appState, _) => EventList(
+                    events: _applyEventFilters(appState, _selectedDay),
+                  ),
                 ),
               ),
             ],
