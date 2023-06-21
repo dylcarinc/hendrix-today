@@ -15,7 +15,16 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 class AppState extends ChangeNotifier {
   List<Event> _events = [];
   List<Event> get events => _events;
-  num answer = 42;
+  EventType _eventTypeFilter = EventType.announcement;
+  EventType get eventTypeFilter => _eventTypeFilter;
+  
+  void updateEventTypeFilter(String? s) {
+    final maybeEventType = EventType.fromString(s);
+    if (maybeEventType != null) {
+      _eventTypeFilter = maybeEventType;
+      notifyListeners();
+    }
+  }
 
   AppState() {
     init();
@@ -43,12 +52,13 @@ class AppState extends ChangeNotifier {
           debugPrint("in snapshot");
           _events = [];
           for (var document in snapshot.docs) {
-            _events.add(Event(
-              title: document.data()['title'],
-              desc: document.data()['desc'],
-              time: document.data()['time'],
-              date: DateUtils.dateOnly(document.data()['date'].toDate()),
-            ));
+            final Map<String, dynamic> data = document.data();
+            final Event? event = Event.fromFirebase(data);
+            if (event != null) {
+              _events.add(event);
+            } else {
+              debugPrint("Throwing away invalid event data: $data");
+            }
           }
           //  print(snapshot.docChanges.toString()); //prints changes
           firstSnapshot = false;

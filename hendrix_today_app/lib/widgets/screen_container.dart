@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:hendrix_today_app/screens/calendar_screen.dart';
 
+import 'package:hendrix_today_app/objects/app_state.dart';
+import 'package:hendrix_today_app/objects/event.dart';
+import 'package:hendrix_today_app/screens/calendar_screen.dart';
 import 'package:hendrix_today_app/screens/resource_screen.dart';
 import 'package:hendrix_today_app/screens/search_screen.dart';
 import 'package:hendrix_today_app/screens/home_screen.dart';
 
 import 'package:url_launcher/url_launcher.dart';
+import 'package:provider/provider.dart';
 
 class ScreenContainer extends StatefulWidget {
   const ScreenContainer({super.key});
@@ -20,12 +23,6 @@ class _ScreenContainerState extends State<ScreenContainer> {
   List<Widget> pages = []; //contains each page
   List<String> titles = [];
   List<String> menuLinks = []; //contains the title of each page
-  final List<String> dropdownItems = [
-    "events",
-    "announcements",
-    "meetings",
-  ];
-  String dropdownValue = "events";
 
   @override
   void initState() {
@@ -53,6 +50,11 @@ class _ScreenContainerState extends State<ScreenContainer> {
     ];
   }
 
+  List<String> _getDropdownNames() =>
+    EventType.values
+    .map((et) => et.toString())
+    .toList();
+
   _launchURLApp() async {
     int dayOfWeek = DateTime.now().weekday;
     String menuLink = menuLinks[dayOfWeek - 1];
@@ -66,6 +68,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
 
   @override
   Widget build(BuildContext context) {
+    final appState = Provider.of<AppState>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: webOrange,
@@ -81,10 +84,10 @@ class _ScreenContainerState extends State<ScreenContainer> {
           selectedIndex < 2
               ? DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
-                    value: dropdownValue,
+                    value: appState.eventTypeFilter.toString(),
                     style: const TextStyle(color: Colors.white),
                     dropdownColor: webOrange,
-                    items: dropdownItems.map((itemone) {
+                    items: _getDropdownNames().map((itemone) {
                       return DropdownMenuItem(
                           value: itemone,
                           child: Text(itemone,
@@ -95,7 +98,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
                     }).toList(),
                     onChanged: (newValue) {
                       setState(() {
-                        dropdownValue = newValue.toString();
+                        appState.updateEventTypeFilter(newValue);
                       });
                     },
                   ),
