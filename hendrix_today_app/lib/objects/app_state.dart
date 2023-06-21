@@ -30,7 +30,6 @@ class AppState extends ChangeNotifier {
     init();
   }
 
-  bool firstSnapshot = true;
   StreamSubscription<QuerySnapshot>? eventSubscription;
 
   Future<void> init() async {
@@ -60,8 +59,8 @@ class AppState extends ChangeNotifier {
               debugPrint("Throwing away invalid event data: $data");
             }
           }
-          //  print(snapshot.docChanges.toString()); //prints changes
-          firstSnapshot = false;
+          // establishes a default sort order
+          _events.sort((Event a, Event b) => a.compareByDate(b));
           notifyListeners();
         },
         onError: (error) {

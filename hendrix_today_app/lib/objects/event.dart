@@ -64,6 +64,9 @@ class Event {
     required this.tags,
   });
 
+  /// Determines the default sort order for [Event]s.
+  int compareByDate(Event other) => date.compareTo(other.date);
+
   /// Converts Firebase data into an [Event]. The return value will be null if 
   /// the given data is invalid (i.e., has an invalid type or date).
   static Event? fromFirebase(Map<String, dynamic> data) {
