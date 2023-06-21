@@ -15,6 +15,16 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 class AppState extends ChangeNotifier {
   List<Event> _events = [];
   List<Event> get events => _events;
+  EventType _eventTypeFilter = EventType.announcement;
+  EventType get eventTypeFilter => _eventTypeFilter;
+  
+  void updateEventTypeFilter(String? s) {
+    final maybeEventType = EventType.fromString(s);
+    if (maybeEventType != null) {
+      _eventTypeFilter = maybeEventType;
+      notifyListeners();
+    }
+  }
 
   AppState() {
     init();

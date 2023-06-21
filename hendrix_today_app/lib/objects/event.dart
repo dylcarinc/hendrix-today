@@ -7,16 +7,29 @@ import 'package:intl/intl.dart'
     show DateFormat;
 
 enum EventType {
-  event, meeting, announcement, lostAndFound;
+  announcement, event, meeting, lostAndFound;
 
-  static EventType? fromString(String? s) {
-    const map = <String, EventType>{
-      "event": event, "events": event,
-      "meeting": meeting, "meetings": meeting,
-      "announcement": announcement, "announcements": announcement,
-      "lost & found": lostAndFound, "lost and found": lostAndFound,
-    };
-    return map[s?.trim().toLowerCase()];
+  @override
+  String toString() {
+    switch (this) {
+      case announcement: return "Announcements";
+      case event: return "Events";
+      case meeting: return "Meetings";
+      case lostAndFound: return "Lost & Found";
+    }
+  }
+
+  static EventType? fromString(String? str) {    
+    switch (str?.trim().toLowerCase()) {
+      case "announcement":
+      case "announcements": return announcement;
+      case "event":
+      case "events": return event;
+      case "meeting":
+      case "meetings": return meeting;
+      case "lost & found": return lostAndFound;
+      default: return null;
+    }
   }
 }
 
