@@ -16,15 +16,17 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   Color webOrange = const Color.fromARGB(255, 202, 81, 39);
-  List<Event> events = [];
-  List<Event> searchResults = [];
+  String searchQuery = "";
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<AppState>(
         create: (context) => AppState(),
         child: Consumer<AppState>(builder: (context, appState, child) {
-          events = appState.events;
+          final searchResults = appState.events
+            .where((Event e) =>
+              e.containsString(searchQuery))
+            .toList();
           return SizedBox(
             width: MediaQuery.of(context).size.width,
             child: ListView(
@@ -33,10 +35,8 @@ class _SearchScreenState extends State<SearchScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
-                    onChanged: (searchQuery) => setState(() {
-                      searchResults = events.where(
-                        (event) => event.containsString(searchQuery)
-                        ).toList();
+                    onChanged: (newQuery) => setState(() {
+                      searchQuery = newQuery;
                     }),
                     decoration: const InputDecoration(
                         labelText: 'Enter search query',
