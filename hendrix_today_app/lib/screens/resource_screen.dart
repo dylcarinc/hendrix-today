@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hendrix_today_app/widgets/resource_button.dart';
 
 import 'package:url_launcher/url_launcher.dart';
-//import 'package:dropdown_formfield/dropdown_formfield.dart';
-
-// get HDX type face imported and make it look better
 
 class ResourcesScreen extends StatefulWidget {
   const ResourcesScreen({super.key});
@@ -12,19 +10,19 @@ class ResourcesScreen extends StatefulWidget {
   State<ResourcesScreen> createState() => _ResourcesScreenState();
 }
 
-_launchURL() async {
+_launchURL(String url) async {
   const submissionFormUrl =
       'https://forms.office.com/Pages/ResponsePage.aspx?id=jMH2DNLQP0qD0GY9Ygpj020T9lhtzfhCi8WBPrgNg0xURFZXMEEyUzUwR0lNSzZTTDdWWEQwOERSWiQlQCN0PWcu';
-  final uri = Uri.parse(submissionFormUrl);
+  final uri = Uri.parse(url);
   if (await canLaunchUrl(uri)) {
     await launchUrl(uri, mode: LaunchMode.externalApplication);
   } else {
-    throw 'Could not launch $submissionFormUrl';
+    throw 'Could not launch $url';
   }
 }
 
 class _ResourcesScreenState extends State<ResourcesScreen> {
-  // maybe do these in alphabetical order. could include a search bar if it 
+  // maybe do these in alphabetical order. could include a search bar if it
   // gets too overwhelming
   final Map<String, List<String>> locations = {
     "Career Services": [
@@ -57,34 +55,11 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
     return Center(
         child: Column(children: <Widget>[
       const SizedBox(height: 100),
-      SizedBox(
-          height: 100,
-          width: 300,
-          child: Card(
-              shape: const StadiumBorder(
-                side: BorderSide(
-                  // border color
-                  color: Colors.black38,
-                  // border thickness
-                  width: 5,
-                ),
-              ),
-              elevation: 5,
-              color: const Color.fromARGB(255, 202, 81, 39),
-              child: ListTile(
-                title: const Text(
-                  "Submit to Hendrix Today!",
-                  style: TextStyle(
-                      fontSize: 27, color: Colors.white, fontFamily: 'Lora'),
-                  textAlign: TextAlign.center,
-                ),
-                leading: const Icon(
-                  Icons.add,
-                  size: 50,
-                  color: Colors.white,
-                ),
-                onTap: () => _launchURL(),
-              ))),
+      const ResourceButton(
+          titleString: "submit new event",
+          icon: Icons.add,
+          url:
+              'https://forms.office.com/Pages/ResponsePage.aspx?id=jMH2DNLQP0qD0GY9Ygpj020T9lhtzfhCi8WBPrgNg0xURFZXMEEyUzUwR0lNSzZTTDdWWEQwOERSWiQlQCN0PWcu'),
       const SizedBox(height: 30),
       SizedBox(
           height: 100,
@@ -116,7 +91,7 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
                 ),
                 //iconSize: 30.0,
                 style: const TextStyle(
-                    color: Colors.black, fontSize: 30, fontFamily: 'Lora'),
+                    color: Colors.black, fontSize: 30, fontFamily: "MuseoSlab"),
                 items: [
                   'Career Services',
                   'Counseling Services',
@@ -155,9 +130,8 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
                               children: [
                                 ElevatedButton(
                                   // phone number
-                                  onPressed: () => launchUrl(
-                                    Uri.parse("tel:+${listInfo![0].toString()}")
-                                  ),
+                                  onPressed: () => launchUrl(Uri.parse(
+                                      "tel:+${listInfo![0].toString()}")),
                                   child: Text(listInfo![0].toString()),
                                 ),
                                 /* email launch button 
@@ -195,34 +169,10 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
                 },
               ))),
       const SizedBox(height: 30),
-      SizedBox(
-          height: 100,
-          width: 300,
-          child: Card(
-              shape: const StadiumBorder(
-                side: BorderSide(
-                  // border color
-                  color: Colors.black38,
-                  // border thickness
-                  width: 5,
-                ),
-              ),
-              elevation: 5,
-              color: const Color.fromARGB(255, 202, 81, 39), //Colors.orange[200],
-              child: ListTile(
-                title: const Text(
-                  "Call Public Safety",
-                  style: TextStyle(
-                      fontSize: 30, color: Colors.white, fontFamily: 'Lora'),
-                  textAlign: TextAlign.center,
-                ),
-                leading: const Icon(
-                  Icons.phone,
-                  size: 50,
-                  color: Colors.white
-                ),
-                onTap: () => launchUrl(Uri.parse("tel:+5014507711")),
-              ))),
+      const ResourceButton(
+          titleString: "public safety",
+          icon: Icons.phone,
+          url: "tel:+5014507711"),
     ]));
   }
 }
