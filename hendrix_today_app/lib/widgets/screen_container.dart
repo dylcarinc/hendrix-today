@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:hendrix_today_app/objects/app_state.dart';
-import 'package:hendrix_today_app/objects/event.dart';
+import 'package:hendrix_today_app/objects/event_type.dart';
 import 'package:hendrix_today_app/screens/calendar_screen.dart';
 import 'package:hendrix_today_app/screens/resource_screen.dart';
 import 'package:hendrix_today_app/screens/search_screen.dart';
@@ -41,8 +41,8 @@ class _ScreenContainerState extends State<ScreenContainer> {
   }
 
   List<String> _getDropdownNames() =>
-    EventType.values
-    .map((et) => et.toString())
+    EventTypeFilter.values
+    .map((etf) => etf.toString())
     .toList();
 
   _launchURLApp() async {
@@ -95,11 +95,9 @@ class _ScreenContainerState extends State<ScreenContainer> {
                                 fontSize: 15,
                               )));
                     }).toList(),
-                    onChanged: (newValue) {
-                      setState(() {
-                        appState.updateEventTypeFilter(newValue);
-                      });
-                    },
+                    onChanged: (newFilterChoice) => setState(() {
+                      appState.updateEventTypeFilter(newFilterChoice);
+                    }),
                   ),
                 )
               : Container(),
