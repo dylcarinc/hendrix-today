@@ -27,7 +27,7 @@ enum EventType {
 
   /// Checks if this [EventType] matches the given [EventTypeFilter]. 
   /// Attempting to match a `null` filter will return `false`.
-  bool filter(EventTypeFilter? filter) {
+  bool matchesFilter(EventTypeFilter? filter) {
     switch (filter) {
       case EventTypeFilter.events: return this == event;
       case EventTypeFilter.announcements: return this == announcement;

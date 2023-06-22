@@ -80,7 +80,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
         //       onPressed: () => Navigator.pushNamed(context, "/sign-in"),
         //       icon: const Icon(Icons.account_circle)),
         actions: [
-          selectedIndex < 2
+          selectedIndex == 0
               ? DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
                     value: appState.eventTypeFilter.toString(),
