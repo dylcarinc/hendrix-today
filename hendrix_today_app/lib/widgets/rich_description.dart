@@ -67,14 +67,17 @@ class RichDescription extends StatelessWidget {
     final Document doc = parse(text);
     final Node body = doc.body!;
 
+    // remove all non-anchor tags (for safety)
+    body.children.removeWhere((e) => e.localName != "a");
+
     while (body.hasChildNodes()) {
       final Node child = body.firstChild!;
       final String text = child.text ?? "";
 
-      if (child.nodeType == Node.TEXT_NODE) { // is a text node
+      if (child.nodeType == Node.TEXT_NODE) {
         rtItems.add(_RichTextItem(text));
 
-      } else if (child.nodeType == Node.ELEMENT_NODE) { // is an element node
+      } else if (child.nodeType == Node.ELEMENT_NODE) {
         final String? hrefLink = child.attributes["href"];
         rtItems.add(_RichTextItem(text, link: hrefLink));
       }
