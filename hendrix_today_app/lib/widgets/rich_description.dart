@@ -98,6 +98,5 @@ class RichDescription extends StatelessWidget {
           .toList(),
       ),
     );
-    // if this doesn't work, maybe try https://pub.dev/packages/flutter_widget_from_html
   }
 }
