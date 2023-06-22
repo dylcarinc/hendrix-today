@@ -19,7 +19,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
     final appState = Provider.of<AppState>(context);
     final homePageEvents = appState.events
       .where((Event e) =>
-        e.eventType == appState.eventTypeFilter &&
+        e.eventType.matchesFilter(appState.eventTypeFilter) &&
         e.inPostingRange(DateTime.now()),)
       .toList();
 

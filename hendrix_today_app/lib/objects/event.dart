@@ -1,37 +1,12 @@
 import 'package:flutter/material.dart'
     show DateUtils;
 
+import 'package:hendrix_today_app/objects/event_type.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart'
     show Timestamp;
 import 'package:intl/intl.dart'
     show DateFormat;
-
-enum EventType {
-  announcement, event, meeting, lostAndFound;
-
-  @override
-  String toString() {
-    switch (this) {
-      case announcement: return "Announcements";
-      case event: return "Events";
-      case meeting: return "Meetings";
-      case lostAndFound: return "Lost & Found";
-    }
-  }
-
-  static EventType? fromString(String? str) {    
-    switch (str?.trim().toLowerCase()) {
-      case "announcement":
-      case "announcements": return announcement;
-      case "event":
-      case "events": return event;
-      case "meeting":
-      case "meetings": return meeting;
-      case "lost & found": return lostAndFound;
-      default: return null;
-    }
-  }
-}
 
 class Event {
   final String title;
