@@ -13,8 +13,8 @@ class Event {
   final String desc;
   final EventType eventType;
   final DateTime date;
-  final String time;
-  final String location;
+  final String? time;
+  final String? location;
   final String contactName;
   final String contactEmail;
   final DateTime beginPosting;
@@ -59,8 +59,8 @@ class Event {
     if (maybeDate == null) { return null; }
     final DateTime date = maybeDate.toDate();
 
-    final String time = cast(data["time"]) ?? "No time given";
-    final String location = cast(data["location"]) ?? "No location given";
+    final String? time = cast(data["time"]);
+    final String? location = cast(data["location"]);
 
     final String contactName =
       cast(data["contactName"]) ?? "No contact name given";

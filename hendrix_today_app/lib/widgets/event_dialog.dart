@@ -11,6 +11,12 @@ class EventDialog extends StatelessWidget {
   const EventDialog({super.key, required this.event});
   final Event event;
 
+  static const TextStyle _subtitleStyle = TextStyle(
+    fontStyle: FontStyle.italic,
+    fontSize: 14,
+    fontVariations: [FontVariation('wght', 200.0)],
+  );
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -34,21 +40,17 @@ class EventDialog extends StatelessWidget {
                 style: const TextStyle(fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
             Text(
-              event.displayDate(),
-              style: const TextStyle(
-                fontStyle: FontStyle.italic,
-                fontSize: 14,
-                fontVariations: [FontVariation('wght', 200.0)],
-              ),
+              "- ${event.displayDate()}",
+              style: _subtitleStyle,
             ),
-            Text(
-              event.time,
-              style: const TextStyle(
-                fontStyle: FontStyle.italic,
-                fontSize: 14,
-                fontVariations: [FontVariation('wght', 200.0)],
-              ),
+            if (event.time != null) Text(
+              "- ${event.time!}",
+              style: _subtitleStyle,
             ),
+            if (event.location != null) Text(
+              "- ${event.location!}",
+              style: _subtitleStyle,
+            )
           ]),
         ),
         Positioned(
