@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart'
+    show Color;
+
 enum EventType {
   event, announcement, meeting;
 
@@ -34,6 +37,14 @@ enum EventType {
       case EventTypeFilter.meetings: return this == meeting;
       case EventTypeFilter.all: return true;
       case null: return false;
+    }
+  }
+
+  Color color() {
+    switch (this) {
+      case event: return const Color.fromARGB(255, 202, 81, 39);
+      case announcement: return const Color.fromARGB(255, 0, 0, 0);
+      case meeting: return const Color.fromARGB(255, 128, 128, 128);
     }
   }
 }
