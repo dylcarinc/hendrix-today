@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hendrix_today_app/objects/event.dart';
 
 void main() {
+  // TODO: update Event tests
   test('Events can hold event data', () {
     final Map<String, dynamic> testData = {
       "title": "Some Test Data",
