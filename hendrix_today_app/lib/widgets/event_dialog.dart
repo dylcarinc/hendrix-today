@@ -35,23 +35,35 @@ class EventDialog extends StatelessWidget {
           ),
           padding: const EdgeInsetsDirectional.only(start: 8.0, end: 20.0),
           child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(event.title.toString(),
-                style: const TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 10),
-            Text(
-              "- ${event.displayDate()}",
-              style: _subtitleStyle,
-            ),
-            if (event.time != null) Text(
-              "- ${event.time!}",
-              style: _subtitleStyle,
-            ),
-            if (event.location != null) Text(
-              "- ${event.location!}",
-              style: _subtitleStyle,
-            )
-          ]),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(event.title.toString(),
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 5),
+                  Text(
+                    event.eventType.toString(),
+                    style: TextStyle(
+                      color: event.eventType.color(),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    "- ${event.displayDate()}",
+                    style: _subtitleStyle,
+                  ),
+                  if (event.time != null) Text(
+                    "- ${event.time!}",
+                    style: _subtitleStyle,
+                  ),
+                  if (event.location != null) Text(
+                    "- ${event.location!}",
+                    style: _subtitleStyle,
+                  )
+                ]
+              ),
         ),
         Positioned(
           top: -15.0,
