@@ -35,7 +35,7 @@ class EventCard extends StatelessWidget {
           border: Border(
             left: BorderSide(
                 color: event.eventType.color(),
-                width: 5), // this color should come from the style
+                width: 10), // this color should come from the style
           ),
         ),
         child: ListTile(

@@ -106,9 +106,6 @@ flutter:
   # example:
 
   fonts:
-      - family: Lora 
-        fonts:
-          - asset: fonts/Lora-Regular.ttf
       - family: Museo 
         fonts:
           - asset: fonts/Museo_Slab_300.otf
