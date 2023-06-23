@@ -16,11 +16,13 @@ class ResourceButton extends StatelessWidget {
     required this.titleString,
     required this.icon,
     required this.url,
+    required this.color,
   });
 
   final String titleString;
   final IconData icon;
   final String url;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class ResourceButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(0.0),
             ),
             elevation: 5,
-            color: const Color.fromARGB(255, 202, 81, 39), //Colors.orange[200],
+            color: color, //Colors.orange[200],
             child: ListTile(
               minVerticalPadding: 10.0,
               title: Text(
@@ -41,7 +43,7 @@ class ResourceButton extends StatelessWidget {
                     fontSize: 30, color: Colors.white, fontFamily: "MuseoBold"),
                 textAlign: TextAlign.center,
               ),
-              leading: Icon(icon, size: 50, color: Colors.white),
+              leading: Icon(icon, size: 60, color: Colors.white),
               onTap: () => _launchURL(url),
             )));
   }

@@ -41,29 +41,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
   }
 
   List<String> _getDropdownNames() =>
-    EventTypeFilter.values
-    .map((etf) => etf.toString())
-    .toList();
-
-  _launchURLApp() async {
-    const menuLinks = [
-      "https://www.hendrix.edu/diningservices/default.aspx?id=1003", // Mo
-      "https://www.hendrix.edu/diningservices/default.aspx?id=1004", // Tu
-      "https://www.hendrix.edu/diningservices/default.aspx?id=1005", // We
-      "https://www.hendrix.edu/diningservices/default.aspx?id=1006", // Th
-      "https://www.hendrix.edu/diningservices/default.aspx?id=1007", // Fr
-      "https://www.hendrix.edu/diningservices/default.aspx?id=1008", // Sa
-      "https://www.hendrix.edu/diningservices/default.aspx?id=1002", // Su
-    ];
-    int dayOfWeek = DateTime.now().weekday;
-    String menuLink = menuLinks[dayOfWeek - 1];
-    Uri menuUrl = Uri.parse(menuLink);
-    if (await canLaunchUrl(menuUrl)) {
-      await launchUrl(menuUrl, mode: LaunchMode.externalApplication);
-    } else {
-      throw 'Could not launch $menuUrl';
-    }
-  }
+      EventTypeFilter.values.map((etf) => etf.toString()).toList();
 
   @override
   Widget build(BuildContext context) {
@@ -76,9 +54,6 @@ class _ScreenContainerState extends State<ScreenContainer> {
               fontFamily: 'MuseoBold',
               fontSize: 30,
             )),
-        //     leading: IconButton(
-        //       onPressed: () => Navigator.pushNamed(context, "/sign-in"),
-        //       icon: const Icon(Icons.account_circle)),
         actions: [
           selectedIndex == 0
               ? DropdownButtonHideUnderline(
@@ -114,7 +89,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
               margin: const EdgeInsets.all(10),
               child: FloatingActionButton.small(
                 onPressed: () => onItemTapped(0),
-                backgroundColor: Colors.deepOrangeAccent,
+                backgroundColor: webOrange,
                 child: const Icon(Icons.home),
               )),
           // button second
@@ -132,24 +107,16 @@ class _ScreenContainerState extends State<ScreenContainer> {
               margin: const EdgeInsets.all(10),
               child: FloatingActionButton.small(
                 onPressed: () => onItemTapped(2),
-                backgroundColor: Colors.teal,
+                backgroundColor: const Color.fromARGB(255, 162, 131, 102),
                 child: const Icon(Icons.search),
               )),
-          Container(
-            key: const Key('MenuButton'),
-            margin: const EdgeInsets.all(10),
-            child: FloatingActionButton.small(
-                onPressed: _launchURLApp,
-                backgroundColor: const Color.fromARGB(255, 162, 131, 102),
-                child: const Icon(Icons.food_bank)),
-          ),
           Container(
             key: const Key('ResourcesPage'),
             margin: const EdgeInsets.all(10),
             child: FloatingActionButton.small(
               onPressed: () => onItemTapped(3),
               backgroundColor: Colors.blueGrey,
-              child: const Icon(Icons.question_mark),
+              child: const Icon(Icons.food_bank),
             ),
           ),
         ],
