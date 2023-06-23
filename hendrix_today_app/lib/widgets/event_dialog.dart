@@ -6,6 +6,7 @@ import 'package:hendrix_today_app/objects/event.dart';
 import 'package:hendrix_today_app/widgets/rich_description.dart';
 
 import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EventDialog extends StatelessWidget {
   const EventDialog({super.key, required this.event});
@@ -16,6 +17,16 @@ class EventDialog extends StatelessWidget {
     fontSize: 14,
     fontVariations: [FontVariation('wght', 200.0)],
   );
+
+  /// Attempts to begin a draft email to the [Event] contact.
+  void _tryEmailContact() async {
+    final subject = "Hendrix Today - response to \"${event.title}\"";
+    final mailto = "mailto:${event.contactEmail}?subject=$subject";
+    final uri = Uri.tryParse(mailto);
+    if (uri == null) { return; }
+    // skip the `canLaunchUrl(uri)` check because mailto: links fail
+    launchUrl(uri);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +41,12 @@ class EventDialog extends StatelessWidget {
             border: Border(
               left: BorderSide(
                   color: event.eventType.color(),
-                  width: 16), // this color should come from the style
+                  width: 16),
             ),
           ),
           padding: const EdgeInsetsDirectional.only(start: 8.0, end: 20.0),
+          // minimum height to contain all 3 side buttons
+          constraints: const BoxConstraints(minHeight: 120.0),
           child:
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,6 +96,12 @@ class EventDialog extends StatelessWidget {
                       '"${event.title}" -${event.desc}',
                       subject: 'Check out this event!'),
                   icon: const Icon(Icons.share_outlined)),
+              IconButton(
+                padding: const EdgeInsets.only(right: 2.0),
+                color: const Color.fromARGB(255, 202, 91, 39),
+                onPressed: () => _tryEmailContact(),
+                icon: const Icon(Icons.mail_outlined),
+              )
             ],
           ),
         ),
