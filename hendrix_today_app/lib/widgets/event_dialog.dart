@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import 'package:hendrix_today_app/objects/event.dart';
+import 'package:hendrix_today_app/widgets/rich_description.dart';
 
 import 'package:share_plus/share_plus.dart';
 
@@ -74,7 +75,8 @@ class EventDialog extends StatelessWidget {
       ]),
       insetPadding: const EdgeInsets.symmetric(vertical: 100, horizontal: 50),
       content: SingleChildScrollView(
-        child: Text(event.desc.toString()),
+        // child: Text(event.desc.toString()),
+        child: RichDescription(text: event.desc),
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:hendrix_today_app/objects/app_state.dart';
 import 'package:hendrix_today_app/objects/event.dart';
+import 'package:hendrix_today_app/objects/event_type.dart';
 import 'package:hendrix_today_app/widgets/event_list.dart';
 
 import 'package:table_calendar/table_calendar.dart';
@@ -25,7 +26,7 @@ class _EventCalendarState extends State<EventCalendar> {
     appState.events
     .where((event) =>
       event.matchesDate(day) &&
-      event.eventType == appState.eventTypeFilter)
+      !event.eventType.matchesFilter(EventTypeFilter.announcements))
     .toList();
 
   /// Gets the events/announcements/etc. for the given day while also applying 
