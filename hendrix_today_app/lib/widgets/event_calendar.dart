@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:hendrix_today_app/objects/app_state.dart';
 import 'package:hendrix_today_app/objects/event.dart';
+import 'package:hendrix_today_app/objects/event_type.dart';
 import 'package:hendrix_today_app/widgets/event_list.dart';
 
 import 'package:table_calendar/table_calendar.dart';
@@ -17,28 +18,22 @@ class EventCalendar extends StatefulWidget {
 //creation of the TableCalendar
 //code obtained from TableCalendar repo: https://github.com/aleksanderwozniak/table_calendar
 class _EventCalendarState extends State<EventCalendar> {
-  late final ValueNotifier<List<Event>> _selectedEvents;
-  CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime calendarRoot = DateTime.now();
   DateTime _selectedDay = DateTime.now();
 
-  @override
-  void initState() {
-    super.initState();
-    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay));
-  }
+  List<Event> _applyEventFilters(AppState appState, DateTime day) =>
+    appState.events
+    .where((event) =>
+      event.matchesDate(day) &&
+      !event.eventType.matchesFilter(EventTypeFilter.announcements))
+    .toList();
 
-  @override
-  void dispose() {
-    _selectedEvents.dispose();
-    super.dispose();
-  }
-
+  /// Gets the events/announcements/etc. for the given day while also applying 
+  /// relevant filters like the type filter dropdown on the app bar.
   List<Event> _getEventsForDay(DateTime day) {
-    return Provider.of<AppState>(context, listen: false).events
-      .where((event) => event.matchesDate(day))
-      .toList();
+    final appState = Provider.of<AppState>(context, listen: false);
+    return _applyEventFilters(appState, day);
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
@@ -47,16 +42,14 @@ class _EventCalendarState extends State<EventCalendar> {
         _selectedDay = selectedDay;
         _focusedDay = focusedDay;
       });
-
-      _selectedEvents.value = _getEventsForDay(selectedDay);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final today = DateTime.now();
-    final calendarStartDate = DateTime(today.year - 1, today.month, today.day);
-    final calendarEndDate = DateTime(today.year + 1, today.month, today.day);
+    final calendarStartDate = DateTime(today.year - 2, today.month, today.day);
+    final calendarEndDate = DateTime(today.year, today.month + 1, today.day);
     return SizedBox(
       child: Consumer<AppState>(
         builder: (context, appState, _) {
@@ -66,7 +59,10 @@ class _EventCalendarState extends State<EventCalendar> {
                 firstDay: calendarStartDate,
                 lastDay: calendarEndDate,
                 focusedDay: _focusedDay,
-                calendarFormat: _calendarFormat,
+                calendarFormat: CalendarFormat.month,
+                availableCalendarFormats: const {
+                  CalendarFormat.month: 'Month',
+                },
                 eventLoader: _getEventsForDay,
                 selectedDayPredicate: (day) {
                   // Use `selectedDayPredicate` to determine which day is currently selected.
@@ -76,24 +72,20 @@ class _EventCalendarState extends State<EventCalendar> {
                   return isSameDay(_selectedDay, day);
                 },
                 onDaySelected: _onDaySelected,
-                onFormatChanged: (format) {
-                  if (_calendarFormat != format) {
-                    // Call `setState()` when updating calendar format
-                    setState(() {
-                      _calendarFormat = format;
-                    });
-                  }
-                },
                 onPageChanged: (focusedDay) {
                   // No need to call `setState()` here
+                  _selectedDay = DateTime(
+                      focusedDay.year, focusedDay.month, _selectedDay.day);
                   _focusedDay = focusedDay;
+                  setState(() {});
                 },
               ),
               //EventList()
               Expanded(
-                child: ValueListenableBuilder<List<Event>>(
-                  valueListenable: _selectedEvents,
-                  builder: (context, events, _) => EventList(events: events),
+                child: Consumer<AppState>(
+                  builder: (context, appState, _) => EventList(
+                    events: _applyEventFilters(appState, _selectedDay),
+                  ),
                 ),
               ),
             ],

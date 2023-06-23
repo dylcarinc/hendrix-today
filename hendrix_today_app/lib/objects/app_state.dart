@@ -1,14 +1,33 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
+import 'package:hendrix_today_app/firebase_options.dart';
 import 'package:hendrix_today_app/objects/event.dart';
+import 'package:hendrix_today_app/objects/event_type.dart';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart'
+    hide
+        EmailAuthProvider,
+        PhoneAuthProvider;
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 
 class AppState extends ChangeNotifier {
   List<Event> _events = [];
   List<Event> get events => _events;
+  EventTypeFilter _eventTypeFilter = EventTypeFilter.all;
+  EventTypeFilter get eventTypeFilter => _eventTypeFilter;
+
+  /// Given a potential string representation of an [EventTypeFilter], update 
+  /// the filter and notify listeners only if the string representation is 
+  /// valid.
+  void updateEventTypeFilter(String? choice) {
+    final EventTypeFilter? newFilter = EventTypeFilter.fromString(choice);
+    if (newFilter == null) return;
+    _eventTypeFilter = newFilter;
+    notifyListeners();
+  }
 
   AppState(this.auth, this.firestore) {
     init();
@@ -17,11 +36,9 @@ class AppState extends ChangeNotifier {
   final FirebaseAuth auth;
   final FirebaseFirestore firestore;
 
-  bool firstSnapshot = true;
   StreamSubscription<QuerySnapshot>? eventSubscription;
 
   Future<void> init() async {
-
     auth.userChanges().listen((user) {
       eventSubscription?.cancel();
       eventSubscription = firestore
@@ -31,16 +48,16 @@ class AppState extends ChangeNotifier {
         (snapshot) {
           _events = [];
           for (var document in snapshot.docs) {
-            _events.add(Event(
-              title: document.data()['title'],
-              desc: document.data()['desc'],
-              time: document.data()['time'],
-              date: DateUtils.dateOnly(
-                (document.data()['date'] as Timestamp).toDate()),
-            ));
+            final Map<String, dynamic> data = document.data();
+            final Event? event = Event.fromFirebase(data);
+            if (event != null) {
+              _events.add(event);
+            } else {
+              debugPrint("Throwing away invalid event data: $data");
+            }
           }
-          //  print(snapshot.docChanges.toString()); //prints changes
-          firstSnapshot = false;
+          // establishes a default sort order
+          _events.sort((Event a, Event b) => a.compareByDate(b));
           notifyListeners();
         },
         onError: (error) {

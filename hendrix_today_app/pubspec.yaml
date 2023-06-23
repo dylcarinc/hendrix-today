@@ -37,7 +37,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  table_calendar: ^3.0.8
+  table_calendar: ^3.0.9
   anim_search_bar: ^2.0.2
   firebase_core: ^2.3.0
   firebase_auth: ^4.1.3
@@ -49,6 +49,7 @@ dependencies:
   csv: ^5.0.1
   share_plus: ^6.3.1
   intl: ^0.18.0
+  html: ^0.15.4
   #excel: ^1.1.5
 
 dev_dependencies:
@@ -108,6 +109,12 @@ flutter:
       - family: Lora 
         fonts:
           - asset: fonts/Lora-Regular.ttf
+      - family: Museo 
+        fonts:
+          - asset: fonts/Museo_Slab_300.otf
+      - family: MuseoBold
+        fonts:
+          - asset: fonts/Museo_Slab_900.otf
       - family: Merriweather-Sans
         fonts:
           - asset: fonts/MerriweatherSans-VariableFont_wght.ttf

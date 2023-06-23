@@ -6,3 +6,5 @@ hendrix_today_app/.flutter-plugins-dependencies 2
 hendrix_today_app/ios/Flutter/flutter_export_environment 2.sh
 
 hendrix_today_app/ios/Flutter/Generated 2.xcconfig
+
+.DS_Store

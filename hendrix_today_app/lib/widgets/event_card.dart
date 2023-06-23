@@ -31,10 +31,10 @@ class EventCard extends StatelessWidget {
       ),
       child: Container(
         // From https://www.flutterbeads.com/card-border-in-flutter/
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           border: Border(
             left: BorderSide(
-                color: Color.fromARGB(255, 202, 81, 39),
+                color: event.eventType.color(),
                 width: 5), // this color should come from the style
           ),
         ),
