@@ -107,9 +107,24 @@ class EventDialog extends StatelessWidget {
         ),
       ]),
       insetPadding: const EdgeInsets.symmetric(vertical: 100, horizontal: 50),
-      content: SingleChildScrollView(
-        // child: Text(event.desc.toString()),
-        child: RichDescription(text: event.desc),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (event.applyDeadline != null) ...[
+            Text(
+              "This ${event.eventType.toString()} has a deadline: ",
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              event.displayDeadline()!,
+              style: _subtitleStyle,
+            ),
+            const SizedBox(height: 5),
+          ],
+          SingleChildScrollView(
+            child: RichDescription(text: event.desc),
+          ),
+        ],
       ),
     );
   }

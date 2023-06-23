@@ -99,10 +99,18 @@ class Event {
   }
 
   /// Formats this [Event]'s date in a human-readable form.
-  /// Null dates return `'None available'`.
   /// 
   /// Example: `2023-06-14` becomes `Wed, Jun 14, 2023`
   String displayDate() => DateFormat('EEE, MMM d, yyyy').format(date);
+
+  /// Formats this [Event]'s application deadline in a human-readable form.
+  /// 
+  /// Returns `null` if the deadline is `null`.
+  /// 
+  /// Example: `2023-06-14` becomes `Wed, Jun 14, 2023`
+  String? displayDeadline() => applyDeadline == null
+    ? null
+    : DateFormat('EEE, MMM d, yyyy').format(applyDeadline!);
 
   /// Checks if `searchQuery` appears in this [Event]'s title or description 
   /// (case-insensitive).
