@@ -1,17 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-import 'package:hendrix_today_app/firebase_options.dart';
 import 'package:hendrix_today_app/objects/event.dart';
 import 'package:hendrix_today_app/objects/event_type.dart';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart'
-    hide
-        EmailAuthProvider,
-        PhoneAuthProvider;
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AppState extends ChangeNotifier {
   List<Event> _events = [];

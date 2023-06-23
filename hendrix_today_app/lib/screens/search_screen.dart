@@ -18,41 +18,40 @@ class _SearchScreenState extends State<SearchScreen> {
   Color webOrange = const Color.fromARGB(255, 202, 81, 39);
   String searchQuery = "";
 
+  List<Event> _applySearchFilter(List<Event> events) => events
+    .where((Event e) => e.containsString(searchQuery))
+    .toList();
+
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<AppState>(
-        create: (context) => AppState(),
-        child: Consumer<AppState>(builder: (context, appState, child) {
-          final searchResults = appState.events
-            .where((Event e) =>
-              e.containsString(searchQuery))
-            .toList();
-          return SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: ListView(
-              key: const Key('daily_event_list'),
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextField(
-                    onChanged: (newQuery) => setState(() {
-                      searchQuery = newQuery;
-                    }),
-                    decoration: const InputDecoration(
-                        labelText: 'Enter search query',
-                        labelStyle: TextStyle(color: Colors.black),
-                        focusColor: Color.fromARGB(255, 202, 81, 39),
-                        suffixIcon: Icon(Icons.search),
-                        iconColor: Colors.black),
-                  ),
-                ),
-                searchResults.isNotEmpty
-                  ? EventList(events: searchResults)
-                  : const _EmptySearchLabel(),
-              ],
+    final appState = Provider.of<AppState>(context);
+    final searchResults = _applySearchFilter(appState.events);
+
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: ListView(
+        key: const Key('daily_event_list'),
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              onChanged: (newQuery) => setState(() {
+                searchQuery = newQuery;
+              }),
+              decoration: const InputDecoration(
+                  labelText: 'Enter search query',
+                  labelStyle: TextStyle(color: Colors.black),
+                  focusColor: Color.fromARGB(255, 202, 81, 39),
+                  suffixIcon: Icon(Icons.search),
+                  iconColor: Colors.black),
             ),
-          );
-        }));
+          ),
+          searchResults.isNotEmpty
+            ? EventList(events: searchResults)
+            : const _EmptySearchLabel(),
+        ],
+      ),
+    );
   }
 }
 

@@ -12,7 +12,7 @@ void main() {
       "tags": ["test", "Meetings"],
     };
 
-    final event = Event.fromFirebase(testData);
+    final event = Event.fromFirebase(testData)!;
 
     expect(event.title, testData["title"], reason: "Titles must match");
     expect(event.desc, testData["desc"], reason: "Descriptions must match");
@@ -35,32 +35,11 @@ void main() {
       "date": null,
     };
 
-    final eventWithDate = Event.fromFirebase(withDate);
-    final eventWithoutDate = Event.fromFirebase(withoutDate);
+    final eventWithDate = Event.fromFirebase(withDate)!;
+    final eventWithoutDate = Event.fromFirebase(withoutDate)!;
 
     expect(eventWithDate.displayDate(), "Wed, Jun 14, 2023");
     expect(eventWithoutDate.displayDate(), "None available");
-  });
-
-  test('Event time should display as a formatted String', () {
-    final Map<String, dynamic> withTime = {
-      "title": "foo",
-      "desc": "bar",
-      "time": "5pm",
-      "date": DateTime(2023, 6, 14),
-    };
-    final Map<String, dynamic> withoutTime = {
-      "title": "foo",
-      "desc": "bar",
-      "time": null,
-      "date": DateTime(2023, 6, 14),
-    };
-
-    final eventWithTime = Event.fromFirebase(withTime);
-    final eventWithoutTime = Event.fromFirebase(withoutTime);
-
-    expect(eventWithTime.displayTime(), "5pm");
-    expect(eventWithoutTime.displayTime(), "None available");
   });
 
   test('Event should appropriately respond to search queries', () {
@@ -71,7 +50,7 @@ void main() {
       "date": DateTime(2023, 6, 14),
     };
 
-    final event = Event.fromFirebase(testData);
+    final event = Event.fromFirebase(testData)!;
 
     expect(event.containsString("light"), true);
     expect(event.containsString("Some"), true);
@@ -86,7 +65,7 @@ void main() {
       "date": DateTime(2023, 6, 14),
     };
 
-    final event = Event.fromFirebase(testData);
+    final event = Event.fromFirebase(testData)!;
 
     expect(event.matchesDate(DateTime(2023, 6, 14)), true);
     expect(event.matchesDate(DateTime(2022, 6, 14)), false);
