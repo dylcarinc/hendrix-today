@@ -16,7 +16,7 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 class AppState extends ChangeNotifier {
   List<Event> _events = [];
   List<Event> get events => _events;
-  EventTypeFilter _eventTypeFilter = EventTypeFilter.announcements;
+  EventTypeFilter _eventTypeFilter = EventTypeFilter.all;
   EventTypeFilter get eventTypeFilter => _eventTypeFilter;
 
   /// Given a potential string representation of an [EventTypeFilter], update 

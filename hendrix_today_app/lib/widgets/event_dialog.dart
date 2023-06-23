@@ -6,10 +6,27 @@ import 'package:hendrix_today_app/objects/event.dart';
 import 'package:hendrix_today_app/widgets/rich_description.dart';
 
 import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EventDialog extends StatelessWidget {
   const EventDialog({super.key, required this.event});
   final Event event;
+
+  static const TextStyle _subtitleStyle = TextStyle(
+    fontStyle: FontStyle.italic,
+    fontSize: 14,
+    fontVariations: [FontVariation('wght', 200.0)],
+  );
+
+  /// Attempts to begin a draft email to the [Event] contact.
+  void _tryEmailContact() async {
+    final subject = "Hendrix Today - response to \"${event.title}\"";
+    final mailto = "mailto:${event.contactEmail}?subject=$subject";
+    final uri = Uri.tryParse(mailto);
+    if (uri == null) { return; }
+    // skip the `canLaunchUrl(uri)` check because mailto: links fail
+    launchUrl(uri);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,36 +37,46 @@ class EventDialog extends StatelessWidget {
       title: Stack(children: [
         Container(
           // From https://www.flutterbeads.com/card-border-in-flutter/
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             border: Border(
               left: BorderSide(
-                  color: Color.fromARGB(255, 202, 81, 39),
-                  width: 16), // this color should come from the style
+                  color: event.eventType.color(),
+                  width: 16),
             ),
           ),
           padding: const EdgeInsetsDirectional.only(start: 8.0, end: 20.0),
+          // minimum height to contain all 3 side buttons
+          constraints: const BoxConstraints(minHeight: 120.0),
           child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(event.title.toString(),
-                style: const TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 10),
-            Text(
-              event.displayDate(),
-              style: const TextStyle(
-                fontStyle: FontStyle.italic,
-                fontSize: 14,
-                fontVariations: [FontVariation('wght', 200.0)],
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(event.title.toString(),
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 5),
+                  Text(
+                    event.eventType.toString(),
+                    style: TextStyle(
+                      color: event.eventType.color(),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    "- ${event.displayDate()}",
+                    style: _subtitleStyle,
+                  ),
+                  if (event.time != null) Text(
+                    "- ${event.time!}",
+                    style: _subtitleStyle,
+                  ),
+                  if (event.location != null) Text(
+                    "- ${event.location!}",
+                    style: _subtitleStyle,
+                  )
+                ]
               ),
-            ),
-            Text(
-              event.time,
-              style: const TextStyle(
-                fontStyle: FontStyle.italic,
-                fontSize: 14,
-                fontVariations: [FontVariation('wght', 200.0)],
-              ),
-            ),
-          ]),
         ),
         Positioned(
           top: -15.0,
@@ -69,14 +96,35 @@ class EventDialog extends StatelessWidget {
                       '"${event.title}" -${event.desc}',
                       subject: 'Check out this event!'),
                   icon: const Icon(Icons.share_outlined)),
+              IconButton(
+                padding: const EdgeInsets.only(right: 2.0),
+                color: const Color.fromARGB(255, 202, 91, 39),
+                onPressed: () => _tryEmailContact(),
+                icon: const Icon(Icons.mail_outlined),
+              )
             ],
           ),
         ),
       ]),
       insetPadding: const EdgeInsets.symmetric(vertical: 100, horizontal: 50),
-      content: SingleChildScrollView(
-        // child: Text(event.desc.toString()),
-        child: RichDescription(text: event.desc),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (event.applyDeadline != null) ...[
+            Text(
+              "This ${event.eventType.toString()} has a deadline: ",
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              event.displayDeadline()!,
+              style: _subtitleStyle,
+            ),
+            const SizedBox(height: 5),
+          ],
+          SingleChildScrollView(
+            child: RichDescription(text: event.desc),
+          ),
+        ],
       ),
     );
   }
