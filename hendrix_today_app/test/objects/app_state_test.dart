@@ -39,10 +39,11 @@ void main() {
         "contactEmail": "jsmith@fake.email",
       },
     ];
+    final appState = AppState(auth, firestore);
+    
     for (var event in fakeEvents) {
       await firestore.collection("events").add(event);
     }
-    final appState = AppState(auth, firestore);
 
     expect(appState.events.length, 2,
       reason: "The mock Firestore started with 2 events.");

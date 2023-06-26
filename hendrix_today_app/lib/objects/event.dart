@@ -48,31 +48,39 @@ class Event {
     // Convenient caster: https://stackoverflow.com/a/67435226
     T? cast<T>(dynamic x) => (x is T) ? x : null;
 
-    final String title = cast(data["title"]) ?? "Untitled Event";
-    final String desc = cast(data["desc"]) ?? "No description given.";
+    final String? maybeTitle = cast(data["title"]);
+    if (maybeTitle == null) return null;
+    final String title = maybeTitle;
+
+    final String? maybeDesc = cast(data["desc"]);
+    if (maybeDesc == null) return null;
+    final String desc = maybeDesc;
 
     final EventType? maybeEventType = EventType.fromString(data["type"]);
-    if (maybeEventType == null) { return null; }
+    if (maybeEventType == null) return null;
     final EventType eventType = maybeEventType;
     
     final Timestamp? maybeDate = cast(data["date"]);
-    if (maybeDate == null) { return null; }
+    if (maybeDate == null) return null;
     final DateTime date = maybeDate.toDate();
 
     final String? time = cast(data["time"]);
     final String? location = cast(data["location"]);
 
-    final String contactName =
-      cast(data["contactName"]) ?? "No contact name given";
-    final String contactEmail =
-      cast(data["contactEmail"]) ?? "No contact email given";
+    final String? maybeContactName = cast(data["contactName"]);
+    if (maybeContactName == null) return null;
+    final String contactName = maybeContactName;
+
+    final String? maybeContactEmail = cast(data["contactEmail"]);
+    if (maybeContactEmail == null) return null;
+    final String contactEmail = maybeContactEmail;
     
     final Timestamp? maybeBeginPosting = cast(data["beginPosting"]);
-    if (maybeBeginPosting == null) { return null; }
+    if (maybeBeginPosting == null) return null;
     final DateTime beginPosting = maybeBeginPosting.toDate();
 
     final Timestamp? maybeEndPosting = cast(data["endPosting"]);
-    if (maybeEndPosting == null) { return null; }
+    if (maybeEndPosting == null) return null;
     final DateTime endPosting = maybeEndPosting.toDate();
 
     final DateTime? applyDeadline =
