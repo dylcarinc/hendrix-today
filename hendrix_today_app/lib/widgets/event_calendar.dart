@@ -45,11 +45,48 @@ class _EventCalendarState extends State<EventCalendar> {
     }
   }
 
+  /// Determines the earliest allowed date on the calendar.
+  /// 
+  /// Because [TableCalendar.focusedDay] must be within the calendar's enabled
+  /// range, it finds the earliest date among the focused day and all events.
+  DateTime _getCalendarStartDate() {
+    final appState = Provider.of<AppState>(context);
+    DateTime min = _focusedDay;
+    for (Event e in appState.events) {
+      if (e.date.isBefore(min)) {
+        min = e.date;
+      }
+    }
+    return min;
+  }
+
+  /// Determines the latest allowed date on the calendar.
+  /// 
+  /// Because [TableCalendar.focusedDay] must be within the calendar's enabled
+  /// range, it finds the latest date among the focused day and all events.
+  DateTime _getCalendarEndDate() {
+    final appState = Provider.of<AppState>(context);
+    DateTime max = _focusedDay;
+    for (Event e in appState.events) {
+      if (e.date.isAfter(max)) {
+        max = e.date;
+      }
+    }
+    return max;
+  }
+
   @override
   Widget build(BuildContext context) {
     final today = DateTime.now();
-    final calendarStartDate = DateTime(today.year - 2, today.month, today.day);
-    final calendarEndDate = DateTime(today.year, today.month + 1, today.day);
+    final earliest = _getCalendarStartDate();
+    final latest = _getCalendarEndDate();
+    final calendarStartDate = today.isBefore(earliest)
+      ? today
+      : earliest;
+    final calendarEndDate = today.isAfter(latest)
+      ? today
+      : latest;
+
     return SizedBox(
       child: Consumer<AppState>(
         builder: (context, appState, _) {
