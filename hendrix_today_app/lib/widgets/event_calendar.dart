@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:hendrix_today_app/objects/app_state.dart';
 import 'package:hendrix_today_app/objects/event.dart';
-import 'package:hendrix_today_app/objects/event_type.dart';
-import 'package:hendrix_today_app/widgets/event_list.dart';
 
 import 'package:table_calendar/table_calendar.dart';
 import 'package:provider/provider.dart';
 
 class EventCalendar extends StatefulWidget {
-  const EventCalendar({super.key});
+  const EventCalendar({super.key, required this.onSelectDay});
+  final void Function(DateTime) onSelectDay;
 
   @override
   State<EventCalendar> createState() => _EventCalendarState();
@@ -19,25 +18,18 @@ class EventCalendar extends StatefulWidget {
 //code obtained from TableCalendar repo: https://github.com/aleksanderwozniak/table_calendar
 class _EventCalendarState extends State<EventCalendar> {
   DateTime _focusedDay = DateTime.now();
-  DateTime calendarRoot = DateTime.now();
   DateTime _selectedDay = DateTime.now();
 
-  List<Event> _applyEventFilters(AppState appState, DateTime day) =>
-    appState.events
-    .where((event) =>
-      event.matchesDate(day) &&
-      !event.eventType.matchesFilter(EventTypeFilter.announcements))
-    .toList();
-
-  /// Gets the events/announcements/etc. for the given day while also applying 
-  /// relevant filters like the type filter dropdown on the app bar.
+  /// Gets the events/announcements/etc. for the given day.
   List<Event> _getEventsForDay(DateTime day) {
     final appState = Provider.of<AppState>(context, listen: false);
-    return _applyEventFilters(appState, day);
+    return appState.events.where((Event e) => e.matchesDate(day)).toList();
   }
 
+  /// Runs when a day is selected on the [TableCalendar].
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     if (!isSameDay(_selectedDay, selectedDay)) {
+      widget.onSelectDay(selectedDay);
       setState(() {
         _selectedDay = selectedDay;
         _focusedDay = focusedDay;
@@ -80,55 +72,26 @@ class _EventCalendarState extends State<EventCalendar> {
     final today = DateTime.now();
     final earliest = _getCalendarStartDate();
     final latest = _getCalendarEndDate();
-    final calendarStartDate = today.isBefore(earliest)
-      ? today
-      : earliest;
-    final calendarEndDate = today.isAfter(latest)
-      ? today
-      : latest;
+    final calendarStartDate = today.isBefore(earliest) ? today : earliest;
+    final calendarEndDate = today.isAfter(latest) ? today : latest;
 
-    return SizedBox(
-      child: Consumer<AppState>(
-        builder: (context, appState, _) {
-          return Column(
-            children: [
-              TableCalendar(
-                firstDay: calendarStartDate,
-                lastDay: calendarEndDate,
-                focusedDay: _focusedDay,
-                calendarFormat: CalendarFormat.month,
-                availableCalendarFormats: const {
-                  CalendarFormat.month: 'Month',
-                },
-                eventLoader: _getEventsForDay,
-                selectedDayPredicate: (day) {
-                  // Use `selectedDayPredicate` to determine which day is currently selected.
-                  // If this returns true, then `day` will be marked as selected.
-                  // Using `isSameDay` is recommended to disregard
-                  // the time-part of compared DateTime objects.
-                  return isSameDay(_selectedDay, day);
-                },
-                onDaySelected: _onDaySelected,
-                onPageChanged: (focusedDay) {
-                  // No need to call `setState()` here
-                  _selectedDay = DateTime(
-                      focusedDay.year, focusedDay.month, _selectedDay.day);
-                  _focusedDay = focusedDay;
-                  setState(() {});
-                },
-              ),
-              //EventList()
-              Expanded(
-                child: Consumer<AppState>(
-                  builder: (context, appState, _) => EventList(
-                    events: _applyEventFilters(appState, _selectedDay),
-                  ),
-                ),
-              ),
-            ],
-          );
-        },
-      ),
+    return TableCalendar(
+      firstDay: calendarStartDate,
+      lastDay: calendarEndDate,
+      focusedDay: _focusedDay,
+      calendarFormat: CalendarFormat.month,
+      availableCalendarFormats: const {
+        CalendarFormat.month: 'Month',
+      },
+      eventLoader: _getEventsForDay,
+      selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+      onDaySelected: _onDaySelected,
+      onPageChanged: (focusedDay) {
+        _selectedDay =
+            DateTime(focusedDay.year, focusedDay.month, _selectedDay.day);
+        _focusedDay = focusedDay;
+        setState(() {});
+      },
     );
   }
 }
