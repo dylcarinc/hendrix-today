@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:hendrix_today_app/objects/app_state.dart';
 import 'package:hendrix_today_app/objects/event.dart';
 import 'package:hendrix_today_app/widgets/event_list.dart';
+import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
 
 import 'package:provider/provider.dart';
+
+const webOrange = Color.fromARGB(255, 202, 81, 39);
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -15,42 +18,56 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  Color webOrange = const Color.fromARGB(255, 202, 81, 39);
   String searchQuery = "";
 
-  List<Event> _applySearchFilter(List<Event> events) => events
-    .where((Event e) => e.containsString(searchQuery))
-    .toList();
+  List<Event> _applySearchFilter(List<Event> events) =>
+      events.where((Event e) => e.containsString(searchQuery)).toList();
 
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
     final searchResults = _applySearchFilter(appState.events);
 
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      child: ListView(
-        key: const Key('daily_event_list'),
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              onChanged: (newQuery) => setState(() {
-                searchQuery = newQuery;
-              }),
-              decoration: const InputDecoration(
-                  labelText: 'Enter search query',
-                  labelStyle: TextStyle(color: Colors.black),
-                  focusColor: Color.fromARGB(255, 202, 81, 39),
-                  suffixIcon: Icon(Icons.search),
-                  iconColor: Colors.black),
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: webOrange,
+        title: const Text(
+          "search",
+          style: TextStyle(
+            fontFamily: 'MuseoBold',
+            fontSize: 30,
           ),
-          searchResults.isNotEmpty
-            ? EventList(events: searchResults)
-            : const _EmptySearchLabel(),
-        ],
+        ),
       ),
+      body: Center(
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: ListView(
+            key: const Key('daily_event_list'),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  onChanged: (newQuery) => setState(() {
+                    searchQuery = newQuery;
+                  }),
+                  decoration: const InputDecoration(
+                      labelText: 'Enter search query',
+                      labelStyle: TextStyle(color: Colors.black),
+                      focusColor: Color.fromARGB(255, 202, 81, 39),
+                      suffixIcon: Icon(Icons.search),
+                      iconColor: Colors.black),
+                ),
+              ),
+              searchResults.isNotEmpty
+                  ? EventList(events: searchResults)
+                  : const _EmptySearchLabel(),
+            ],
+          ),
+        ),
+      ),
+      floatingActionButton: const FloatingNavButtons(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:hendrix_today_app/objects/app_state.dart';
-import 'package:hendrix_today_app/objects/event_type.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart'
     show Timestamp;
@@ -63,34 +62,5 @@ void main() {
 
     expect(appState.events.length, 3,
       reason: "A third event was added to the mock Firestore.");
-  });
-
-  test('The default event type filter is "All"', () {
-    final auth = MockFirebaseAuth();
-    final firestore = FakeFirebaseFirestore();
-    final appState = AppState(auth, firestore);
-
-    expect(appState.eventTypeFilter, EventTypeFilter.all);
-  });
-
-  test('The event type filter can be updated via a `String?`', () {
-    final auth = MockFirebaseAuth();
-    final firestore = FakeFirebaseFirestore();
-    final appState = AppState(auth, firestore);
-
-    appState.updateEventTypeFilter("meetings");
-
-    expect(appState.eventTypeFilter, EventTypeFilter.meetings,
-      reason: "A valid event type change should update the filter");
-    
-    appState.updateEventTypeFilter("asdfalwkjfbnaervf");
-
-    expect(appState.eventTypeFilter, EventTypeFilter.meetings,
-      reason: "An invalid event type change should not update the filter");
-
-    appState.updateEventTypeFilter(null);
-
-    expect(appState.eventTypeFilter, EventTypeFilter.meetings,
-      reason: "An invalid event type change should not update the filter");
   });
 }

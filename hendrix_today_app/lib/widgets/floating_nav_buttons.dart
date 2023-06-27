@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 
-/// The navigation buttons for the app.
-///
-/// Use this in the place of a [Scaffold.floatingActionButton] and ensure that
-/// the [Scaffold.floatingActionButtonLocation] is set to
-/// [FloatingActionButtonLocation.centerFloat].
-class FloatingNavButtons extends StatelessWidget {
-  const FloatingNavButtons({super.key, required this.thisPageRoute});
-  final String thisPageRoute;
+const webOrange = Color.fromARGB(255, 202, 81, 39);
 
-  final Color webOrange = const Color.fromARGB(255, 202, 81, 39);
+class FloatingNavButtons extends StatelessWidget {
+  /// The navigation buttons for the app.
+  ///
+  /// Use this in the place of a [Scaffold.floatingActionButton] and ensure that
+  /// the [Scaffold.floatingActionButtonLocation] is set to
+  /// [FloatingActionButtonLocation.centerFloat].
+  const FloatingNavButtons({super.key});
+
+  /// Replaces the current route with [toRoute], unless it is the current route.
+  void _navigate(BuildContext context, String toRoute) {
+    final String? currentRoute = ModalRoute.of(context)?.settings.name;
+    if (currentRoute == toRoute) return;
+    Navigator.pushReplacementNamed(context, toRoute);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +27,8 @@ class FloatingNavButtons extends StatelessWidget {
             key: const Key('HomeButton'),
             margin: const EdgeInsets.all(10),
             child: FloatingActionButton.small(
-              onPressed: () => Navigator.pushReplacementNamed(
-                context,
-                '/home',
-              ),
+              heroTag: null, // See https://stackoverflow.com/q/51125024
+              onPressed: () => _navigate(context, '/home'),
               backgroundColor: webOrange,
               child: const Icon(Icons.home),
             )),
@@ -33,10 +37,8 @@ class FloatingNavButtons extends StatelessWidget {
             key: const Key('CalendarButton'),
             margin: const EdgeInsets.all(10),
             child: FloatingActionButton.small(
-              onPressed: () => Navigator.pushReplacementNamed(
-                context,
-                '/calendar',
-              ),
+              heroTag: null,
+              onPressed: () => _navigate(context, '/calendar'),
               backgroundColor: Colors.black87,
               child: const Icon(Icons.calendar_month),
             )),
@@ -45,10 +47,8 @@ class FloatingNavButtons extends StatelessWidget {
             key: const Key('SearchButton'),
             margin: const EdgeInsets.all(10),
             child: FloatingActionButton.small(
-              onPressed: () => Navigator.pushReplacementNamed(
-                context,
-                '/search',
-              ),
+              heroTag: null,
+              onPressed: () => _navigate(context, '/search'),
               backgroundColor: const Color.fromARGB(255, 162, 131, 102),
               child: const Icon(Icons.search),
             )),
@@ -56,10 +56,8 @@ class FloatingNavButtons extends StatelessWidget {
           key: const Key('ResourcesPage'),
           margin: const EdgeInsets.all(10),
           child: FloatingActionButton.small(
-            onPressed: () => Navigator.pushReplacementNamed(
-                context,
-                '/resources',
-              ),
+            heroTag: null,
+            onPressed: () => _navigate(context, '/resources'),
             backgroundColor: Colors.blueGrey,
             child: const Icon(Icons.food_bank),
           ),
