@@ -20,12 +20,37 @@ class RootApp extends StatelessWidget {
           splashColor: Colors.black),
       //Start adding here
 
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/home': return PageRouteBuilder(
+            settings: settings,
+            pageBuilder: (_, __, ___) => const HomeScreen(),
+            transitionDuration: Duration.zero,
+            reverseTransitionDuration: Duration.zero,
+          );
+          case '/calendar': return PageRouteBuilder(
+            settings: settings,
+            pageBuilder: (_, __, ___) => const CalendarScreen(),
+            transitionDuration: Duration.zero,
+            reverseTransitionDuration: Duration.zero,
+          );
+          case '/search': return PageRouteBuilder(
+            settings: settings,
+            pageBuilder: (_, __, ___) => const SearchScreen(),
+            transitionDuration: Duration.zero,
+            reverseTransitionDuration: Duration.zero,
+          );
+          case '/resources': return PageRouteBuilder(
+            settings: settings,
+            pageBuilder: (_, __, ___) => const ResourcesScreen(),
+            transitionDuration: Duration.zero,
+            reverseTransitionDuration: Duration.zero,
+          );
+          default: return null;
+        }
+      },
+
       initialRoute: '/home',
-      routes: {
-        '/home': (context) => const HomeScreen(),
-        '/calendar': (context) => const CalendarScreen(),
-        '/search': (context) => const SearchScreen(),
-        '/resources': (context) => const ResourcesScreen(),
 
         // The following legacy route code may be useful when reintroducing
         // a login system to the app:
@@ -83,7 +108,6 @@ class RootApp extends StatelessWidget {
         //     ],
         //   );
         // })
-      },
     );
   }
 }
