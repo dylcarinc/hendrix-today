@@ -38,7 +38,7 @@ class _EventCalendarState extends State<EventCalendar> {
   }
 
   /// Determines the earliest allowed date on the calendar.
-  ///
+  /// 
   /// Because [TableCalendar.focusedDay] must be within the calendar's enabled
   /// range, it finds the earliest date among the focused day and all events.
   DateTime _getCalendarStartDate() {
@@ -53,7 +53,7 @@ class _EventCalendarState extends State<EventCalendar> {
   }
 
   /// Determines the latest allowed date on the calendar.
-  ///
+  /// 
   /// Because [TableCalendar.focusedDay] must be within the calendar's enabled
   /// range, it finds the latest date among the focused day and all events.
   DateTime _getCalendarEndDate() {
