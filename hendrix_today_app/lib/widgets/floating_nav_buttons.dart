@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const webOrange = Color.fromARGB(255, 202, 81, 39);
+import 'package:hendrix_today_app/objects/theme_data.dart';
 
 class FloatingNavButtons extends StatelessWidget {
   /// The navigation buttons for the app.
@@ -29,7 +29,7 @@ class FloatingNavButtons extends StatelessWidget {
             child: FloatingActionButton.small(
               heroTag: null, // See https://stackoverflow.com/q/51125024
               onPressed: () => _navigate(context, '/home'),
-              backgroundColor: webOrange,
+              backgroundColor: Theme.of(context).colorScheme.htOrange,
               child: const Icon(Icons.home),
             )),
         // button second
@@ -39,7 +39,7 @@ class FloatingNavButtons extends StatelessWidget {
             child: FloatingActionButton.small(
               heroTag: null,
               onPressed: () => _navigate(context, '/calendar'),
-              backgroundColor: Colors.black87,
+              backgroundColor: Theme.of(context).colorScheme.htBlack,
               child: const Icon(Icons.calendar_month),
             )),
         // button third
@@ -49,7 +49,7 @@ class FloatingNavButtons extends StatelessWidget {
             child: FloatingActionButton.small(
               heroTag: null,
               onPressed: () => _navigate(context, '/search'),
-              backgroundColor: const Color.fromARGB(255, 162, 131, 102),
+              backgroundColor: Theme.of(context).colorScheme.htOrange,
               child: const Icon(Icons.search),
             )),
         Container(
@@ -58,7 +58,7 @@ class FloatingNavButtons extends StatelessWidget {
           child: FloatingActionButton.small(
             heroTag: null,
             onPressed: () => _navigate(context, '/resources'),
-            backgroundColor: Colors.blueGrey,
+            backgroundColor: Theme.of(context).colorScheme.htGray,
             child: const Icon(Icons.food_bank),
           ),
         ),

@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import 'package:hendrix_today_app/objects/theme_data.dart';
+
 import 'package:html/parser.dart'
     show parse;
 import 'package:html/dom.dart'
@@ -18,16 +20,6 @@ class _RichTextItem {
 class RichDescription extends StatelessWidget {
   const RichDescription({super.key, required this.text});
   final String text;
-
-  static TextStyle _getPlainTextStyle(BuildContext context) => TextStyle(
-    color: Colors.black,
-    fontFamily: DefaultTextStyle.of(context).style.fontFamily,
-  );
-  static TextStyle _getLinkTextStyle(BuildContext context) => TextStyle(
-    color: const Color.fromARGB(255, 202, 81, 39),
-    fontFamily: DefaultTextStyle.of(context).style.fontFamily,
-    decoration: TextDecoration.underline,
-  );
 
   /// Attempts to launch the given URL string in an external browser. Fails if 
   /// the given URL is null, cannot be parsed to a URI, or cannot be handled by 
@@ -47,11 +39,11 @@ class RichDescription extends StatelessWidget {
     return !item.isLink
       ? TextSpan(
         text: item.text,
-        style: _getPlainTextStyle(context),
+        style: Theme.of(context).textTheme.htBodyText,
       )
       : TextSpan(
         text: item.text,
-        style: _getLinkTextStyle(context),
+        style: Theme.of(context).textTheme.htBodyLink,
         // https://stackoverflow.com/a/50011168 for TextSpan onTap
         recognizer: TapGestureRecognizer()
           ..onTap = () => _tryLaunchUrl(item.link),

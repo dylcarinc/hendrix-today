@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:hendrix_today_app/objects/theme_data.dart';
 import 'package:hendrix_today_app/screens/home_screen.dart';
 import 'package:hendrix_today_app/screens/calendar_screen.dart';
 import 'package:hendrix_today_app/screens/search_screen.dart';
@@ -7,19 +8,11 @@ import 'package:hendrix_today_app/screens/resource_screen.dart';
 
 class RootApp extends StatelessWidget {
   const RootApp({super.key});
-  final Color webOrange = const Color.fromARGB(255, 202, 81, 39);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-          backgroundColor: webOrange,
-          // `ColorScheme` is the recommended fix, but it has lots of other
-          //required parameters.
-          fontFamily: 'Merriweather-Sans',
-          splashColor: Colors.black),
-      //Start adding here
-
+      theme: hendrixTodayThemeData,
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case '/home': return PageRouteBuilder(
@@ -49,7 +42,6 @@ class RootApp extends StatelessWidget {
           default: return null;
         }
       },
-
       initialRoute: '/home',
 
         // The following legacy route code may be useful when reintroducing

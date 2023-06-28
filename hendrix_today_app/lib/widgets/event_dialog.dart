@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import 'package:hendrix_today_app/objects/event.dart';
+import 'package:hendrix_today_app/objects/theme_data.dart';
 import 'package:hendrix_today_app/widgets/rich_description.dart';
 
 import 'package:share_plus/share_plus.dart';
@@ -11,12 +12,6 @@ import 'package:url_launcher/url_launcher.dart';
 class EventDialog extends StatelessWidget {
   const EventDialog({super.key, required this.event});
   final Event event;
-
-  static const TextStyle _subtitleStyle = TextStyle(
-    fontStyle: FontStyle.italic,
-    fontSize: 14,
-    fontVariations: [FontVariation('wght', 200.0)],
-  );
 
   /// Attempts to begin a draft email to the [Event] contact.
   void _tryEmailContact() async {
@@ -52,28 +47,26 @@ class EventDialog extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(event.title.toString(),
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                      style: Theme.of(context).textTheme.htEventDialogTitle),
                   const SizedBox(height: 5),
                   Text(
                     event.eventType.toString(),
-                    style: TextStyle(
-                      color: event.eventType.color(),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14
+                    style: Theme.of(context).textTheme.htBoldTextColored(
+                      event.eventType.color(),
                     ),
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    "- ${event.displayDate()}",
-                    style: _subtitleStyle,
+                    "∙ ${event.displayDate()}",
+                    style: Theme.of(context).textTheme.htEventDetails,
                   ),
                   if (event.time != null) Text(
-                    "- ${event.time!}",
-                    style: _subtitleStyle,
+                    "∙ ${event.time!}",
+                    style: Theme.of(context).textTheme.htEventDetails,
                   ),
                   if (event.location != null) Text(
-                    "- ${event.location!}",
-                    style: _subtitleStyle,
+                    "∙ ${event.location!}",
+                    style: Theme.of(context).textTheme.htEventDetails,
                   )
                 ]
               ),
@@ -85,20 +78,20 @@ class EventDialog extends StatelessWidget {
             children: [
               IconButton(
                   padding: const EdgeInsets.all(0),
-                  color: const Color.fromARGB(255, 202, 81, 39),
+                  color: Theme.of(context).colorScheme.htOrange,
                   icon: const Icon(
                     Icons.close,
                   ),
                   onPressed: () => Navigator.pop(context)),
               IconButton(
-                  color: const Color.fromARGB(255, 202, 81, 39),
+                  color: Theme.of(context).colorScheme.htOrange,
                   onPressed: () => Share.share(
                       '"${event.title}" -${event.desc}',
                       subject: 'Check out this event!'),
                   icon: const Icon(Icons.share_outlined)),
               IconButton(
                 padding: const EdgeInsets.only(right: 2.0),
-                color: const Color.fromARGB(255, 202, 91, 39),
+                color: Theme.of(context).colorScheme.htOrange,
                 onPressed: () => _tryEmailContact(),
                 icon: const Icon(Icons.mail_outlined),
               )
@@ -113,11 +106,11 @@ class EventDialog extends StatelessWidget {
           if (event.applyDeadline != null) ...[
             Text(
               "This ${event.eventType.toString()} has a deadline: ",
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.htBoldText,
             ),
             Text(
               event.displayDeadline()!,
-              style: _subtitleStyle,
+              style: Theme.of(context).textTheme.htEventDetails,
             ),
             const SizedBox(height: 5),
           ],

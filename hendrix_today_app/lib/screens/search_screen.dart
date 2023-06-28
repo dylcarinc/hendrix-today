@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 
 import 'package:hendrix_today_app/objects/app_state.dart';
 import 'package:hendrix_today_app/objects/event.dart';
+import 'package:hendrix_today_app/objects/theme_data.dart';
 import 'package:hendrix_today_app/widgets/event_list.dart';
 import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
 
 import 'package:provider/provider.dart';
-
-const webOrange = Color.fromARGB(255, 202, 81, 39);
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -30,13 +29,10 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: webOrange,
-        title: const Text(
+        backgroundColor: Theme.of(context).colorScheme.htOrange,
+        title: Text(
           "search",
-          style: TextStyle(
-            fontFamily: 'MuseoBold',
-            fontSize: 30,
-          ),
+          style: Theme.of(context).textTheme.htAppBarTitle,
         ),
       ),
       body: Center(
@@ -51,12 +47,12 @@ class _SearchScreenState extends State<SearchScreen> {
                   onChanged: (newQuery) => setState(() {
                     searchQuery = newQuery;
                   }),
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                       labelText: 'Enter search query',
-                      labelStyle: TextStyle(color: Colors.black),
-                      focusColor: Color.fromARGB(255, 202, 81, 39),
-                      suffixIcon: Icon(Icons.search),
-                      iconColor: Colors.black),
+                      labelStyle: Theme.of(context).textTheme.htSearchBarLabel,
+                      focusColor: Theme.of(context).colorScheme.htOrange,
+                      suffixIcon: const Icon(Icons.search),
+                      iconColor: Theme.of(context).colorScheme.htBlack),
                 ),
               ),
               searchResults.isNotEmpty

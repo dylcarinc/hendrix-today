@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'package:hendrix_today_app/objects/app_state.dart';
 import 'package:hendrix_today_app/objects/event_type.dart';
+import 'package:hendrix_today_app/objects/theme_data.dart';
 import 'package:hendrix_today_app/widgets/event_list.dart';
 import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
 
 import 'package:provider/provider.dart';
-
-const webOrange = Color.fromARGB(255, 202, 81, 39);
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -32,13 +31,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: webOrange,
-        title: const Text(
+        backgroundColor: Theme.of(context).colorScheme.htOrange,
+        title: Text(
           "hendrix today",
-          style: TextStyle(
-            fontFamily: 'MuseoBold',
-            fontSize: 30,
-          ),
+          style: Theme.of(context).textTheme.htAppBarTitle,
         ),
         actions: [
           _FilterDropdown(
@@ -78,10 +74,7 @@ class _FilterDropdown extends StatelessWidget {
                   value: etf,
                   child: Text(
                     etf.toString(),
-                    style: const TextStyle(
-                      fontFamily: 'Museo',
-                      fontSize: 15,
-                    ),
+                    style: Theme.of(context).textTheme.htDropdownText,
                   ),
                 ))
             .toList();
@@ -89,8 +82,7 @@ class _FilterDropdown extends StatelessWidget {
     return DropdownButtonHideUnderline(
       child: DropdownButton<EventTypeFilter>(
         value: initialValue,
-        style: const TextStyle(color: Colors.white),
-        dropdownColor: webOrange,
+        dropdownColor: Theme.of(context).colorScheme.htOrange,
         items: dropdownItems,
         onChanged: onChanged,
       ),
