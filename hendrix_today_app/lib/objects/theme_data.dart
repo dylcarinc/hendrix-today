@@ -5,10 +5,10 @@ final ThemeData hendrixTodayThemeData = ThemeData(
 );
 
 extension HendrixTodayColorScheme on ColorScheme {
-  Color get htOrange => const Color(0xFFCA5127);
-  Color get htBlack => const Color(0xFF000000);
-  Color get htGray => const Color(0xFF808080);
-  Color get htBackground => const Color(0xFFFFFFFF);
+  Color get htOrange => const Color.fromARGB(255, 202, 81, 39);
+  Color get htBlack => const Color.fromARGB(255, 0, 0, 0);
+  Color get htGray => const Color.fromARGB(255, 128, 128, 128);
+  Color get htBackground => const Color.fromARGB(255, 255, 255, 255);
 }
 
 extension HendrixTodayTextTheme on TextTheme {
@@ -59,9 +59,11 @@ extension HendrixTodayTextTheme on TextTheme {
   );
   TextStyle get htBodyText => const TextStyle(
     color: Colors.black,
+    fontFamily: 'Merriweather-Sans',
   );
   TextStyle get htBodyLink => const TextStyle(
     color: Color.fromARGB(255, 202, 81, 39),
+    fontFamily: 'Merriweather-Sans',
     decoration: TextDecoration.underline,
   );
 
