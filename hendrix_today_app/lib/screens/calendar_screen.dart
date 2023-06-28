@@ -4,8 +4,11 @@ import 'package:hendrix_today_app/objects/app_state.dart';
 import 'package:hendrix_today_app/objects/event.dart';
 import 'package:hendrix_today_app/widgets/event_calendar.dart';
 import 'package:hendrix_today_app/widgets/event_list.dart';
+import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
 
 import 'package:provider/provider.dart';
+
+const webOrange = Color.fromARGB(255, 202, 81, 39);
 
 //creates calendar page in app
 class CalendarScreen extends StatefulWidget {
@@ -31,13 +34,27 @@ class _CalendarScreenState extends State<CalendarScreen> {
         .where((Event e) => e.matchesDate(_selectedDay))
         .toList();
 
-    return Column(
-      children: [
-        EventCalendar(onSelectDay: _updateSelectedDay),
-        Expanded(
-          child: EventList(events: eventList),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: webOrange,
+        title: const Text(
+          "calendar",
+          style: TextStyle(
+            fontFamily: 'MuseoBold',
+            fontSize: 30,
+          ),
         ),
-      ],
+      ),
+      body: Column(
+        children: [
+          EventCalendar(onSelectDay: _updateSelectedDay),
+          Expanded(
+            child: EventList(events: eventList),
+          ),
+        ],
+      ),
+      floatingActionButton: const FloatingNavButtons(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

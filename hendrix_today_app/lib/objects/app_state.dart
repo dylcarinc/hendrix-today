@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:hendrix_today_app/objects/event.dart';
-import 'package:hendrix_today_app/objects/event_type.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,18 +9,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AppState extends ChangeNotifier {
   List<Event> _events = [];
   List<Event> get events => _events;
-  EventTypeFilter _eventTypeFilter = EventTypeFilter.all;
-  EventTypeFilter get eventTypeFilter => _eventTypeFilter;
-
-  /// Given a potential string representation of an [EventTypeFilter], update 
-  /// the filter and notify listeners only if the string representation is 
-  /// valid.
-  void updateEventTypeFilter(String? choice) {
-    final EventTypeFilter? newFilter = EventTypeFilter.fromString(choice);
-    if (newFilter == null) return;
-    _eventTypeFilter = newFilter;
-    notifyListeners();
-  }
 
   AppState(this.auth, this.firestore) {
     init();
