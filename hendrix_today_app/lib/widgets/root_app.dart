@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:hendrix_today_app/objects/theme_data.dart';
 import 'package:hendrix_today_app/screens/home_screen.dart';
 import 'package:hendrix_today_app/screens/calendar_screen.dart';
 import 'package:hendrix_today_app/screens/search_screen.dart';
@@ -12,14 +13,7 @@ class RootApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-          backgroundColor: webOrange,
-          // `ColorScheme` is the recommended fix, but it has lots of other
-          //required parameters.
-          fontFamily: 'Merriweather-Sans',
-          splashColor: Colors.black),
-      //Start adding here
-
+      theme: hendrixTodayThemeData,
       initialRoute: '/home',
       routes: {
         '/home': (context) => const HomeScreen(),

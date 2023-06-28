@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+
+import 'package:hendrix_today_app/objects/theme_data.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
 _launchURL(String url) async {
@@ -39,8 +42,7 @@ class ResourceButton extends StatelessWidget {
               minVerticalPadding: 10.0,
               title: Text(
                 titleString,
-                style: const TextStyle(
-                    fontSize: 30, color: Colors.white, fontFamily: "MuseoBold"),
+                style: Theme.of(context).textTheme.htResourceButton,
                 textAlign: TextAlign.center,
               ),
               leading: Icon(icon, size: 60, color: Colors.white),

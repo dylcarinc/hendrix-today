@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'package:hendrix_today_app/objects/theme_data.dart';
 import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
 import 'package:hendrix_today_app/widgets/resource_button.dart';
 
@@ -29,12 +31,9 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: webOrange,
-        title: const Text(
+        title: Text(
           "resources",
-          style: TextStyle(
-            fontFamily: 'MuseoBold',
-            fontSize: 30,
-          ),
+          style: Theme.of(context).textTheme.htAppBarTitle,
         ),
       ),
       body: Center(
