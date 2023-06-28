@@ -29,7 +29,7 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
 
     return Center(
         child: Column(children: <Widget>[
-      const SizedBox(height: 100),
+      const SizedBox(height: 80),
       const ResourceButton(
           titleString: "submit new event",
           icon: Icons.add,
@@ -48,6 +48,12 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
           icon: Icons.phone,
           color: Color.fromARGB(255, 202, 81, 39),
           url: "tel:+5014507711"),
+      const SizedBox(height: 30),
+      const ResourceButton(
+          titleString: "campus map",
+          icon: Icons.map,
+          color: Colors.grey,
+          url: "https://www.hendrix.edu/campusmap/"),
     ]));
   }
 }
