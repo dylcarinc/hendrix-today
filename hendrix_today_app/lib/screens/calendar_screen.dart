@@ -9,8 +9,6 @@ import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
 
 import 'package:provider/provider.dart';
 
-const webOrange = Color.fromARGB(255, 202, 81, 39);
-
 //creates calendar page in app
 class CalendarScreen extends StatefulWidget {
   const CalendarScreen({super.key});
@@ -37,7 +35,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: webOrange,
+        backgroundColor: Theme.of(context).colorScheme.htOrange,
         title: Text(
           "calendar",
           style: Theme.of(context).textTheme.htAppBarTitle,

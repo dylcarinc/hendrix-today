@@ -4,6 +4,13 @@ final ThemeData hendrixTodayThemeData = ThemeData(
   fontFamily: 'Merriweather-Sans',
 );
 
+extension HendrixTodayColorScheme on ColorScheme {
+  Color get htOrange => const Color(0xFFCA5127);
+  Color get htBlack => const Color(0xFF000000);
+  Color get htGray => const Color(0xFF808080);
+  Color get htBackground => const Color(0xFFFFFFFF);
+}
+
 extension HendrixTodayTextTheme on TextTheme {
   TextStyle get htAppBarTitle => const TextStyle(
     color: Colors.white,

@@ -8,7 +8,6 @@ import 'package:hendrix_today_app/screens/resource_screen.dart';
 
 class RootApp extends StatelessWidget {
   const RootApp({super.key});
-  final Color webOrange = const Color.fromARGB(255, 202, 81, 39);
 
   @override
   Widget build(BuildContext context) {

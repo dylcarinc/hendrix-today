@@ -9,8 +9,6 @@ import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
 
 import 'package:provider/provider.dart';
 
-const webOrange = Color.fromARGB(255, 202, 81, 39);
-
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
 
@@ -31,7 +29,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: webOrange,
+        backgroundColor: Theme.of(context).colorScheme.htOrange,
         title: Text(
           "search",
           style: Theme.of(context).textTheme.htAppBarTitle,
@@ -52,9 +50,9 @@ class _SearchScreenState extends State<SearchScreen> {
                   decoration: InputDecoration(
                       labelText: 'Enter search query',
                       labelStyle: Theme.of(context).textTheme.htSearchBarLabel,
-                      focusColor: const Color.fromARGB(255, 202, 81, 39),
+                      focusColor: Theme.of(context).colorScheme.htOrange,
                       suffixIcon: const Icon(Icons.search),
-                      iconColor: Colors.black),
+                      iconColor: Theme.of(context).colorScheme.htBlack),
                 ),
               ),
               searchResults.isNotEmpty

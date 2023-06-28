@@ -4,8 +4,6 @@ import 'package:hendrix_today_app/objects/theme_data.dart';
 import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
 import 'package:hendrix_today_app/widgets/resource_button.dart';
 
-const webOrange = Color.fromARGB(255, 202, 81, 39);
-
 class ResourcesScreen extends StatefulWidget {
   const ResourcesScreen({super.key});
 
@@ -30,7 +28,7 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: webOrange,
+        backgroundColor: Theme.of(context).colorScheme.htOrange,
         title: Text(
           "resources",
           style: Theme.of(context).textTheme.htAppBarTitle,
@@ -40,29 +38,29 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
         child: Column(
           children: <Widget>[
             const SizedBox(height: 80),
-            const ResourceButton(
+            ResourceButton(
                 titleString: "submit new event",
                 icon: Icons.add,
-                color: Color.fromARGB(255, 202, 81, 39),
+                color: Theme.of(context).colorScheme.htOrange,
                 url:
                     'https://forms.office.com/Pages/ResponsePage.aspx?id=jMH2DNLQP0qD0GY9Ygpj020T9lhtzfhCi8WBPrgNg0xURFZXMEEyUzUwR0lNSzZTTDdWWEQwOERSWiQlQCN0PWcu'),
             const SizedBox(height: 30),
             ResourceButton(
                 titleString: "caf menu today",
                 icon: Icons.food_bank,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.htBlack,
                 url: menuLink),
             const SizedBox(height: 30),
-            const ResourceButton(
+            ResourceButton(
                 titleString: "public safety",
                 icon: Icons.phone,
-                color: Color.fromARGB(255, 202, 81, 39),
+                color: Theme.of(context).colorScheme.htOrange,
                 url: "tel:+5014507711"),
             const SizedBox(height: 30),
-            const ResourceButton(
+            ResourceButton(
                 titleString: "campus map",
                 icon: Icons.map,
-                color: Colors.grey,
+                color: Theme.of(context).colorScheme.htGray,
                 url: "https://www.hendrix.edu/campusmap/"),
           ],
         ),

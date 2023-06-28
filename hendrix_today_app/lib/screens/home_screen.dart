@@ -8,8 +8,6 @@ import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
 
 import 'package:provider/provider.dart';
 
-const webOrange = Color.fromARGB(255, 202, 81, 39);
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -33,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: webOrange,
+        backgroundColor: Theme.of(context).colorScheme.htOrange,
         title: Text(
           "hendrix today",
           style: Theme.of(context).textTheme.htAppBarTitle,
@@ -84,7 +82,7 @@ class _FilterDropdown extends StatelessWidget {
     return DropdownButtonHideUnderline(
       child: DropdownButton<EventTypeFilter>(
         value: initialValue,
-        dropdownColor: webOrange,
+        dropdownColor: Theme.of(context).colorScheme.htOrange,
         items: dropdownItems,
         onChanged: onChanged,
       ),

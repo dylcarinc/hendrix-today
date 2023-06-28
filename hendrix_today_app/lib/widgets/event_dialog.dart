@@ -78,20 +78,20 @@ class EventDialog extends StatelessWidget {
             children: [
               IconButton(
                   padding: const EdgeInsets.all(0),
-                  color: const Color.fromARGB(255, 202, 81, 39),
+                  color: Theme.of(context).colorScheme.htOrange,
                   icon: const Icon(
                     Icons.close,
                   ),
                   onPressed: () => Navigator.pop(context)),
               IconButton(
-                  color: const Color.fromARGB(255, 202, 81, 39),
+                  color: Theme.of(context).colorScheme.htOrange,
                   onPressed: () => Share.share(
                       '"${event.title}" -${event.desc}',
                       subject: 'Check out this event!'),
                   icon: const Icon(Icons.share_outlined)),
               IconButton(
                 padding: const EdgeInsets.only(right: 2.0),
-                color: const Color.fromARGB(255, 202, 91, 39),
+                color: Theme.of(context).colorScheme.htOrange,
                 onPressed: () => _tryEmailContact(),
                 icon: const Icon(Icons.mail_outlined),
               )
