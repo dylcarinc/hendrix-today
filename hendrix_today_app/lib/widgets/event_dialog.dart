@@ -1,9 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 import 'package:hendrix_today_app/objects/event.dart';
-import 'package:hendrix_today_app/objects/theme_data.dart';
 import 'package:hendrix_today_app/widgets/rich_description.dart';
 
 import 'package:share_plus/share_plus.dart';
@@ -47,26 +44,26 @@ class EventDialog extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(event.title.toString(),
-                      style: Theme.of(context).textTheme.htEventDialogTitle),
+                      style: Theme.of(context).textTheme.headlineLarge),
                   const SizedBox(height: 5),
                   Text(
                     event.eventType.toString(),
-                    style: Theme.of(context).textTheme.htBoldTextColored(
-                      event.eventType.color(),
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      color: event.eventType.color(),
                     ),
                   ),
                   const SizedBox(height: 5),
                   Text(
                     "∙ ${event.displayDate()}",
-                    style: Theme.of(context).textTheme.htEventDetails,
+                    style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   if (event.time != null) Text(
                     "∙ ${event.time!}",
-                    style: Theme.of(context).textTheme.htEventDetails,
+                    style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   if (event.location != null) Text(
                     "∙ ${event.location!}",
-                    style: Theme.of(context).textTheme.htEventDetails,
+                    style: Theme.of(context).textTheme.headlineSmall,
                   )
                 ]
               ),
@@ -78,20 +75,20 @@ class EventDialog extends StatelessWidget {
             children: [
               IconButton(
                   padding: const EdgeInsets.all(0),
-                  color: Theme.of(context).colorScheme.htOrange,
+                  color: Theme.of(context).colorScheme.primary,
                   icon: const Icon(
                     Icons.close,
                   ),
                   onPressed: () => Navigator.pop(context)),
               IconButton(
-                  color: Theme.of(context).colorScheme.htOrange,
+                  color: Theme.of(context).colorScheme.primary,
                   onPressed: () => Share.share(
                       '"${event.title}" -${event.desc}',
                       subject: 'Check out this event!'),
                   icon: const Icon(Icons.share_outlined)),
               IconButton(
                 padding: const EdgeInsets.only(right: 2.0),
-                color: Theme.of(context).colorScheme.htOrange,
+                color: Theme.of(context).colorScheme.primary,
                 onPressed: () => _tryEmailContact(),
                 icon: const Icon(Icons.mail_outlined),
               )
@@ -106,11 +103,11 @@ class EventDialog extends StatelessWidget {
           if (event.applyDeadline != null) ...[
             Text(
               "This ${event.eventType.toString()} has a deadline: ",
-              style: Theme.of(context).textTheme.htBoldText,
+              style: Theme.of(context).textTheme.labelMedium,
             ),
             Text(
               event.displayDeadline()!,
-              style: Theme.of(context).textTheme.htEventDetails,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 5),
           ],

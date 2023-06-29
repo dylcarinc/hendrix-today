@@ -1,8 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import 'package:hendrix_today_app/objects/theme_data.dart';
-
 import 'package:html/parser.dart'
     show parse;
 import 'package:html/dom.dart'
@@ -39,11 +37,11 @@ class RichDescription extends StatelessWidget {
     return !item.isLink
       ? TextSpan(
         text: item.text,
-        style: Theme.of(context).textTheme.htBodyText,
+        style: Theme.of(context).textTheme.bodySmall,
       )
       : TextSpan(
         text: item.text,
-        style: Theme.of(context).textTheme.htBodyLink,
+        style: Theme.of(context).textTheme.labelSmall,
         // https://stackoverflow.com/a/50011168 for TextSpan onTap
         recognizer: TapGestureRecognizer()
           ..onTap = () => _tryLaunchUrl(item.link),

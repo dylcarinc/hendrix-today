@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:hendrix_today_app/objects/app_state.dart';
 import 'package:hendrix_today_app/objects/event_type.dart';
-import 'package:hendrix_today_app/objects/theme_data.dart';
 import 'package:hendrix_today_app/widgets/event_list.dart';
 import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
 
@@ -31,10 +30,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.htOrange,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
           "hendrix today",
-          style: Theme.of(context).textTheme.htAppBarTitle,
+          style: Theme.of(context).textTheme.displayLarge,
         ),
         actions: [
           _FilterDropdown(
@@ -74,7 +73,7 @@ class _FilterDropdown extends StatelessWidget {
                   value: etf,
                   child: Text(
                     etf.toString(),
-                    style: Theme.of(context).textTheme.htDropdownText,
+                    style: Theme.of(context).textTheme.labelLarge,
                   ),
                 ))
             .toList();
@@ -82,7 +81,7 @@ class _FilterDropdown extends StatelessWidget {
     return DropdownButtonHideUnderline(
       child: DropdownButton<EventTypeFilter>(
         value: initialValue,
-        dropdownColor: Theme.of(context).colorScheme.htOrange,
+        dropdownColor: Theme.of(context).colorScheme.primary,
         items: dropdownItems,
         onChanged: onChanged,
       ),

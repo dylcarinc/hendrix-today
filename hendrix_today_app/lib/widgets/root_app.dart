@@ -12,7 +12,7 @@ class RootApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: hendrixTodayThemeData,
+      theme: hendrixTodayLightMode,
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case '/home': return PageRouteBuilder(

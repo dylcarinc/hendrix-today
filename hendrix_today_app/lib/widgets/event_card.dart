@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:hendrix_today_app/objects/event.dart';
-import 'package:hendrix_today_app/objects/theme_data.dart';
 import 'package:hendrix_today_app/widgets/event_dialog.dart';
 
 class EventCard extends StatelessWidget {
@@ -39,10 +38,10 @@ class EventCard extends StatelessWidget {
         ),
         child: ListTile(
           title: Text(event.title.toString(),
-              style: Theme.of(context).textTheme.htEventCardTitle),
+              style: Theme.of(context).textTheme.headlineMedium),
           subtitle: Text(
             event.displayDate(),
-            style: Theme.of(context).textTheme.htEventDetails,
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
           onTap: () {
             showDialog(
