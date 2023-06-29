@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:hendrix_today_app/widgets/root_app.dart';
+
 class FloatingNavButtons extends StatelessWidget {
   /// The navigation buttons for the app.
   ///
@@ -17,6 +19,7 @@ class FloatingNavButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final themeState = Provider.of<ThemeState>(context, listen: false);
     return Wrap(
       direction: Axis.horizontal,
       children: [
@@ -58,6 +61,16 @@ class FloatingNavButtons extends StatelessWidget {
             onPressed: () => _navigate(context, '/resources'),
             backgroundColor: Theme.of(context).colorScheme.tertiary,
             child: const Icon(Icons.food_bank),
+          ),
+        ),
+        Container(
+          key: const Key('DarkModeSwitch'),
+          margin: const EdgeInsets.all(10),
+          child: FloatingActionButton.small(
+            heroTag: null,
+            onPressed: () => RootApp.of(context).toggleThemeMode(),
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            child: const Icon(Icons.brightness_4_outlined),
           ),
         ),
       ],
