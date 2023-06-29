@@ -21,19 +21,21 @@ class _RootAppState extends State<RootApp> {
   ThemeMode _themeMode = ThemeMode.system;
 
   void toggleThemeMode() {
-    switch (_themeMode) {
-      case ThemeMode.dark:
-        _themeMode = ThemeMode.light;
-        return;
-      case ThemeMode.light:
-        _themeMode = ThemeMode.dark;
-        return;
-      case ThemeMode.system:
-        final brightness = MediaQuery.of(context).platformBrightness;
-        _themeMode =
-            brightness == Brightness.dark ? ThemeMode.light : ThemeMode.dark;
-        return;
-    }
+    setState(() {
+      switch (_themeMode) {
+        case ThemeMode.dark:
+          _themeMode = ThemeMode.light;
+          break;
+        case ThemeMode.light:
+          _themeMode = ThemeMode.dark;
+          break;
+        case ThemeMode.system:
+          final brightness = MediaQuery.of(context).platformBrightness;
+          _themeMode =
+              brightness == Brightness.dark ? ThemeMode.light : ThemeMode.dark;
+          break;
+      }
+    });
   }
 
   @override

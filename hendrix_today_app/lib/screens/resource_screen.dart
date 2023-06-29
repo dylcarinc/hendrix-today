@@ -47,7 +47,7 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
             ResourceButton(
                 titleString: "caf menu today",
                 icon: Icons.food_bank,
-                color: Theme.of(context).colorScheme.secondary,
+                color: Theme.of(context).colorScheme.tertiary,
                 url: menuLink),
             const SizedBox(height: 30),
             ResourceButton(

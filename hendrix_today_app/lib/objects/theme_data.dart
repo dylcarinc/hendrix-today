@@ -92,7 +92,7 @@ final ThemeData hendrixTodayDarkMode = ThemeData(
 
   textTheme: const TextTheme(
     displayLarge: TextStyle( // app bar title, resource button
-      color: Colors.black,
+      color: Colors.white,
       fontFamily: 'MuseoBold',
       fontSize: 30,
     ),

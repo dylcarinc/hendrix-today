@@ -76,9 +76,7 @@ class EventDialog extends StatelessWidget {
               IconButton(
                   padding: const EdgeInsets.all(0),
                   color: Theme.of(context).colorScheme.primary,
-                  icon: const Icon(
-                    Icons.close,
-                  ),
+                  icon: const Icon(Icons.close),
                   onPressed: () => Navigator.pop(context)),
               IconButton(
                   color: Theme.of(context).colorScheme.primary,

@@ -40,7 +40,7 @@ class FloatingNavButtons extends StatelessWidget {
             child: FloatingActionButton.small(
               heroTag: null,
               onPressed: () => _navigate(context, '/calendar'),
-              backgroundColor: Theme.of(context).colorScheme.secondary,
+              backgroundColor: Theme.of(context).colorScheme.tertiary,
               child: const Icon(Icons.calendar_month),
             )),
         // button third
