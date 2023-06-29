@@ -64,6 +64,10 @@ final ThemeData hendrixTodayLightMode = ThemeData(
       fontSize: 14,
     ),
   ),
+
+  iconTheme: const IconThemeData(
+    color: Colors.white,
+  ),
 );
 
 final ThemeData hendrixTodayDarkMode = ThemeData(
@@ -76,41 +80,45 @@ final ThemeData hendrixTodayDarkMode = ThemeData(
     onPrimary: Colors.white,
     secondary: Colors.white,
     onSecondary: Colors.black,
-    tertiary: Color.fromARGB(255, 128, 128, 128),
+    tertiary: Color.fromARGB(255, 160, 160, 160),
     onTertiary: Colors.white,
     background: Color.fromARGB(255, 36, 36, 36),
     onBackground: Colors.white,
     error: Color.fromARGB(255, 255, 170, 170),
-    onError: Color.fromARGB(255, 255, 100, 100),
+    onError: Color.fromARGB(255, 137, 0, 0),
     surface: Color.fromARGB(255, 36, 36, 36),
-    onSurface: Color.fromARGB(255, 128, 128, 128),
+    onSurface: Color.fromARGB(255, 160, 160, 160),
   ),
 
   textTheme: const TextTheme(
     displayLarge: TextStyle( // app bar title, resource button
+      color: Colors.black,
       fontFamily: 'MuseoBold',
       fontSize: 30,
     ),
     headlineLarge: TextStyle( // event dialog title
+      color: Colors.white,
       fontWeight: FontWeight.bold,
       fontSize: 20,
     ),
     headlineMedium: TextStyle( // event card title
+      color: Colors.white,
       fontWeight: FontWeight.w600,
       fontSize: 16,
     ),
     headlineSmall: TextStyle( // dates and event details
-      color: Color.fromARGB(255, 128, 128, 128),
+      color: Color.fromARGB(255, 160, 160, 160),
       fontStyle: FontStyle.italic,
       fontWeight: FontWeight.w200,
       fontSize: 14,
     ),
     bodySmall: TextStyle( // body text
+      color: Colors.white,
       fontFamily: 'Merriweather-Sans',
       fontSize: 14,
     ),
     labelLarge: TextStyle( // dropdown text, search bar label
-      // color: Colors.white,
+      color: Colors.white,
       fontFamily: 'Museo',
       fontSize: 15,
     ),
@@ -125,5 +133,9 @@ final ThemeData hendrixTodayDarkMode = ThemeData(
       letterSpacing: 0,
       fontSize: 14,
     ),
+  ),
+
+  iconTheme: const IconThemeData(
+    color: Colors.black,
   ),
 );

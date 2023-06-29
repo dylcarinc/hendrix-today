@@ -43,7 +43,8 @@ class ResourceButton extends StatelessWidget {
                 style: Theme.of(context).textTheme.displayLarge,
                 textAlign: TextAlign.center,
               ),
-              leading: Icon(icon, size: 60, color: Colors.white),
+              leading: Icon(icon,
+                  size: 60, color: Theme.of(context).iconTheme.color),
               onTap: () => _launchURL(url),
             )));
   }
