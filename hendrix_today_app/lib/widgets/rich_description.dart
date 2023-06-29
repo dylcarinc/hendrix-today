@@ -19,16 +19,6 @@ class RichDescription extends StatelessWidget {
   const RichDescription({super.key, required this.text});
   final String text;
 
-  static TextStyle _getPlainTextStyle(BuildContext context) => TextStyle(
-    color: Colors.black,
-    fontFamily: DefaultTextStyle.of(context).style.fontFamily,
-  );
-  static TextStyle _getLinkTextStyle(BuildContext context) => TextStyle(
-    color: const Color.fromARGB(255, 202, 81, 39),
-    fontFamily: DefaultTextStyle.of(context).style.fontFamily,
-    decoration: TextDecoration.underline,
-  );
-
   /// Attempts to launch the given URL string in an external browser. Fails if 
   /// the given URL is null, cannot be parsed to a URI, or cannot be handled by 
   /// the device.
@@ -47,11 +37,11 @@ class RichDescription extends StatelessWidget {
     return !item.isLink
       ? TextSpan(
         text: item.text,
-        style: _getPlainTextStyle(context),
+        style: Theme.of(context).textTheme.bodySmall,
       )
       : TextSpan(
         text: item.text,
-        style: _getLinkTextStyle(context),
+        style: Theme.of(context).textTheme.labelSmall,
         // https://stackoverflow.com/a/50011168 for TextSpan onTap
         recognizer: TapGestureRecognizer()
           ..onTap = () => _tryLaunchUrl(item.link),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
 _launchURL(String url) async {
@@ -39,11 +40,11 @@ class ResourceButton extends StatelessWidget {
               minVerticalPadding: 10.0,
               title: Text(
                 titleString,
-                style: const TextStyle(
-                    fontSize: 30, color: Colors.white, fontFamily: "MuseoBold"),
+                style: Theme.of(context).textTheme.displayLarge,
                 textAlign: TextAlign.center,
               ),
-              leading: Icon(icon, size: 60, color: Colors.white),
+              leading: Icon(icon,
+                  size: 60, color: Theme.of(context).iconTheme.color),
               onTap: () => _launchURL(url),
             )));
   }

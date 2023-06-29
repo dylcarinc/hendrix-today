@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart'
-    show Color;
+import 'package:flutter/material.dart';
 
 enum EventType {
   event,
@@ -54,11 +53,11 @@ enum EventType {
     }
   }
 
-  Color color() {
+  Color color(BuildContext context) {
     switch (this) {
-      case event: return const Color.fromARGB(255, 202, 81, 39);
-      case announcement: return const Color.fromARGB(255, 0, 0, 0);
-      case meeting: return const Color.fromARGB(255, 128, 128, 128);
+      case event: return Theme.of(context).colorScheme.primary;
+      case announcement: return Theme.of(context).colorScheme.secondary;
+      case meeting: return Theme.of(context).colorScheme.tertiary;
     }
   }
 }

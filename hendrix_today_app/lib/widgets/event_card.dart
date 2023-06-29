@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 import 'package:hendrix_today_app/objects/event.dart';
@@ -34,18 +32,16 @@ class EventCard extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border(
             left: BorderSide(
-                color: event.eventType.color(),
+                color: event.eventType.color(context),
                 width: 10), // this color should come from the style
           ),
         ),
         child: ListTile(
           title: Text(event.title.toString(),
-              style: const TextStyle(
-                fontVariations: [FontVariation('wght', 600.0)],
-              )),
+              style: Theme.of(context).textTheme.headlineMedium),
           subtitle: Text(
             event.displayDate(),
-            style: const TextStyle(fontStyle: FontStyle.italic),
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
           onTap: () {
             showDialog(
