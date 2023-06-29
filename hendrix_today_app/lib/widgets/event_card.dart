@@ -32,7 +32,7 @@ class EventCard extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border(
             left: BorderSide(
-                color: event.eventType.color(),
+                color: event.eventType.color(context),
                 width: 10), // this color should come from the style
           ),
         ),

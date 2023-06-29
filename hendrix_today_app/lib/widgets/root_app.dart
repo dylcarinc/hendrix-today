@@ -13,6 +13,8 @@ class RootApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: hendrixTodayLightMode,
+      darkTheme: hendrixTodayDarkMode,
+      themeMode: ThemeMode.system,
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case '/home': return PageRouteBuilder(

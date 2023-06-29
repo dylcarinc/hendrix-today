@@ -32,7 +32,7 @@ class EventDialog extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border(
               left: BorderSide(
-                  color: event.eventType.color(),
+                  color: event.eventType.color(context),
                   width: 16),
             ),
           ),
@@ -49,7 +49,7 @@ class EventDialog extends StatelessWidget {
                   Text(
                     event.eventType.toString(),
                     style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      color: event.eventType.color(),
+                      color: event.eventType.color(context),
                     ),
                   ),
                   const SizedBox(height: 5),
