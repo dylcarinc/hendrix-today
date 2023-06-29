@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'package:hendrix_today_app/objects/app_state.dart';
 import 'package:hendrix_today_app/objects/event.dart';
-import 'package:hendrix_today_app/objects/theme_data.dart';
 import 'package:hendrix_today_app/widgets/event_list.dart';
 import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
 
@@ -29,10 +28,10 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.htOrange,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
           "search",
-          style: Theme.of(context).textTheme.htAppBarTitle,
+          style: Theme.of(context).textTheme.displayLarge,
         ),
       ),
       body: Center(
@@ -49,10 +48,14 @@ class _SearchScreenState extends State<SearchScreen> {
                   }),
                   decoration: InputDecoration(
                       labelText: 'Enter search query',
-                      labelStyle: Theme.of(context).textTheme.htSearchBarLabel,
-                      focusColor: Theme.of(context).colorScheme.htOrange,
+                      labelStyle: Theme.of(context)
+                          .textTheme
+                          .labelLarge
+                          ?.copyWith(
+                              color: Theme.of(context).colorScheme.tertiary),
+                      focusColor: Theme.of(context).colorScheme.primary,
                       suffixIcon: const Icon(Icons.search),
-                      iconColor: Theme.of(context).colorScheme.htBlack),
+                      iconColor: Theme.of(context).colorScheme.secondary),
                 ),
               ),
               searchResults.isNotEmpty

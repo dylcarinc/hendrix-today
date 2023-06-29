@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:hendrix_today_app/objects/theme_data.dart';
-
 import 'package:url_launcher/url_launcher.dart';
 
 _launchURL(String url) async {
@@ -42,10 +40,11 @@ class ResourceButton extends StatelessWidget {
               minVerticalPadding: 10.0,
               title: Text(
                 titleString,
-                style: Theme.of(context).textTheme.htResourceButton,
+                style: Theme.of(context).textTheme.displayLarge,
                 textAlign: TextAlign.center,
               ),
-              leading: Icon(icon, size: 60, color: Colors.white),
+              leading: Icon(icon,
+                  size: 60, color: Theme.of(context).iconTheme.color),
               onTap: () => _launchURL(url),
             )));
   }

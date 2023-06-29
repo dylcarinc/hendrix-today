@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:hendrix_today_app/objects/theme_data.dart';
 import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
 import 'package:hendrix_today_app/widgets/resource_button.dart';
 
@@ -28,10 +27,10 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.htOrange,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
           "resources",
-          style: Theme.of(context).textTheme.htAppBarTitle,
+          style: Theme.of(context).textTheme.displayLarge,
         ),
       ),
       body: Center(
@@ -41,26 +40,26 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
             ResourceButton(
                 titleString: "submit new event",
                 icon: Icons.add,
-                color: Theme.of(context).colorScheme.htOrange,
+                color: Theme.of(context).colorScheme.primary,
                 url:
                     'https://forms.office.com/Pages/ResponsePage.aspx?id=jMH2DNLQP0qD0GY9Ygpj020T9lhtzfhCi8WBPrgNg0xURFZXMEEyUzUwR0lNSzZTTDdWWEQwOERSWiQlQCN0PWcu'),
             const SizedBox(height: 30),
             ResourceButton(
                 titleString: "caf menu today",
                 icon: Icons.food_bank,
-                color: Theme.of(context).colorScheme.htBlack,
+                color: Theme.of(context).colorScheme.tertiary,
                 url: menuLink),
             const SizedBox(height: 30),
             ResourceButton(
                 titleString: "public safety",
                 icon: Icons.phone,
-                color: Theme.of(context).colorScheme.htOrange,
+                color: Theme.of(context).colorScheme.primary,
                 url: "tel:+5014507711"),
             const SizedBox(height: 30),
             ResourceButton(
                 titleString: "campus map",
                 icon: Icons.map,
-                color: Theme.of(context).colorScheme.htGray,
+                color: Theme.of(context).colorScheme.tertiary,
                 url: "https://www.hendrix.edu/campusmap/"),
           ],
         ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:hendrix_today_app/objects/app_state.dart';
 import 'package:hendrix_today_app/objects/event.dart';
-import 'package:hendrix_today_app/objects/theme_data.dart';
 import 'package:hendrix_today_app/widgets/event_calendar.dart';
 import 'package:hendrix_today_app/widgets/event_list.dart';
 import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
@@ -35,10 +34,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.htOrange,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
           "calendar",
-          style: Theme.of(context).textTheme.htAppBarTitle,
+          style: Theme.of(context).textTheme.displayLarge,
         ),
       ),
       body: Column(
