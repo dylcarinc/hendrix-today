@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hendrix_today_app/objects/event.dart';
 import 'package:hendrix_today_app/objects/event_type.dart';
 import 'package:hendrix_today_app/widgets/event_dialog.dart';
+import 'package:hendrix_today_app/widgets/rich_description.dart';
 
 void main() {
   testWidgets('Event dialogs display event information', (widgetTester) async {
@@ -32,13 +33,13 @@ void main() {
 
     expect(find.text('Test Title'), findsOneWidget,
         reason: 'The event title should be visible');
-    expect(find.text('Test description.'), findsOneWidget,
+    expect(find.byType(RichDescription), findsOneWidget,
         reason: 'The event description should be visible');
-    expect(find.text('12:30 PM'), findsOneWidget,
+    expect(find.text('∙ 12:30 PM'), findsOneWidget,
         reason: 'The event time should be visible');
-    expect(find.text('123 Main St.'), findsOneWidget,
+    expect(find.text('∙ 123 Main St.'), findsOneWidget,
         reason: 'The event location should be visible');
-    expect(find.text('1234'), findsOneWidget,
+    expect(find.text('Sat, May 6, 1234'), findsOneWidget,
         reason: 'The event deadline should be visible');
   });
 }

@@ -54,7 +54,7 @@ class FloatingNavButtons extends StatelessWidget {
               child: const Icon(Icons.search),
             )),
         Container(
-          key: const Key('ResourcesPage'),
+          key: const Key('ResourcesButton'),
           margin: const EdgeInsets.all(10),
           child: FloatingActionButton.small(
             heroTag: null,
