@@ -79,6 +79,7 @@ class _FilterDropdown extends StatelessWidget {
             .toList();
 
     return DropdownButtonHideUnderline(
+      key: const Key('EventTypeFilterDropdown'),
       child: DropdownButton<EventTypeFilter>(
         value: initialValue,
         dropdownColor: Theme.of(context).colorScheme.primary,

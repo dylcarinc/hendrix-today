@@ -1,12 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart'
-    show Timestamp;
+import 'package:cloud_firestore/cloud_firestore.dart' show Timestamp;
 import 'package:hendrix_today_app/objects/event.dart';
 import 'package:hendrix_today_app/objects/event_type.dart';
 
 void main() {
-
   // Do not alter
   final testData = <Map<String, dynamic>>[
     {
@@ -66,12 +64,10 @@ void main() {
   ];
 
   test('Events can be created from Firestore data', () {
-    final testEvents = testData
-      .map((data) => Event.fromFirebase(data))
-      .toList();
-    
-    expect(testEvents.length, 2,
-      reason: "Two events should have been created");
+    final testEvents =
+        testData.map((data) => Event.fromFirebase(data)).toList();
+
+    expect(testEvents.length, 2, reason: "Two events should have been created");
     final event = testEvents[0] as Event;
     expect(event.title, "Test Event");
     expect(event.desc, "Test description");
@@ -99,8 +95,8 @@ void main() {
       final invalidEvent = Event.fromFirebase(badData);
 
       expect(invalidEvent, null,
-        reason: "A missing required field (in this case, $requiredField) "
-                "should invalidate the event construction");
+          reason: "A missing required field (in this case, $requiredField) "
+              "should invalidate the event construction");
     }
   });
 
@@ -110,92 +106,91 @@ void main() {
     final events = [laterEvent, earlierEvent];
 
     expect(events[0].title, "Later Event",
-      reason: "The events have not yet been sorted");
-    
+        reason: "The events have not yet been sorted");
+
     events.sort((a, b) => a.compareByDate(b));
 
     expect(events[0].title, "Earlier Event",
-      reason: "The events should be sorted by date");
+        reason: "The events should be sorted by date");
   });
 
   test('Event dates and deadlines are formatted nicely', () {
     final testDisplayDate = testEvents[0].displayDate();
 
     expect(testDisplayDate, "Mon, Jan 2, 2023",
-      reason: "Dates should be formatted EEE, MMM d, yyyy");
-    
+        reason: "Dates should be formatted EEE, MMM d, yyyy");
+
     final testDisplayDeadline = testEvents[0].displayDeadline();
 
     expect(testDisplayDeadline, "Wed, Dec 28, 2022",
-      reason: "Dates should be formatted EEE, MMM d, yyyy");
+        reason: "Dates should be formatted EEE, MMM d, yyyy");
   });
 
   test('Events are searchable by title and description content', () {
-    final eventSearchCount = testEvents
-      .where((Event e) => e.containsString("EVENT"))
-      .length;
-    
+    final eventSearchCount =
+        testEvents.where((Event e) => e.containsString("EVENT")).length;
+
     expect(eventSearchCount, 2,
-      reason: "Both of the test events contain the word 'event'");
-    
-    final fooSearchCount = testEvents
-      .where((Event e) => e.containsString("foo"))
-      .length;
-    
+        reason: "Both of the test events contain the word 'event'");
+
+    final fooSearchCount =
+        testEvents.where((Event e) => e.containsString("foo")).length;
+
     expect(fooSearchCount, 1,
-      reason: "Only one of the test events contains the word 'foo'");
-    
+        reason: "Only one of the test events contains the word 'foo'");
+
     final gibberishSearchCount = testEvents
-      .where((Event e) => e.containsString("argliujreabnva"))
-      .length;
-    
+        .where((Event e) => e.containsString("argliujreabnva"))
+        .length;
+
     expect(gibberishSearchCount, 0,
-      reason: "None of the test events contain 'argliujreabnva'");
+        reason: "None of the test events contain 'argliujreabnva'");
   });
 
   test('Events can be filtered by date', () {
     final goodDateFilterLength = testEvents
-      .where((Event e) => e.matchesDate(DateTime(2023, 1, 1)))
-      .length;
-    
+        .where((Event e) => e.matchesDate(DateTime(2023, 1, 1)))
+        .length;
+
     expect(goodDateFilterLength, 1,
-      reason: "There should be exactly one test event with the date 2023/1/1");
-    
+        reason:
+            "There should be exactly one test event with the date 2023/1/1");
+
     final badDateFilterLength = testEvents
-      .where((Event e) => e.matchesDate(DateTime(1234, 5, 6)))
-      .length;
-    
+        .where((Event e) => e.matchesDate(DateTime(1234, 5, 6)))
+        .length;
+
     expect(badDateFilterLength, 0,
-      reason: "There should be no test events with the date 1234/5/6");
+        reason: "There should be no test events with the date 1234/5/6");
   });
 
   test('Events can be filtered by posting range', () {
     final overlapRangeFilterLength = testEvents
-      .where((Event e) => e.inPostingRange(DateTime(2022, 12, 26)))
-      .length;
-    
+        .where((Event e) => e.inPostingRange(DateTime(2022, 12, 26)))
+        .length;
+
     expect(overlapRangeFilterLength, 2,
-      reason: "Both test events should be displayed on 2022/12/26");
-    
+        reason: "Both test events should be displayed on 2022/12/26");
+
     final rangeFilterStartLength = testEvents
-      .where((Event e) => e.inPostingRange(DateTime(2022, 12, 21)))
-      .length;
-    
+        .where((Event e) => e.inPostingRange(DateTime(2022, 12, 21)))
+        .length;
+
     expect(rangeFilterStartLength, 1,
-      reason: "The range filter should include beginPosting dates");
-    
+        reason: "The range filter should include beginPosting dates");
+
     final rangeFilterEndLength = testEvents
-      .where((Event e) => e.inPostingRange(DateTime(2022, 12, 31)))
-      .length;
-    
+        .where((Event e) => e.inPostingRange(DateTime(2022, 12, 31)))
+        .length;
+
     expect(rangeFilterEndLength, 1,
-      reason: "The range filter should include endPosting dates");
-    
+        reason: "The range filter should include endPosting dates");
+
     final badRangeFilterLength = testEvents
-      .where((Event e) => e.inPostingRange(DateTime(1234, 5, 6)))
-      .length;
-    
+        .where((Event e) => e.inPostingRange(DateTime(1234, 5, 6)))
+        .length;
+
     expect(badRangeFilterLength, 0,
-      reason: "No test events should be posted on 1234/5/6");
+        reason: "No test events should be posted on 1234/5/6");
   });
 }

@@ -2,13 +2,11 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:hendrix_today_app/objects/app_state.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart'
-    show Timestamp;
+import 'package:cloud_firestore/cloud_firestore.dart' show Timestamp;
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 
 void main() {
-
   test('AppState maintains an updated list of events', () async {
     final auth = MockFirebaseAuth();
     final firestore = FakeFirebaseFirestore();
@@ -39,13 +37,13 @@ void main() {
       },
     ];
     final appState = AppState(auth, firestore);
-    
+
     for (var event in fakeEvents) {
       await firestore.collection("events").add(event);
     }
 
     expect(appState.events.length, 2,
-      reason: "The mock Firestore started with 2 events.");
+        reason: "The mock Firestore started with 2 events.");
 
     await firestore.collection("events").add({
       "title": "Three",
@@ -61,6 +59,6 @@ void main() {
     });
 
     expect(appState.events.length, 3,
-      reason: "A third event was added to the mock Firestore.");
+        reason: "A third event was added to the mock Firestore.");
   });
 }

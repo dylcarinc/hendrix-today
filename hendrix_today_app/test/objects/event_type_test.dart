@@ -5,13 +5,14 @@ import 'package:hendrix_today_app/objects/event_type.dart';
 void main() {
   test('EventTypes can be read from strings', () {
     expect(EventType.fromString("aselifjWAE"), null,
-      reason: "An invalid string should not be translatable into an EventType");
+        reason:
+            "An invalid string should not be translatable into an EventType");
     expect(EventType.fromString(null), null,
-      reason: "A null string should not be translatable into an EventType");
+        reason: "A null string should not be translatable into an EventType");
     expect(EventType.fromString("eVeNt"), EventType.event,
-      reason: "EventType translation should be case-insensitive");
+        reason: "EventType translation should be case-insensitive");
     expect(EventType.fromString("Announcements"), EventType.announcement,
-      reason: "Plural forms of strings should still be valid");
+        reason: "Plural forms of strings should still be valid");
   });
 
   test('EventTypes should be filterable via EventTypeFilters', () {
@@ -32,8 +33,8 @@ void main() {
         }
 
         expect(et.matchesFilter(etf), expectedResult,
-          reason: "Each EventType should match its corresponding filter and "
-                  "the All filter and no others.");
+            reason: "Each EventType should match its corresponding filter and "
+                "the All filter and no others.");
       }
     }
   });
