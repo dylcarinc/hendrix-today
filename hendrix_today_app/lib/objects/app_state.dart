@@ -6,23 +6,26 @@ import 'package:hendrix_today_app/objects/event.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+/// A [ChangeNotifier] that keeps an up-to-date list of events from Firebase.
 class AppState extends ChangeNotifier {
+  StreamSubscription<QuerySnapshot>? _eventSubscription;
   List<Event> _events = [];
+
+  /// The list of events, ordered by [Event.compareByDate].
   List<Event> get events => _events;
 
   AppState(this.auth, this.firestore) {
-    init();
+    _init();
   }
-
   final FirebaseAuth auth;
   final FirebaseFirestore firestore;
 
-  StreamSubscription<QuerySnapshot>? eventSubscription;
-
-  Future<void> init() async {
+  /// Listens for login and Firestore changes, updates the event list, then
+  /// notifies listeners.
+  Future<void> _init() async {
     auth.userChanges().listen((user) {
-      eventSubscription?.cancel();
-      eventSubscription = firestore
+      _eventSubscription?.cancel();
+      _eventSubscription = firestore
           .collection('events') //GV had .doc(user.uid); document ref
           .snapshots()
           .listen(

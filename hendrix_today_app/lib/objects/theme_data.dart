@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
+/// A custom light theme for the app.
 final ThemeData hendrixTodayLightMode = ThemeData(
   fontFamily: 'Merriweather-Sans',
   brightness: Brightness.light,
-
   colorScheme: const ColorScheme(
     brightness: Brightness.light,
     primary: Color.fromARGB(255, 202, 81, 39),
@@ -19,44 +19,51 @@ final ThemeData hendrixTodayLightMode = ThemeData(
     surface: Color.fromARGB(255, 228, 223, 221),
     onSurface: Color.fromARGB(255, 128, 128, 128),
   ),
-
   textTheme: const TextTheme(
-    displayLarge: TextStyle( // app bar title, resource button
+    displayLarge: TextStyle(
+      /// Used for app bar titles and resource button text.
       color: Colors.white,
       fontFamily: 'MuseoBold',
       fontSize: 30,
     ),
-    headlineLarge: TextStyle( // event dialog title
+    headlineLarge: TextStyle(
+      // Used for event dialog titles.
       color: Colors.black,
       fontWeight: FontWeight.bold,
       fontSize: 20,
     ),
-    headlineMedium: TextStyle( // event card title
+    headlineMedium: TextStyle(
+      // Used for event card titles.
       color: Colors.black,
       fontWeight: FontWeight.w600,
       fontSize: 16,
     ),
-    headlineSmall: TextStyle( // dates and event details
+    headlineSmall: TextStyle(
+      // Used for dates and event details.
       color: Color.fromARGB(255, 128, 128, 128),
       fontStyle: FontStyle.italic,
       fontWeight: FontWeight.w200,
       fontSize: 14,
     ),
-    bodySmall: TextStyle( // body text
+    bodySmall: TextStyle(
+      // Used for regular body text.
       color: Colors.black,
       fontFamily: 'Merriweather-Sans',
       fontSize: 14,
     ),
-    labelLarge: TextStyle( // dropdown text, search bar label
+    labelLarge: TextStyle(
+      // Used for dropdown menu text and search bar labels.
       color: Colors.white,
       fontFamily: 'Museo',
       fontSize: 15,
     ),
-    labelMedium: TextStyle( // bold text
+    labelMedium: TextStyle(
+      // Used for bold text.
       fontWeight: FontWeight.bold,
       fontSize: 14,
     ),
-    labelSmall: TextStyle( // body link
+    labelSmall: TextStyle(
+      // Used for body hyperlinks.
       color: Color.fromARGB(255, 202, 81, 39),
       fontFamily: 'Merriweather-Sans',
       decoration: TextDecoration.underline,
@@ -64,16 +71,15 @@ final ThemeData hendrixTodayLightMode = ThemeData(
       fontSize: 14,
     ),
   ),
-
   iconTheme: const IconThemeData(
     color: Colors.white,
   ),
 );
 
+/// A custom dark theme for the app.
 final ThemeData hendrixTodayDarkMode = ThemeData(
   fontFamily: 'Merriweather-Sans',
   brightness: Brightness.dark,
-
   colorScheme: const ColorScheme(
     brightness: Brightness.dark,
     primary: Color.fromARGB(255, 202, 81, 39),
@@ -89,44 +95,51 @@ final ThemeData hendrixTodayDarkMode = ThemeData(
     surface: Color.fromARGB(255, 36, 36, 36),
     onSurface: Color.fromARGB(255, 160, 160, 160),
   ),
-
   textTheme: const TextTheme(
-    displayLarge: TextStyle( // app bar title, resource button
+    displayLarge: TextStyle(
+      /// Used for app bar titles and resource button text.
       color: Colors.white,
       fontFamily: 'MuseoBold',
       fontSize: 30,
     ),
-    headlineLarge: TextStyle( // event dialog title
+    headlineLarge: TextStyle(
+      // Used for event dialog titles.
       color: Colors.white,
       fontWeight: FontWeight.bold,
       fontSize: 20,
     ),
-    headlineMedium: TextStyle( // event card title
+    headlineMedium: TextStyle(
+      // Used for event card titles.
       color: Colors.white,
       fontWeight: FontWeight.w600,
       fontSize: 16,
     ),
-    headlineSmall: TextStyle( // dates and event details
+    headlineSmall: TextStyle(
+      // Used for dates and event details.
       color: Color.fromARGB(255, 160, 160, 160),
       fontStyle: FontStyle.italic,
       fontWeight: FontWeight.w200,
       fontSize: 14,
     ),
-    bodySmall: TextStyle( // body text
+    bodySmall: TextStyle(
+      // Used for regular body text.
       color: Colors.white,
       fontFamily: 'Merriweather-Sans',
       fontSize: 14,
     ),
-    labelLarge: TextStyle( // dropdown text, search bar label
+    labelLarge: TextStyle(
+      // Used for dropdown menu text and search bar labels.
       color: Colors.white,
       fontFamily: 'Museo',
       fontSize: 15,
     ),
-    labelMedium: TextStyle( // bold text
+    labelMedium: TextStyle(
+      // Used for bold text.
       fontWeight: FontWeight.bold,
       fontSize: 14,
     ),
-    labelSmall: TextStyle( // body link
+    labelSmall: TextStyle(
+      // Used for body hyperlinks.
       color: Color.fromARGB(255, 202, 81, 39),
       fontFamily: 'Merriweather-Sans',
       decoration: TextDecoration.underline,
@@ -134,7 +147,6 @@ final ThemeData hendrixTodayDarkMode = ThemeData(
       fontSize: 14,
     ),
   ),
-
   iconTheme: const IconThemeData(
     color: Colors.black,
   ),
