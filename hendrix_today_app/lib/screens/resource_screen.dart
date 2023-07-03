@@ -38,6 +38,7 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
           children: <Widget>[
             const SizedBox(height: 80),
             ResourceButton(
+                key: const Key('SubmitEventButton'),
                 titleString: "submit new event",
                 icon: Icons.add,
                 color: Theme.of(context).colorScheme.primary,
@@ -45,18 +46,21 @@ class _ResourcesScreenState extends State<ResourcesScreen> {
                     'https://forms.office.com/Pages/ResponsePage.aspx?id=jMH2DNLQP0qD0GY9Ygpj020T9lhtzfhCi8WBPrgNg0xURFZXMEEyUzUwR0lNSzZTTDdWWEQwOERSWiQlQCN0PWcu'),
             const SizedBox(height: 30),
             ResourceButton(
+                key: const Key('CafMenuButton'),
                 titleString: "caf menu today",
                 icon: Icons.food_bank,
                 color: Theme.of(context).colorScheme.tertiary,
                 url: menuLink),
             const SizedBox(height: 30),
             ResourceButton(
+                key: const Key('PublicSafetyButton'),
                 titleString: "public safety",
                 icon: Icons.phone,
                 color: Theme.of(context).colorScheme.primary,
                 url: "tel:+5014507711"),
             const SizedBox(height: 30),
             ResourceButton(
+                key: const Key('MapButton'),
                 titleString: "campus map",
                 icon: Icons.map,
                 color: Theme.of(context).colorScheme.tertiary,

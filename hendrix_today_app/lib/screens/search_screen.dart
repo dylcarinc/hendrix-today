@@ -43,6 +43,7 @@ class _SearchScreenState extends State<SearchScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
+                  key: const Key('SearchInput'),
                   onChanged: (newQuery) => setState(() {
                     searchQuery = newQuery;
                   }),
