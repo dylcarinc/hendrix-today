@@ -4,7 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hendrix_today_app/screens/resource_screen.dart';
 
 void main() {
-  testWidgets('The home page displays current events', (widgetTester) async {
+  testWidgets('The resources page provides the necessary resources',
+      (widgetTester) async {
     await widgetTester.pumpWidget(const MaterialApp(home: ResourcesScreen()));
     await widgetTester.pumpAndSettle();
 
