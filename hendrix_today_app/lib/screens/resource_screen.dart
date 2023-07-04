@@ -3,14 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
 import 'package:hendrix_today_app/widgets/resource_button.dart';
 
-class ResourcesScreen extends StatefulWidget {
+class ResourcesScreen extends StatelessWidget {
   const ResourcesScreen({super.key});
 
-  @override
-  State<ResourcesScreen> createState() => _ResourcesScreenState();
-}
-
-class _ResourcesScreenState extends State<ResourcesScreen> {
   @override
   Widget build(BuildContext context) {
     const menuLinks = [
