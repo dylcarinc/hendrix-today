@@ -8,7 +8,10 @@ import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
 
 import 'package:provider/provider.dart';
 
-//creates calendar page in app
+/// An event calendar for Hendrix Today.
+///
+/// This page displays a calendar that shows how many events are happening on
+/// any given day and a list of the specific events happening on a selected day.
 class CalendarScreen extends StatefulWidget {
   const CalendarScreen({super.key});
 
@@ -17,6 +20,7 @@ class CalendarScreen extends StatefulWidget {
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
+  /// The day for which to show events; defaults to [DateTime.now].
   DateTime _selectedDay = DateTime.now();
 
   void _updateSelectedDay(DateTime newSelectedDay) {

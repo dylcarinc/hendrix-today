@@ -3,6 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
 import 'package:hendrix_today_app/widgets/resource_button.dart';
 
+/// A list of official Hendrix resources.
+///
+/// This screen provides links to the following resources:
+/// * The form to submit a new Hendrix Today item
+/// * The Hendrix Caf daily menu
+/// * The campus Public Safety phone number
+/// * The official campus map
 class ResourcesScreen extends StatelessWidget {
   const ResourcesScreen({super.key});
 
