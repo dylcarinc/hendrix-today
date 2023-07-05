@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-_launchURL(String url) async {
-  final uri = Uri.parse(url);
+/// Attempts to launch [url].
+///
+/// Fails if [url] is an invalid [Uri] or if the device does not support the
+/// given type of URL (for example, attempting to launch a phone call on web).
+Future<void> _tryLaunchUrl(String url) async {
+  final uri = Uri.tryParse(url);
+  if (uri == null) throw 'Could not launch $url: invalid URI';
   if (await canLaunchUrl(uri)) {
     await launchUrl(uri, mode: LaunchMode.externalApplication);
   } else {
-    throw 'Could not launch $url';
+    throw 'Could not launch $url: not supported according to `canLaunchUrl`';
   }
 }
 
+/// A dropdown menu containing a list of campus locations and information on how
+/// to find/contact them.
 class LocationFinder extends StatefulWidget {
   const LocationFinder({super.key});
 
@@ -48,88 +55,98 @@ class _LocationFinderState extends State<LocationFinder> {
     List<String>? listInfo;
 
     return SizedBox(
-        height: 100,
-        width: 300,
-        child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(0.0),
+      height: 100,
+      width: 300,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(0.0),
+        ),
+        elevation: 5,
+        color: Colors.grey, //Colors.orange[200],
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<String>(
+            hint: const Text(
+              "where is?",
+              style: TextStyle(
+                fontSize: 30,
+                color: Colors.white,
+                fontFamily: 'MuseoBold',
+              ),
             ),
-            elevation: 5,
-            color: Colors.grey, //Colors.orange[200],
-            child: DropdownButtonHideUnderline(
-                child: DropdownButton<String>(
-              hint: const Text("where is?",
-                  style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.white,
-                      fontFamily: 'MuseoBold')),
-              isExpanded: true,
-              style: const TextStyle(
-                  color: Colors.black, fontSize: 25, fontFamily: "MuseoSlab"),
-              items: [
-                'Career Services',
-                'Counseling Services',
-                'Deans Office',
-                'Lost and Found',
-                'Office of Diversity and Inclusion',
-                'Title IX',
-                'Residential Life'
-              ].map(
-                (val) {
-                  return DropdownMenuItem<String>(
+            isExpanded: true,
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 25,
+              fontFamily: "MuseoSlab",
+            ),
+            items: [
+              'Career Services',
+              'Counseling Services',
+              'Deans Office',
+              'Lost and Found',
+              'Office of Diversity and Inclusion',
+              'Title IX',
+              'Residential Life'
+            ]
+                .map(
+                  (val) => DropdownMenuItem<String>(
                     value: val,
-                    child: Text(
-                      val,
-                      style: const TextStyle(fontFamily: 'MuseoBold'),
-                    ),
-                  );
-                },
-              ).toList(),
-              onChanged: (val) {
-                setState(
-                  () {
-                    listInfo = locations[val];
-                    debugPrint(listInfo![0]);
-                  },
-                );
-                AlertDialog alert = AlertDialog(
-                    title: Text(val.toString()), // location
-                    alignment: Alignment.center,
-                    insetPadding: const EdgeInsets.symmetric(
-                        vertical: 100, horizontal: 50),
-                    content: Column(children: [
-                      SizedBox(
-                          width: double.infinity,
-                          height: 400,
-                          child: Column(
-                            children: [
-                              ElevatedButton(
-                                // phone number
-                                onPressed: () => _launchURL(
-                                    "tel:+${listInfo![0].toString()}"),
-                                child: Text(listInfo![0].toString()),
+                    child: Text(val,
+                        style: const TextStyle(fontFamily: 'MuseoBold')),
+                  ),
+                )
+                .toList(),
+            onChanged: (val) {
+              setState(() {
+                listInfo = locations[val];
+                debugPrint(listInfo![0]);
+              });
+              final alert = AlertDialog(
+                title: Text(val.toString()), // location
+                alignment: Alignment.center,
+                insetPadding: const EdgeInsets.symmetric(
+                  vertical: 100,
+                  horizontal: 50,
+                ),
+                content: Column(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      height: 400,
+                      child: Column(
+                        children: [
+                          ElevatedButton(
+                            // phone number
+                            onPressed: () => _tryLaunchUrl(
+                              "tel:+${listInfo![0].toString()}",
+                            ),
+                            child: Text(listInfo![0].toString()),
+                          ),
+                          Text(listInfo![1].toString()),
+                          InteractiveViewer(
+                            // how to zoom in!!!! https://stackoverflow.com/questions/64093990/flutter-how-to-add-a-zoom-functionality-to-image
+                            boundaryMargin: const EdgeInsets.all(20.0),
+                            minScale:
+                                0.1, // doesn't go into effect until after you have made the inital zoom
+                            maxScale: 5,
+                            child: Image(
+                              height: 300,
+                              image: AssetImage(
+                                "assets/maps/${listInfo![2].toString()}.jpg",
                               ),
-                              Text(listInfo![1].toString()),
-                              InteractiveViewer(
-                                  // how to zoom in!!!! https://stackoverflow.com/questions/64093990/flutter-how-to-add-a-zoom-functionality-to-image
-                                  boundaryMargin: const EdgeInsets.all(20.0),
-                                  minScale:
-                                      0.1, // doesn't go into effect until after you have made the inital zoom
-                                  maxScale: 5,
-                                  child: Image(
-                                      height: 300,
-                                      image: AssetImage(
-                                          "assets/maps/${listInfo![2].toString()}.jpg")))
-                            ],
-                          )),
-                    ]));
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return alert;
-                  },
-                );
-              },
-            ))));
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+              showDialog(context: context, builder: (context) => alert);
+            },
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -8,6 +8,11 @@ import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
 
 import 'package:provider/provider.dart';
 
+/// A search page to easily find events.
+///
+/// This screen behaves similar to the home page except displays all events by
+/// default and uses a search field rather than a dropdown filter menu to filter
+/// events.
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
 
@@ -16,6 +21,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  /// The search term to be applied to the results list; is empty by default.
   String searchQuery = "";
 
   List<Event> _applySearchFilter(List<Event> events) =>
@@ -72,6 +78,8 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 }
 
+/// A helper widget that displays a "no results found" message when the search
+/// query finds no matching events.
 class _EmptySearchLabel extends StatelessWidget {
   const _EmptySearchLabel();
 

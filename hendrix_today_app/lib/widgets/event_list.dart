@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:hendrix_today_app/objects/event.dart';
 import 'package:hendrix_today_app/widgets/event_card.dart';
 
+/// A scrollable [ListView] of [EventCard]s.
 class EventList extends StatelessWidget {
   const EventList({super.key, required this.events});
+
+  /// The events to be displayed as [EventCard]s.
   final List<Event> events;
 
   @override
@@ -20,5 +23,5 @@ class EventList extends StatelessWidget {
   }
 }
 
- //  ```````````````````````````````` 
- // my dog put her paw on by keyboard and wrote that.  who am i to tell her she cant code. 
+//  ````````````````````````````````
+// my dog put her paw on by keyboard and wrote that.  who am i to tell her she cant code.
