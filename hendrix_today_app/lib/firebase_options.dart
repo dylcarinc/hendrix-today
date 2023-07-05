@@ -66,7 +66,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '475115728794',
     projectId: 'hendrix-today-app',
     storageBucket: 'hendrix-today-app.appspot.com',
-    iosClientId: '475115728794-natv1dhslluf8lek28987r6e9tnatemp.apps.googleusercontent.com',
+    iosClientId:
+        '475115728794-natv1dhslluf8lek28987r6e9tnatemp.apps.googleusercontent.com',
     iosBundleId: 'com.example.hendrixTodayApp',
   );
 
@@ -76,7 +77,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '475115728794',
     projectId: 'hendrix-today-app',
     storageBucket: 'hendrix-today-app.appspot.com',
-    iosClientId: '475115728794-natv1dhslluf8lek28987r6e9tnatemp.apps.googleusercontent.com',
+    iosClientId:
+        '475115728794-natv1dhslluf8lek28987r6e9tnatemp.apps.googleusercontent.com',
     iosBundleId: 'com.example.hendrixTodayApp',
   );
 }
