@@ -6,16 +6,20 @@ import 'package:hendrix_today_app/objects/event.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:provider/provider.dart';
 
+/// A container for the [TableCalendar] dependency.
+///
+/// See the [TableCalendar] source repo for more information:
+/// https://github.com/aleksanderwozniak/table_calendar
 class EventCalendar extends StatefulWidget {
   const EventCalendar({super.key, required this.onSelectDay});
+
+  /// A callback called each time the user selects a calendar day.
   final void Function(DateTime) onSelectDay;
 
   @override
   State<EventCalendar> createState() => _EventCalendarState();
 }
 
-//creation of the TableCalendar
-//code obtained from TableCalendar repo: https://github.com/aleksanderwozniak/table_calendar
 class _EventCalendarState extends State<EventCalendar> {
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay = DateTime.now();
@@ -26,7 +30,7 @@ class _EventCalendarState extends State<EventCalendar> {
     return appState.events.where((Event e) => e.matchesDate(day)).toList();
   }
 
-  /// Runs when a day is selected on the [TableCalendar].
+  /// Called when a day is selected on the [TableCalendar].
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     if (!isSameDay(_selectedDay, selectedDay)) {
       widget.onSelectDay(selectedDay);
@@ -38,7 +42,7 @@ class _EventCalendarState extends State<EventCalendar> {
   }
 
   /// Determines the earliest allowed date on the calendar.
-  /// 
+  ///
   /// Because [TableCalendar.focusedDay] must be within the calendar's enabled
   /// range, it finds the earliest date among the focused day and all events.
   DateTime _getCalendarStartDate() {
@@ -53,7 +57,7 @@ class _EventCalendarState extends State<EventCalendar> {
   }
 
   /// Determines the latest allowed date on the calendar.
-  /// 
+  ///
   /// Because [TableCalendar.focusedDay] must be within the calendar's enabled
   /// range, it finds the latest date among the focused day and all events.
   DateTime _getCalendarEndDate() {

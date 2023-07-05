@@ -6,21 +6,35 @@ import 'package:hendrix_today_app/screens/calendar_screen.dart';
 import 'package:hendrix_today_app/screens/search_screen.dart';
 import 'package:hendrix_today_app/screens/resource_screen.dart';
 
+/// The root widget in the app widget hierarchy.
+///
+/// Changing the app's [ThemeMode] between light and dark and defining the app's
+/// [Route]s is done here.
 class RootApp extends StatefulWidget {
   const RootApp({super.key});
 
-  // theme state solution from https://stackoverflow.com/a/67714404
-  static _RootAppState of(BuildContext context) =>
-      context.findAncestorStateOfType<_RootAppState>()!;
+  /// Switches the app between a light and dark [ThemeMode].
+  static void toggleTheme(BuildContext context) {
+    // modified theme state solution from https://stackoverflow.com/a/67714404
+    final stateWidget = context.findAncestorStateOfType<_RootAppState>();
+    stateWidget?._toggleThemeMode();
+  }
 
   @override
   State<RootApp> createState() => _RootAppState();
 }
 
 class _RootAppState extends State<RootApp> {
+  /// The [ThemeMode] that determines how the app appears; defaults to
+  /// [ThemeMode.system].
   ThemeMode _themeMode = ThemeMode.system;
 
-  void toggleThemeMode() {
+  /// Toggles the [ThemeMode] for the app.
+  ///
+  /// If the current mode is [ThemeMode.system], it will change to either
+  /// [ThemeMode.light] or [ThemeMode.dark] based on the opposite of the system
+  /// settings; otherwise, it will toggle between light and dark normally.
+  void _toggleThemeMode() {
     setState(() {
       switch (_themeMode) {
         case ThemeMode.dark:

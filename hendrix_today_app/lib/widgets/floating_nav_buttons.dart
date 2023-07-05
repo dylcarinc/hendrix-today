@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'package:hendrix_today_app/widgets/root_app.dart';
 
+/// A horizontal bar of navigation buttons.
+///
+/// Use this in the place of a [Scaffold.floatingActionButton]. Meant to be used
+/// with [FloatingActionButtonLocation.centerFloat].
 class FloatingNavButtons extends StatelessWidget {
-  /// The navigation buttons for the app.
-  ///
-  /// Use this in the place of a [Scaffold.floatingActionButton] and ensure that
-  /// the [Scaffold.floatingActionButtonLocation] is set to
-  /// [FloatingActionButtonLocation.centerFloat].
   const FloatingNavButtons({super.key});
 
-  /// Replaces the current route with [toRoute], unless it is the current route.
+  /// Replaces the current route with [toRoute] unless they are the same.
   void _navigate(BuildContext context, String toRoute) {
     final String? currentRoute = ModalRoute.of(context)?.settings.name;
     if (currentRoute == toRoute) return;
@@ -19,40 +18,39 @@ class FloatingNavButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final themeState = Provider.of<ThemeState>(context, listen: false);
     return Wrap(
       direction: Axis.horizontal,
       children: [
-        //button first
         Container(
-            key: const Key('HomeButton'),
-            margin: const EdgeInsets.all(10),
-            child: FloatingActionButton.small(
-              heroTag: null, // See https://stackoverflow.com/q/51125024
-              onPressed: () => _navigate(context, '/home'),
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              child: const Icon(Icons.home),
-            )),
-        // button second
+          key: const Key('HomeButton'),
+          margin: const EdgeInsets.all(10),
+          child: FloatingActionButton.small(
+            heroTag: null, // See https://stackoverflow.com/q/51125024
+            onPressed: () => _navigate(context, '/home'),
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            child: const Icon(Icons.home),
+          ),
+        ),
         Container(
-            key: const Key('CalendarButton'),
-            margin: const EdgeInsets.all(10),
-            child: FloatingActionButton.small(
-              heroTag: null,
-              onPressed: () => _navigate(context, '/calendar'),
-              backgroundColor: Theme.of(context).colorScheme.tertiary,
-              child: const Icon(Icons.calendar_month),
-            )),
-        // button third
+          key: const Key('CalendarButton'),
+          margin: const EdgeInsets.all(10),
+          child: FloatingActionButton.small(
+            heroTag: null,
+            onPressed: () => _navigate(context, '/calendar'),
+            backgroundColor: Theme.of(context).colorScheme.tertiary,
+            child: const Icon(Icons.calendar_month),
+          ),
+        ),
         Container(
-            key: const Key('SearchButton'),
-            margin: const EdgeInsets.all(10),
-            child: FloatingActionButton.small(
-              heroTag: null,
-              onPressed: () => _navigate(context, '/search'),
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              child: const Icon(Icons.search),
-            )),
+          key: const Key('SearchButton'),
+          margin: const EdgeInsets.all(10),
+          child: FloatingActionButton.small(
+            heroTag: null,
+            onPressed: () => _navigate(context, '/search'),
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            child: const Icon(Icons.search),
+          ),
+        ),
         Container(
           key: const Key('ResourcesButton'),
           margin: const EdgeInsets.all(10),
@@ -68,7 +66,7 @@ class FloatingNavButtons extends StatelessWidget {
           margin: const EdgeInsets.all(10),
           child: FloatingActionButton.small(
             heroTag: null,
-            onPressed: () => RootApp.of(context).toggleThemeMode(),
+            onPressed: () => RootApp.toggleTheme(context),
             backgroundColor: Theme.of(context).colorScheme.primary,
             child: const Icon(Icons.brightness_4_outlined),
           ),
