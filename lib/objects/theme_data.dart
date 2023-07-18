@@ -140,7 +140,7 @@ final ThemeData hendrixTodayDarkMode = ThemeData(
     ),
     labelSmall: TextStyle(
       // Used for body hyperlinks.
-      color: Color.fromARGB(255, 202, 81, 39),
+      color: Color.fromARGB(255, 245, 130, 42),
       fontFamily: 'Merriweather-Sans',
       decoration: TextDecoration.underline,
       letterSpacing: 0,

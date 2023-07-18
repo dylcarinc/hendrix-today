@@ -58,7 +58,7 @@ class FloatingNavButtons extends StatelessWidget {
             heroTag: null,
             onPressed: () => _navigate(context, '/resources'),
             backgroundColor: Theme.of(context).colorScheme.tertiary,
-            child: const Icon(Icons.food_bank),
+            child: const Icon(Icons.info_outline),
           ),
         ),
         Container(
