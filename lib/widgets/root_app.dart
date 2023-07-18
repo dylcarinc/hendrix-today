@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:aad_oauth/aad_oauth.dart';
+import 'package:aad_oauth/model/config.dart';
 
 import 'package:hendrix_today_app/objects/theme_data.dart';
 import 'package:hendrix_today_app/screens/home_screen.dart';
 import 'package:hendrix_today_app/screens/calendar_screen.dart';
+import 'package:hendrix_today_app/screens/login_screen.dart';
 import 'package:hendrix_today_app/screens/search_screen.dart';
 import 'package:hendrix_today_app/screens/resource_screen.dart';
+
+final navigatorKey = GlobalKey<NavigatorState>();
 
 /// The root widget in the app widget hierarchy.
 ///
@@ -28,6 +33,13 @@ class _RootAppState extends State<RootApp> {
   /// The [ThemeMode] that determines how the app appears; defaults to
   /// [ThemeMode.system].
   ThemeMode _themeMode = ThemeMode.system;
+
+  static final Config config = Config(
+      tenant: '0cf6c18c-d0d2-4a3f-83d0-663d620a63d3',
+      clientId: 'ee9408ea-3eba-4a76-a1bc-81e1ea2d7198',
+      scope: 'openid profile offline_access',
+      navigatorKey: navigatorKey,
+      loader: SizedBox());
 
   /// Toggles the [ThemeMode] for the app.
   ///
@@ -67,6 +79,13 @@ class _RootAppState extends State<RootApp> {
               transitionDuration: Duration.zero,
               reverseTransitionDuration: Duration.zero,
             );
+          case '/login':
+            return PageRouteBuilder(
+              settings: settings,
+              pageBuilder: (_, __, ___) => LoginScreen(config: config),
+              transitionDuration: Duration.zero,
+              reverseTransitionDuration: Duration.zero,
+            );
           case '/calendar':
             return PageRouteBuilder(
               settings: settings,
@@ -92,7 +111,8 @@ class _RootAppState extends State<RootApp> {
             return null;
         }
       },
-      initialRoute: '/home',
+      initialRoute: '/login',
+      navigatorKey: navigatorKey,
 
       // The following legacy route code may be useful when reintroducing
       // a login system to the app:
