@@ -47,6 +47,7 @@ dependencies:
   intl: ^0.18.0
   html: ^0.15.4
   aad_oauth: ^0.4.4
+  shared_preferences: ^2.2.0
   
 dev_dependencies:
   flutter_test:
