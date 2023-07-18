@@ -56,16 +56,18 @@ class _LoginScreenState extends State<LoginScreen> {
   void login() async {
     widget.config.webUseRedirect = false;
     final AadOAuth oauth = AadOAuth(widget.config);
+    await oauth.logout();
     final result = await oauth.login();
     result.fold(
       (l) => showError(l.toString()),
-      (r) => showMessage('Logged in successfully, your access token: $r'),
+      (r) => showMessage('Logged in successfully!'),
     );
     var accessToken = await oauth.getAccessToken();
     if (accessToken != null) {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(accessToken)));
+      //ScaffoldMessenger.of(context)
+      //    .showSnackBar(SnackBar(content: Text(accessToken)));
+      Navigator.pushNamedAndRemoveUntil(context, "/home", (_) => false);
     }
   }
 }
