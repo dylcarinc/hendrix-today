@@ -55,7 +55,7 @@ final ThemeData hendrixTodayLightMode = ThemeData(
       // Used for loading label.
       color: Color.fromARGB(255, 202, 81, 39),
       fontFamily: 'Museo',
-      fontSize: 20,
+      fontSize: 25,
     ),
     bodySmall: TextStyle(
       // Used for regular body text.
