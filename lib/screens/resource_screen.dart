@@ -32,7 +32,7 @@ class ResourcesScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
           "resources",
-          style: Theme.of(context).textTheme.displayLarge,
+          style: Theme.of(context).textTheme.displayMedium,
         ),
       ),
       body: SingleChildScrollView(

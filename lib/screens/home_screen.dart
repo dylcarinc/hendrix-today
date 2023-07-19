@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
           "hendrix today",
-          style: Theme.of(context).textTheme.displayLarge,
+          style: Theme.of(context).textTheme.displayMedium,
         ),
         actions: [
           _FilterDropdown(

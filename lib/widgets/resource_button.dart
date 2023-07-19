@@ -56,7 +56,7 @@ class ResourceButton extends StatelessWidget {
           minVerticalPadding: 10.0,
           title: Text(
             titleString,
-            style: Theme.of(context).textTheme.displayLarge,
+            style: Theme.of(context).textTheme.displayMedium,
             textAlign: TextAlign.center,
           ),
           leading:

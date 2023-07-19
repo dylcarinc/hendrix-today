@@ -7,6 +7,8 @@ import 'package:hendrix_today_app/screens/login_screen.dart';
 import 'package:hendrix_today_app/screens/search_screen.dart';
 import 'package:hendrix_today_app/screens/resource_screen.dart';
 
+import '../screens/loading_screen.dart';
+
 /// The root widget in the app widget hierarchy.
 ///
 /// Changing the app's [ThemeMode] between light and dark and defining the app's
@@ -68,6 +70,13 @@ class _RootAppState extends State<RootApp> {
               transitionDuration: Duration.zero,
               reverseTransitionDuration: Duration.zero,
             );
+          case '/loading':
+            return PageRouteBuilder(
+              settings: settings,
+              pageBuilder: (_, __, ___) => const LoadingScreen(),
+              transitionDuration: Duration.zero,
+              reverseTransitionDuration: Duration.zero,
+            );
           case '/login':
             return PageRouteBuilder(
               settings: settings,
@@ -100,7 +109,7 @@ class _RootAppState extends State<RootApp> {
             return null;
         }
       },
-      initialRoute: '/login',
+      initialRoute: '/loading',
       navigatorKey: navigatorKey,
 
       // The following legacy route code may be useful when reintroducing

@@ -90,6 +90,8 @@ flutter:
     - assets/maps/dean.jpg
     - assets/maps/reslife.jpg
     - assets/maps/titleIX.jpg
+    - assets/DiscoLogoSmallBlack.png
+    - assets/DiscoLogoSmallWhite.png
     
     
   #   - images/a_dot_ham.jpeg

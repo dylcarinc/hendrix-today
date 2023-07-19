@@ -37,7 +37,7 @@ class _SearchScreenState extends State<SearchScreen> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
           "search",
-          style: Theme.of(context).textTheme.displayLarge,
+          style: Theme.of(context).textTheme.displayMedium,
         ),
       ),
       body: Center(

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:aad_oauth/aad_oauth.dart';
 import 'package:aad_oauth/model/config.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       backgroundColor: Theme.of(context).colorScheme.primary,
                       title: Text(
                         "login",
-                        style: Theme.of(context).textTheme.displayLarge,
+                        style: Theme.of(context).textTheme.displayMedium,
                       ),
                     ),
                     body: ListView(
@@ -79,7 +77,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               minVerticalPadding: 10.0,
                               title: Text(
                                 "hendrix today",
-                                style: Theme.of(context).textTheme.displayLarge,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
                                 textAlign: TextAlign.center,
                               ),
                             ),
