@@ -21,7 +21,6 @@ class _StartScreenState extends State<StartScreen> {
     super.initState();
 
     loggedin = _prefs.then((SharedPreferences prefs) {
-      prefs.remove("loggedin");
       return prefs.getBool('loggedin') ?? false;
     });
   }
