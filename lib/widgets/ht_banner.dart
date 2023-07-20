@@ -5,17 +5,16 @@ class HTBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        SizedBox(
-          height: 120,
-          width: 250,
-          child: Card(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(0.0)),
-            elevation: 5,
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
+      elevation: 5,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            height: 120,
+            width: 250,
             color: Theme.of(context).colorScheme.primary,
             child: ListTile(
               minVerticalPadding: 10.0,
@@ -26,15 +25,10 @@ class HTBanner extends StatelessWidget {
               ),
             ),
           ),
-        ),
-        SizedBox(
-          height: 120,
-          width: 250,
-          child: Card(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(0.0)),
-            elevation: 5,
-            color: Theme.of(context).colorScheme.secondary,
+          Container(
+            height: 120,
+            width: 250,
+            color: Colors.white,
             child: ListTile(
               minVerticalPadding: 10.0,
               title: Text(
@@ -44,8 +38,8 @@ class HTBanner extends StatelessWidget {
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
