@@ -43,7 +43,7 @@ class ResourcesScreen extends StatelessWidget {
         child: Center(
           child: Column(
             children: <Widget>[
-              const SizedBox(height: 25),
+              const SizedBox(height: 20),
               ResourceButton(
                   key: const Key('SubmitEventButton'),
                   titleString: "submit new event",
@@ -51,21 +51,21 @@ class ResourcesScreen extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary,
                   url:
                       'https://forms.office.com/Pages/ResponsePage.aspx?id=jMH2DNLQP0qD0GY9Ygpj020T9lhtzfhCi8WBPrgNg0xURFZXMEEyUzUwR0lNSzZTTDdWWEQwOERSWiQlQCN0PWcu'),
-              const SizedBox(height: 25),
+              const SizedBox(height: 20),
               ResourceButton(
                   key: const Key('CafMenuButton'),
                   titleString: "caf menu today",
                   icon: Icons.food_bank,
                   color: Theme.of(context).colorScheme.tertiary,
                   url: menuLink),
-              const SizedBox(height: 25),
+              const SizedBox(height: 20),
               ResourceButton(
                   key: const Key('PublicSafetyButton'),
                   titleString: "public safety",
                   icon: Icons.phone,
                   color: Theme.of(context).colorScheme.primary,
                   url: "tel:+5014507711"),
-              const SizedBox(height: 25),
+              const SizedBox(height: 20),
               ResourceButton(
                   key: const Key('MapButton'),
                   titleString: "campus map",
@@ -93,6 +93,7 @@ class ResourcesScreen extends StatelessWidget {
                           color: Theme.of(context).iconTheme.color),
                     )),
               ),
+              const SizedBox(height: 100),
             ],
           ),
         ),
