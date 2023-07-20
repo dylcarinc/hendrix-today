@@ -94,6 +94,15 @@ class _EventCalendarState extends State<EventCalendar> {
                 ? Colors.white
                 : Colors.black),
       ),
+      calendarStyle: CalendarStyle(
+          selectedDecoration:
+              BoxDecoration(color: Theme.of(context).colorScheme.primary),
+          todayDecoration:
+              BoxDecoration(color: Theme.of(context).colorScheme.tertiary),
+          markerDecoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+          markerSizeScale: 0.2),
       availableCalendarFormats: const {
         CalendarFormat.month: 'Month',
       },
