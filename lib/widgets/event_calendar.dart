@@ -84,6 +84,16 @@ class _EventCalendarState extends State<EventCalendar> {
       lastDay: calendarEndDate,
       focusedDay: _focusedDay,
       calendarFormat: CalendarFormat.month,
+      headerStyle: HeaderStyle(
+        leftChevronIcon: Icon(Icons.chevron_left,
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.white
+                : Colors.black),
+        rightChevronIcon: Icon(Icons.chevron_right,
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.white
+                : Colors.black),
+      ),
       availableCalendarFormats: const {
         CalendarFormat.month: 'Month',
       },
