@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.hendrix_today_app">
+    package="io.github.discotraystudios.hendrix_today_app">
    <application
         android:label="Hendrix Today"
         android:name="${applicationName}"

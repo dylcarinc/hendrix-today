@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:hendrix_today_app/widgets/root_app.dart';
-
 /// A horizontal bar of navigation buttons.
 ///
 /// Use this in the place of a [Scaffold.floatingActionButton]. Meant to be used
@@ -58,17 +56,7 @@ class FloatingNavButtons extends StatelessWidget {
             heroTag: null,
             onPressed: () => _navigate(context, '/resources'),
             backgroundColor: Theme.of(context).colorScheme.tertiary,
-            child: const Icon(Icons.food_bank),
-          ),
-        ),
-        Container(
-          key: const Key('DarkModeSwitch'),
-          margin: const EdgeInsets.all(10),
-          child: FloatingActionButton.small(
-            heroTag: null,
-            onPressed: () => RootApp.toggleTheme(context),
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            child: const Icon(Icons.brightness_4_outlined),
+            child: const Icon(Icons.info_outline),
           ),
         ),
       ],

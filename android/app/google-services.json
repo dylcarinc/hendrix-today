@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:475115728794:android:355f37530f18bec7595423",
         "android_client_info": {
-          "package_name": "com.example.hendrix_today_app"
+          "package_name": "io.github.discotraystudios.hendrix_today_app"
         }
       },
       "oauth_client": [
@@ -34,7 +34,7 @@
               "client_id": "475115728794-natv1dhslluf8lek28987r6e9tnatemp.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.hendrixTodayApp"
+                "bundle_id": "io.github.discotraystudios.hendrixTodayApp"
               }
             }
           ]

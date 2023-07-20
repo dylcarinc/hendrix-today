@@ -21,16 +21,28 @@ final ThemeData hendrixTodayLightMode = ThemeData(
   ),
   textTheme: const TextTheme(
     displayLarge: TextStyle(
+      /// Used for loading screen.
+      color: Colors.white,
+      fontFamily: 'MuseoBold',
+      fontSize: 40,
+    ),
+    displayMedium: TextStyle(
       /// Used for app bar titles and resource button text.
       color: Colors.white,
       fontFamily: 'MuseoBold',
       fontSize: 30,
     ),
+    displaySmall: TextStyle(
+      /// Used for app bar titles and resource button text.
+      color: Colors.white,
+      fontFamily: 'MuseoBold',
+      fontSize: 20,
+    ),
     headlineLarge: TextStyle(
       // Used for event dialog titles.
       color: Colors.black,
       fontWeight: FontWeight.bold,
-      fontSize: 20,
+      fontSize: 25,
     ),
     headlineMedium: TextStyle(
       // Used for event card titles.
@@ -44,6 +56,12 @@ final ThemeData hendrixTodayLightMode = ThemeData(
       fontStyle: FontStyle.italic,
       fontWeight: FontWeight.w200,
       fontSize: 14,
+    ),
+    bodyLarge: TextStyle(
+      // Used for loading label.
+      color: Color.fromARGB(255, 202, 81, 39),
+      fontFamily: 'Museo',
+      fontSize: 25,
     ),
     bodySmall: TextStyle(
       // Used for regular body text.
@@ -82,7 +100,7 @@ final ThemeData hendrixTodayDarkMode = ThemeData(
   brightness: Brightness.dark,
   colorScheme: const ColorScheme(
     brightness: Brightness.dark,
-    primary: Color.fromARGB(255, 202, 81, 39),
+    primary: Color.fromARGB(255, 245, 130, 42),
     onPrimary: Colors.white,
     secondary: Colors.white,
     onSecondary: Colors.black,
@@ -97,10 +115,22 @@ final ThemeData hendrixTodayDarkMode = ThemeData(
   ),
   textTheme: const TextTheme(
     displayLarge: TextStyle(
+      /// Used for loading screen.
+      color: Colors.white,
+      fontFamily: 'MuseoBold',
+      fontSize: 40,
+    ),
+    displayMedium: TextStyle(
       /// Used for app bar titles and resource button text.
       color: Colors.white,
       fontFamily: 'MuseoBold',
       fontSize: 30,
+    ),
+    displaySmall: TextStyle(
+      /// Used for app bar titles and resource button text.
+      color: Colors.white,
+      fontFamily: 'MuseoBold',
+      fontSize: 20,
     ),
     headlineLarge: TextStyle(
       // Used for event dialog titles.
@@ -121,6 +151,12 @@ final ThemeData hendrixTodayDarkMode = ThemeData(
       fontWeight: FontWeight.w200,
       fontSize: 14,
     ),
+    bodyLarge: TextStyle(
+      // Used for loading label.
+      color: Color.fromARGB(255, 245, 130, 42),
+      fontFamily: 'Museo',
+      fontSize: 25,
+    ),
     bodySmall: TextStyle(
       // Used for regular body text.
       color: Colors.white,
@@ -140,7 +176,7 @@ final ThemeData hendrixTodayDarkMode = ThemeData(
     ),
     labelSmall: TextStyle(
       // Used for body hyperlinks.
-      color: Color.fromARGB(255, 202, 81, 39),
+      color: Color.fromARGB(255, 245, 130, 42),
       fontFamily: 'Merriweather-Sans',
       decoration: TextDecoration.underline,
       letterSpacing: 0,

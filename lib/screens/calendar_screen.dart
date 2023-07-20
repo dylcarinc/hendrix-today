@@ -41,7 +41,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
           "calendar",
-          style: Theme.of(context).textTheme.displayLarge,
+          style: Theme.of(context).textTheme.displayMedium,
         ),
       ),
       body: Column(
