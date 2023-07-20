@@ -61,16 +61,6 @@ class FloatingNavButtons extends StatelessWidget {
             child: const Icon(Icons.info_outline),
           ),
         ),
-        Container(
-          key: const Key('DarkModeSwitch'),
-          margin: const EdgeInsets.all(10),
-          child: FloatingActionButton.small(
-            heroTag: null,
-            onPressed: () => RootApp.toggleTheme(context),
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            child: const Icon(Icons.brightness_4_outlined),
-          ),
-        ),
       ],
     );
   }
