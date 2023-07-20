@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:hendrix_today_app/widgets/root_app.dart';
-
 /// A horizontal bar of navigation buttons.
 ///
 /// Use this in the place of a [Scaffold.floatingActionButton]. Meant to be used
