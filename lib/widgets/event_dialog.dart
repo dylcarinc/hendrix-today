@@ -30,9 +30,10 @@ class EventDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      titlePadding: const EdgeInsets.fromLTRB(0, 24, 18, 0),
+      insetPadding: const EdgeInsets.symmetric(vertical: 25, horizontal: 50),
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(0.0))),
+      titlePadding: const EdgeInsets.fromLTRB(0, 24, 18, 0),
       title: Stack(
         children: [
           Container(
@@ -106,7 +107,6 @@ class EventDialog extends StatelessWidget {
           ),
         ],
       ),
-      insetPadding: const EdgeInsets.symmetric(vertical: 100, horizontal: 50),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -121,8 +121,10 @@ class EventDialog extends StatelessWidget {
             ),
             const SizedBox(height: 5),
           ],
-          SingleChildScrollView(
-            child: RichDescription(text: event.desc),
+          Flexible(
+            child: SingleChildScrollView(
+              child: RichDescription(text: event.desc),
+            ),
           ),
         ],
       ),
