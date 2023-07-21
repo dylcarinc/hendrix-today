@@ -95,12 +95,14 @@ class _EventCalendarState extends State<EventCalendar> {
                 : Colors.black),
       ),
       calendarStyle: CalendarStyle(
+          todayTextStyle:
+              TextStyle(color: Theme.of(context).colorScheme.primary),
           selectedDecoration:
-              BoxDecoration(color: Theme.of(context).colorScheme.primary),
-          todayDecoration:
               BoxDecoration(color: Theme.of(context).colorScheme.tertiary),
+          todayDecoration:
+              BoxDecoration(color: Theme.of(context).colorScheme.secondary),
           markerDecoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.secondary,
+            color: Theme.of(context).colorScheme.primary,
           ),
           markerSizeScale: 0.2),
       availableCalendarFormats: const {
