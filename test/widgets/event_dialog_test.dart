@@ -23,7 +23,7 @@ void main() {
             beginPosting: DateTime(2023, 6, 20),
             endPosting: DateTime(2023, 6, 25),
             applyDeadline: DateTime(1234, 5, 6),
-            tags: [],
+            id: 1,
           ),
         ),
       ),

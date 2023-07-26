@@ -19,7 +19,7 @@ void main() {
       "beginPosting": Timestamp.fromDate(DateTime(2023, 6, 11)),
       "endPosting": Timestamp.fromDate(DateTime(2023, 6, 17)),
       "applyDeadline": Timestamp.fromDate(DateTime(2023, 6, 17)),
-      "tags": "Outdoors;Social;Food;Clubs",
+      "id": 100,
     },
     {
       "title": "Minimal Event Data",
@@ -30,6 +30,7 @@ void main() {
       "contactEmail": "bar@baz.com",
       "beginPosting": Timestamp.fromDate(DateTime(2023, 5, 25)),
       "endPosting": Timestamp.fromDate(DateTime(2023, 5, 31)),
+      "id": 101,
     },
   ];
   final testEvents = <Event>[
@@ -45,7 +46,7 @@ void main() {
       beginPosting: DateTime(2022, 12, 21),
       endPosting: DateTime(2022, 12, 27),
       applyDeadline: DateTime(2022, 12, 28),
-      tags: [],
+      id: 1,
     ),
     Event(
       title: "Earlier Event",
@@ -59,7 +60,7 @@ void main() {
       beginPosting: DateTime(2022, 12, 25),
       endPosting: DateTime(2022, 12, 31),
       applyDeadline: null,
-      tags: [],
+      id: 2,
     ),
   ];
 
@@ -82,8 +83,7 @@ void main() {
     expect(event.beginPosting.day, 11);
     expect(event.endPosting.day, 17);
     expect(event.applyDeadline?.day, 17);
-    expect(event.tags.length, 4);
-    expect(event.tags, ["Outdoors", "Social", "Food", "Clubs"]);
+    expect(event.id, 100);
   });
 
   test('Missing required fields should fail Event construction', () {

@@ -25,7 +25,7 @@ void main() {
                   beginPosting: DateTime(2023, 6, 21),
                   endPosting: DateTime(2023, 6, 27),
                   applyDeadline: null,
-                  tags: []),
+                  id: 1),
               Event(
                   title: 'Another Test Title',
                   desc: 'Test description 2.',
@@ -38,7 +38,7 @@ void main() {
                   beginPosting: DateTime(2023, 6, 10),
                   endPosting: DateTime(2023, 6, 15),
                   applyDeadline: null,
-                  tags: []),
+                  id: 2),
             ],
           ),
         ),
