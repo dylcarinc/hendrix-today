@@ -19,7 +19,8 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isRead = Provider.of<AppState>(context).hasBeenRead(event.id);
+    final appState = Provider.of<AppState>(context);
+    final isRead = appState.hasBeenRead(event.id);
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(0.0),
@@ -40,11 +41,17 @@ class EventCard extends StatelessWidget {
             event.displayDate(),
             style: Theme.of(context).textTheme.headlineSmall,
           ),
-          onTap: () => showDialog(
-            context: context,
-            builder: (context) => EventDialog(event: event),
-          ),
-          trailing: isRead ? null : const Icon(Icons.priority_high),
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (context) => EventDialog(event: event),
+            );
+            appState.markEventAsRead(event);
+          },
+          trailing: isRead
+              ? null
+              : Icon(Icons.priority_high,
+                  color: Theme.of(context).colorScheme.primary),
         ),
       ),
     );

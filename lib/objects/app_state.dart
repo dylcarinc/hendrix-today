@@ -102,6 +102,7 @@ class AppState extends ChangeNotifier {
           {'id': event.id, 'event': event.toString()},
           conflictAlgorithm: ConflictAlgorithm.replace,
         ));
+    notifyListeners();
   }
 
   /// Mark all events in [_events] as read.
@@ -115,6 +116,7 @@ class AppState extends ChangeNotifier {
   Future<void> markAllAsUnread() async {
     _readItemsLocal.clear();
     _readItemsDb.then((db) => db.delete('Views'));
+    notifyListeners();
   }
 
   void debugPrintLocalDb() {
