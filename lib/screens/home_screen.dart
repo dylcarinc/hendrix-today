@@ -31,6 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
             event.eventType.matchesFilter(eventTypeFilter) &&
             event.inPostingRange(DateTime.now()))
         .toList();
+    final isEverythingRead =
+        homePageEvents.every((event) => appState.hasBeenRead(event.id));
 
     return Scaffold(
       appBar: AppBar(
@@ -39,24 +41,49 @@ class _HomeScreenState extends State<HomeScreen> {
           "hendrix today",
           style: Theme.of(context).textTheme.displayMedium,
         ),
-        actions: [
-          _FilterDropdown(
-            initialValue: eventTypeFilter,
-            onChanged: (newFilterChoice) => setState(() {
-              eventTypeFilter = newFilterChoice ?? eventTypeFilter;
-            }),
-          ),
-        ],
       ),
-      body: Center(
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: ListView(
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              EventList(events: homePageEvents),
+              const SizedBox(width: 5),
+              _FilterDropdown(
+                initialValue: eventTypeFilter,
+                onChanged: (newFilterChoice) => setState(() {
+                  eventTypeFilter = newFilterChoice ?? eventTypeFilter;
+                }),
+              ),
+              const Spacer(),
+              if (!isEverythingRead)
+                ElevatedButton(
+                  onPressed: () {
+                    final appState =
+                        Provider.of<AppState>(context, listen: false);
+                    for (final event in homePageEvents) {
+                      appState.markEventAsRead(event);
+                    }
+                  },
+                  child: const Icon(Icons.checklist_rtl),
+                ),
+              const SizedBox(width: 5),
             ],
           ),
-        ),
+          if (homePageEvents.isNotEmpty)
+            Flexible(
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: ListView(
+                  children: [
+                    EventList(events: homePageEvents),
+                  ],
+                ),
+              ),
+            )
+          else
+            const Center(child: Text('Nothing to show!')),
+        ],
       ),
       floatingActionButton: const FloatingNavButtons(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -75,26 +102,42 @@ class _FilterDropdown extends StatelessWidget {
   /// A callback to run when a new selection is made.
   final void Function(EventTypeFilter?) onChanged;
 
+  List<DropdownMenuItem<EventTypeFilter>> dropdownItemsList(
+          BuildContext context, TextStyle? style) =>
+      EventTypeFilter.values
+          .map((etf) => DropdownMenuItem(
+                value: etf,
+                child: Text(
+                  etf.toString(),
+                  style: style,
+                ),
+              ))
+          .toList();
+
   @override
   Widget build(BuildContext context) {
-    final List<DropdownMenuItem<EventTypeFilter>> dropdownItems =
-        EventTypeFilter.values
-            .map((etf) => DropdownMenuItem(
-                  value: etf,
-                  child: Text(
-                    etf.toString(),
-                    style: Theme.of(context).textTheme.labelLarge,
-                  ),
-                ))
-            .toList();
+    final dropdownStyle = Theme.of(context).textTheme.labelLarge;
+    final selectedStyle = Theme.of(context)
+        .textTheme
+        .displaySmall
+        ?.copyWith(color: Theme.of(context).colorScheme.primary);
 
-    return DropdownButtonHideUnderline(
-      key: const Key('EventTypeFilterDropdown'),
-      child: DropdownButton<EventTypeFilter>(
-        value: initialValue,
-        dropdownColor: Theme.of(context).colorScheme.primary,
-        items: dropdownItems,
-        onChanged: onChanged,
+    return Directionality(
+      // This makes the dropdown arrow appear on the left side
+      // https://stackoverflow.com/a/60264734
+      textDirection: TextDirection.rtl,
+      child: DropdownButtonHideUnderline(
+        key: const Key('EventTypeFilterDropdown'),
+        child: DropdownButton<EventTypeFilter>(
+          value: initialValue,
+          dropdownColor: Theme.of(context).colorScheme.primary,
+          items: dropdownItemsList(context, dropdownStyle),
+          onChanged: onChanged,
+          alignment: Alignment.centerLeft,
+          icon: const Icon(Icons.expand_more),
+          selectedItemBuilder: (context) =>
+              dropdownItemsList(context, selectedStyle),
+        ),
       ),
     );
   }
