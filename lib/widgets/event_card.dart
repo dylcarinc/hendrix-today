@@ -6,16 +6,16 @@ import 'package:hendrix_today_app/widgets/event_dialog.dart';
 
 import 'package:provider/provider.dart';
 
-/// A [Card]-like widget that displays defining information for an [Event].
+/// A [Card]-like widget that displays defining information for an [HDXEvent].
 ///
-/// An [Event]'s title and date is displayed in text, while the [EventType] is
+/// An [HDXEvent]'s title and date is displayed in text, while the [EventType] is
 /// suggested by the color coding on the left border of the widget. Conforms to
 /// the Hendrix College style guide.
 class EventCard extends StatelessWidget {
   const EventCard({super.key, required this.event});
 
-  /// The [Event] from which to display information.
-  final Event event;
+  /// The [HDXEvent] from which to display information.
+  final HDXEvent event;
 
   @override
   Widget build(BuildContext context) {

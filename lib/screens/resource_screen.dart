@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
 import 'package:hendrix_today_app/widgets/resource_button.dart';
-
-import '../widgets/root_app.dart';
+import 'package:hendrix_today_app/widgets/toggle_bar.dart';
 
 /// A list of official Hendrix resources.
 ///
@@ -28,8 +27,6 @@ class ResourcesScreen extends StatelessWidget {
     ];
     int dayOfWeek = DateTime.now().weekday;
     String menuLink = menuLinks[dayOfWeek - 1];
-
-    bool darkmode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       appBar: AppBar(
@@ -73,25 +70,11 @@ class ResourcesScreen extends StatelessWidget {
                   color: Theme.of(context).colorScheme.tertiary,
                   url: "https://www.hendrix.edu/campusmap/"),
               const SizedBox(height: 30),
-              SizedBox(
-                height: 60,
-                width: 300,
-                child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(0.0)),
-                    elevation: 5,
-                    color: Theme.of(context).colorScheme.tertiary,
-                    child: SwitchListTile(
-                      title: Text(
-                        'dark mode',
-                        style: Theme.of(context).textTheme.displaySmall,
-                        textAlign: TextAlign.center,
-                      ),
-                      value: darkmode,
-                      onChanged: (bool value) => RootApp.toggleTheme(context),
-                      secondary: Icon(Icons.brightness_4_outlined,
-                          color: Theme.of(context).iconTheme.color),
-                    )),
+              ToggleBar(
+                key: const Key('DarkToggle'),
+                titleString: "dark mode",
+                icon: Icons.brightness_4_outlined,
+                color: Theme.of(context).colorScheme.primary,
               ),
               const SizedBox(height: 100),
             ],

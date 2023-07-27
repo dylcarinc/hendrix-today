@@ -8,7 +8,7 @@ class EventList extends StatelessWidget {
   const EventList({super.key, required this.events});
 
   /// The events to be displayed as [EventCard]s.
-  final List<Event> events;
+  final List<HDXEvent> events;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class EventList extends StatelessWidget {
       shrinkWrap: true,
       physics: const ScrollPhysics(),
       children: [
-        for (Event e in events) EventCard(event: e),
+        for (HDXEvent e in events) EventCard(event: e),
         const SizedBox(height: 85),
       ],
     );
