@@ -29,6 +29,8 @@ class AppState extends ChangeNotifier {
     _initFirebase();
   }
 
+  /// Initializes the read items SQLite database and sets up a  local clone for
+  /// synchronous access.
   Future<void> _initReadItems() async {
     _readItemsDb = openDatabase(
       join(await getDatabasesPath(), 'htLocal.db'),
@@ -103,13 +105,6 @@ class AppState extends ChangeNotifier {
           conflictAlgorithm: ConflictAlgorithm.replace,
         ));
     notifyListeners();
-  }
-
-  /// Mark all events in [_events] as read.
-  void markAllAsRead() {
-    for (final event in _events) {
-      markEventAsRead(event);
-    }
   }
 
   /// Remove all items from [_readItemsDb].
