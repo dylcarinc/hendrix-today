@@ -13,7 +13,7 @@ void main() {
         home: Scaffold(
           body: EventList(
             events: [
-              Event(
+              HDXEvent(
                   title: 'Test Title',
                   desc: 'Test description.',
                   eventType: EventType.event,
@@ -26,7 +26,7 @@ void main() {
                   endPosting: DateTime(2023, 6, 27),
                   applyDeadline: null,
                   id: 1),
-              Event(
+              HDXEvent(
                   title: 'Another Test Title',
                   desc: 'Test description 2.',
                   eventType: EventType.meeting,

@@ -13,10 +13,10 @@ class AppState extends ChangeNotifier {
   StreamSubscription<QuerySnapshot>? _eventSubscription;
   late Future<Database> _readItemsDb;
   List<({int id, String event})> _readItemsLocal = [];
-  List<Event> _events = [];
+  List<HDXEvent> _events = [];
 
-  /// The list of events, ordered by [Event.compareByDate].
-  List<Event> get events => _events;
+  /// The list of events, ordered by [HDXEvent.compareByDate].
+  List<HDXEvent> get events => _events;
 
   AppState(this.auth, this.firestore) {
     _init();
@@ -62,7 +62,7 @@ class AppState extends ChangeNotifier {
           _events = [];
           for (var document in snapshot.docs) {
             final Map<String, dynamic> data = document.data();
-            final Event? event = Event.fromFirebase(data);
+            final HDXEvent? event = HDXEvent.fromFirebase(data);
             if (event != null) {
               _events.add(event);
             } else {
@@ -70,7 +70,7 @@ class AppState extends ChangeNotifier {
             }
           }
           // establishes a default sort order
-          _events.sort((Event a, Event b) => a.compareByDate(b));
+          _events.sort((HDXEvent a, HDXEvent b) => a.compareByDate(b));
           notifyListeners();
         },
         onError: (error) {
@@ -88,7 +88,7 @@ class AppState extends ChangeNotifier {
 
   /// Returns `true` if an item with the same ID as [event] exists in [_readItemsDb]
   /// but has different contents.
-  bool hasBeenUpdated(Event event) {
+  bool hasBeenUpdated(HDXEvent event) {
     final matches = _readItemsLocal.where((record) => record.id == event.id);
     if (matches.isEmpty) return false;
     return matches.first.event != event.toString();
@@ -97,7 +97,7 @@ class AppState extends ChangeNotifier {
   /// Add [event] to [_readItemsDb].
   ///
   /// If an item with the same ID as [event] exists, it will be replaced.
-  void markEventAsRead(Event event) {
+  void markEventAsRead(HDXEvent event) {
     _readItemsLocal.add((id: event.id, event: event.toString()));
     _readItemsDb.then((db) => db.insert(
           'Views',

@@ -5,17 +5,18 @@ import 'package:hendrix_today_app/widgets/rich_description.dart';
 
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:add_2_calendar/add_2_calendar.dart';
 
-/// A detailed display of an [Event] built on the [AlertDialog] widget.
+/// A detailed display of an [HDXEvent] built on the [AlertDialog] widget.
 ///
-/// This dialog holds all [Event] information accessible to the user, so its
+/// This dialog holds all [HDXEvent] information accessible to the user, so its
 /// layout must be thoughtfully planned. This widget conforms to the Hendrix
 /// College style guide.
 class EventDialog extends StatelessWidget {
   const EventDialog({super.key, required this.event});
-  final Event event;
+  final HDXEvent event;
 
-  /// Attempts to begin a draft email to the [Event.contactEmail].
+  /// Attempts to begin a draft email to the [HDXEvent.contactEmail].
   ///
   /// Fails if the [event]'s contact email cannot be parsed into a [Uri].
   void _tryEmailContact() async {
@@ -46,7 +47,7 @@ class EventDialog extends StatelessWidget {
             ),
             padding: const EdgeInsetsDirectional.only(start: 8.0, end: 20.0),
             // minimum height to contain all 3 side buttons
-            constraints: const BoxConstraints(minHeight: 120.0),
+            constraints: const BoxConstraints(minHeight: 160.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -90,17 +91,37 @@ class EventDialog extends StatelessWidget {
                   onPressed: () => Navigator.pop(context),
                 ),
                 IconButton(
+                  visualDensity: VisualDensity.compact,
                   color: Theme.of(context).colorScheme.primary,
                   onPressed: () => Share.share(
                       '"${event.title}" -${event.desc}',
                       subject: 'Check out this event!'),
-                  icon: const Icon(Icons.share_outlined),
+                  icon: const Icon(Icons.share),
                 ),
                 IconButton(
+                  visualDensity: VisualDensity.compact,
                   padding: const EdgeInsets.only(right: 2.0),
                   color: Theme.of(context).colorScheme.primary,
                   onPressed: () => _tryEmailContact(),
                   icon: const Icon(Icons.mail_outlined),
+                ),
+                IconButton(
+                  visualDensity: VisualDensity.compact,
+                  padding: const EdgeInsets.only(right: 2.0),
+                  color: Theme.of(context).colorScheme.primary,
+                  onPressed: () {
+                    final Event calevent = Event(
+                        title: event.time == null
+                            ? event.title
+                            : "${event.title}: ${event.time}",
+                        description: event.desc,
+                        location: event.location,
+                        startDate: event.date,
+                        endDate: event.date,
+                        allDay: event.time == null);
+                    Add2Calendar.addEvent2Cal(calevent);
+                  },
+                  icon: const Icon(Icons.edit_calendar),
                 ),
               ],
             ),

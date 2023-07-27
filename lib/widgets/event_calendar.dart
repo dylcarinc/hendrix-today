@@ -25,9 +25,9 @@ class _EventCalendarState extends State<EventCalendar> {
   DateTime _selectedDay = DateTime.now();
 
   /// Gets the events/announcements/etc. for the given day.
-  List<Event> _getEventsForDay(DateTime day) {
+  List<HDXEvent> _getEventsForDay(DateTime day) {
     final appState = Provider.of<AppState>(context, listen: false);
-    return appState.events.where((Event e) => e.matchesDate(day)).toList();
+    return appState.events.where((HDXEvent e) => e.matchesDate(day)).toList();
   }
 
   /// Called when a day is selected on the [TableCalendar].
@@ -48,7 +48,7 @@ class _EventCalendarState extends State<EventCalendar> {
   DateTime _getCalendarStartDate() {
     final appState = Provider.of<AppState>(context);
     DateTime min = _focusedDay;
-    for (Event e in appState.events) {
+    for (HDXEvent e in appState.events) {
       if (e.date.isBefore(min)) {
         min = e.date;
       }
@@ -63,7 +63,7 @@ class _EventCalendarState extends State<EventCalendar> {
   DateTime _getCalendarEndDate() {
     final appState = Provider.of<AppState>(context);
     DateTime max = _focusedDay;
-    for (Event e in appState.events) {
+    for (HDXEvent e in appState.events) {
       if (e.date.isAfter(max)) {
         max = e.date;
       }

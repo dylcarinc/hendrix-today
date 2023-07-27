@@ -11,7 +11,7 @@ void main() {
     await widgetTester.pumpWidget(MaterialApp(
       home: Scaffold(
         body: EventCard(
-          event: Event(
+          event: HDXEvent(
             title: 'Test Title',
             desc: 'Test description.',
             eventType: EventType.event,
@@ -40,7 +40,7 @@ void main() {
       await widgetTester.pumpWidget(MaterialApp(
         home: Scaffold(
           body: EventCard(
-            event: Event(
+            event: HDXEvent(
               title: 'Test Title',
               desc: 'Test description.',
               eventType: EventType.event,

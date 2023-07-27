@@ -33,8 +33,8 @@ void main() {
       "id": 101,
     },
   ];
-  final testEvents = <Event>[
-    Event(
+  final testEvents = <HDXEvent>[
+    HDXEvent(
       title: "Later Event",
       desc: "foo",
       eventType: EventType.event,
@@ -48,7 +48,7 @@ void main() {
       applyDeadline: DateTime(2022, 12, 28),
       id: 1,
     ),
-    Event(
+    HDXEvent(
       title: "Earlier Event",
       desc: "bar",
       eventType: EventType.event,
@@ -66,10 +66,10 @@ void main() {
 
   test('Events can be created from Firestore data', () {
     final testEvents =
-        testData.map((data) => Event.fromFirebase(data)).toList();
+        testData.map((data) => HDXEvent.fromFirebase(data)).toList();
 
     expect(testEvents.length, 2, reason: "Two events should have been created");
-    final event = testEvents[0] as Event;
+    final event = testEvents[0] as HDXEvent;
     expect(event.title, "Test Event");
     expect(event.desc, "Test description");
     expect(event.eventType, EventType.meeting);
@@ -92,7 +92,7 @@ void main() {
       final Map<String, dynamic> badData = Map.from(minimalEventData);
       badData.remove(requiredField);
 
-      final invalidEvent = Event.fromFirebase(badData);
+      final invalidEvent = HDXEvent.fromFirebase(badData);
 
       expect(invalidEvent, null,
           reason: "A missing required field (in this case, $requiredField) "
@@ -128,19 +128,19 @@ void main() {
 
   test('Events are searchable by title and description content', () {
     final eventSearchCount =
-        testEvents.where((Event e) => e.containsString("EVENT")).length;
+        testEvents.where((HDXEvent e) => e.containsString("EVENT")).length;
 
     expect(eventSearchCount, 2,
         reason: "Both of the test events contain the word 'event'");
 
     final fooSearchCount =
-        testEvents.where((Event e) => e.containsString("foo")).length;
+        testEvents.where((HDXEvent e) => e.containsString("foo")).length;
 
     expect(fooSearchCount, 1,
         reason: "Only one of the test events contains the word 'foo'");
 
     final gibberishSearchCount = testEvents
-        .where((Event e) => e.containsString("argliujreabnva"))
+        .where((HDXEvent e) => e.containsString("argliujreabnva"))
         .length;
 
     expect(gibberishSearchCount, 0,
@@ -149,7 +149,7 @@ void main() {
 
   test('Events can be filtered by date', () {
     final goodDateFilterLength = testEvents
-        .where((Event e) => e.matchesDate(DateTime(2023, 1, 1)))
+        .where((HDXEvent e) => e.matchesDate(DateTime(2023, 1, 1)))
         .length;
 
     expect(goodDateFilterLength, 1,
@@ -157,7 +157,7 @@ void main() {
             "There should be exactly one test event with the date 2023/1/1");
 
     final badDateFilterLength = testEvents
-        .where((Event e) => e.matchesDate(DateTime(1234, 5, 6)))
+        .where((HDXEvent e) => e.matchesDate(DateTime(1234, 5, 6)))
         .length;
 
     expect(badDateFilterLength, 0,
@@ -166,28 +166,28 @@ void main() {
 
   test('Events can be filtered by posting range', () {
     final overlapRangeFilterLength = testEvents
-        .where((Event e) => e.inPostingRange(DateTime(2022, 12, 26)))
+        .where((HDXEvent e) => e.inPostingRange(DateTime(2022, 12, 26)))
         .length;
 
     expect(overlapRangeFilterLength, 2,
         reason: "Both test events should be displayed on 2022/12/26");
 
     final rangeFilterStartLength = testEvents
-        .where((Event e) => e.inPostingRange(DateTime(2022, 12, 21)))
+        .where((HDXEvent e) => e.inPostingRange(DateTime(2022, 12, 21)))
         .length;
 
     expect(rangeFilterStartLength, 1,
         reason: "The range filter should include beginPosting dates");
 
     final rangeFilterEndLength = testEvents
-        .where((Event e) => e.inPostingRange(DateTime(2022, 12, 31)))
+        .where((HDXEvent e) => e.inPostingRange(DateTime(2022, 12, 31)))
         .length;
 
     expect(rangeFilterEndLength, 1,
         reason: "The range filter should include endPosting dates");
 
     final badRangeFilterLength = testEvents
-        .where((Event e) => e.inPostingRange(DateTime(1234, 5, 6)))
+        .where((HDXEvent e) => e.inPostingRange(DateTime(1234, 5, 6)))
         .length;
 
     expect(badRangeFilterLength, 0,
