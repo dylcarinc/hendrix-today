@@ -6,13 +6,16 @@ import 'package:url_launcher/url_launcher.dart';
 ///
 /// Fails if [url] is an invalid [Uri] or if the device does not support the
 /// given type of URL (for example, attempting to launch a phone call on web).
-Future<void> _tryLaunchUrl(String url) async {
+Future<String> _tryLaunchUrl(String url) async {
   final uri = Uri.tryParse(url);
-  if (uri == null) throw 'Could not launch $url: invalid URI';
+  if (uri == null) {
+    return 'Could not launch $url: invalid URI';
+  }
   if (await canLaunchUrl(uri)) {
     await launchUrl(uri, mode: LaunchMode.externalApplication);
+    return "Success!";
   } else {
-    throw 'Could not launch $url: not supported according to `canLaunchUrl`';
+    return 'Could not launch $url: not supported according to `canLaunchUrl`';
   }
 }
 
@@ -61,7 +64,14 @@ class ResourceButton extends StatelessWidget {
           ),
           leading:
               Icon(icon, size: 60, color: Theme.of(context).iconTheme.color),
-          onTap: () => _tryLaunchUrl(url),
+          onTap: () {
+            _tryLaunchUrl(url);
+/*            _tryLaunchUrl(url).then(
+                (value) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(value),
+                    )));
+                    */
+          },
         ),
       ),
     );
