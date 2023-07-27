@@ -100,6 +100,20 @@ class Event {
     required this.id,
   });
 
+  @override
+  String toString() => 'Event{title: $title, '
+      'desc: $desc, '
+      'eventType: $eventType, '
+      'date: $date, '
+      'time: $time, '
+      'location: $location, '
+      'contactName: $contactName, '
+      'contactEmail: $contactEmail, '
+      'beginPosting: $beginPosting, '
+      'endPosting: $endPosting, '
+      'applyDeadline: $applyDeadline, '
+      'id: $id}';
+
   /// Can be used to sort [Event]s by [date].
   int compareByDate(Event other) => date.compareTo(other.date);
 

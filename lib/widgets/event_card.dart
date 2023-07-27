@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'package:hendrix_today_app/objects/app_state.dart';
 import 'package:hendrix_today_app/objects/event.dart';
 import 'package:hendrix_today_app/widgets/event_dialog.dart';
+
+import 'package:provider/provider.dart';
 
 /// A [Card]-like widget that displays defining information for an [Event].
 ///
@@ -16,6 +19,7 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isRead = Provider.of<AppState>(context).hasBeenRead(event.id);
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(0.0),
@@ -40,6 +44,7 @@ class EventCard extends StatelessWidget {
             context: context,
             builder: (context) => EventDialog(event: event),
           ),
+          trailing: isRead ? null : const Icon(Icons.priority_high),
         ),
       ),
     );
