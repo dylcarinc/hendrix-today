@@ -115,6 +115,7 @@ class _EventCalendarState extends State<EventCalendar> {
         _selectedDay =
             DateTime(focusedDay.year, focusedDay.month, _selectedDay.day);
         _focusedDay = focusedDay;
+        widget.onSelectDay(_selectedDay);
         setState(() {});
       },
     );
