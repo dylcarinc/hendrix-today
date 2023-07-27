@@ -20,7 +20,8 @@ class EventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
-    final isRead = appState.hasBeenRead(event.id);
+    final isRead =
+        appState.hasBeenRead(event.id) || appState.hasBeenUpdated(event);
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(0.0),

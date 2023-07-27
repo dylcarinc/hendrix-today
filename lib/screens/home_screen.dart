@@ -31,6 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
             event.eventType.matchesFilter(eventTypeFilter) &&
             event.inPostingRange(DateTime.now()))
         .toList();
+    final isEverythingRead =
+        homePageEvents.every((event) => appState.hasBeenRead(event.id));
 
     return Scaffold(
       appBar: AppBar(
@@ -48,15 +50,33 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: Center(
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: ListView(
-            children: [
-              EventList(events: homePageEvents),
-            ],
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          if (!isEverythingRead)
+            Padding(
+              padding: const EdgeInsets.only(right: 5),
+              child: ElevatedButton(
+                onPressed: () {
+                  final appState =
+                      Provider.of<AppState>(context, listen: false);
+                  appState.markAllAsRead();
+                },
+                child: const Icon(Icons.checklist_rtl),
+              ),
+            ),
+          Flexible(
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: ListView(
+                children: [
+                  EventList(events: homePageEvents),
+                ],
+              ),
+            ),
           ),
-        ),
+        ],
       ),
       floatingActionButton: const FloatingNavButtons(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

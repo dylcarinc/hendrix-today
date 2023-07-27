@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hendrix_today_app/objects/app_state.dart';
 
 import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
 import 'package:hendrix_today_app/widgets/resource_button.dart';
-import 'package:provider/provider.dart';
 
 import '../widgets/root_app.dart';
 
@@ -94,32 +92,6 @@ class ResourcesScreen extends StatelessWidget {
                       secondary: Icon(Icons.brightness_4_outlined,
                           color: Theme.of(context).iconTheme.color),
                     )),
-              ),
-              const SizedBox(height: 20),
-              TextButton(
-                onPressed: () {
-                  final appState =
-                      Provider.of<AppState>(context, listen: false);
-                  debugPrint('before markAllAsRead:');
-                  appState.debugPrintLocalDb();
-                  appState.markAllAsRead();
-                  debugPrint('after markAllAsRead:');
-                  appState.debugPrintLocalDb();
-                },
-                child: const Text('mark all as read'),
-              ),
-              const SizedBox(height: 20),
-              TextButton(
-                onPressed: () {
-                  final appState =
-                      Provider.of<AppState>(context, listen: false);
-                  debugPrint('before markAllAsUnread:');
-                  appState.debugPrintLocalDb();
-                  appState.markAllAsUnread();
-                  debugPrint('after markAllAsUnread:');
-                  appState.debugPrintLocalDb();
-                },
-                child: const Text('mark all as unread'),
               ),
               const SizedBox(height: 100),
             ],
