@@ -118,7 +118,7 @@ class EventDialog extends StatelessWidget {
                         location: event.location,
                         startDate: event.date,
                         endDate: event.date,
-                        allDay: event.time == null);
+                        allDay: true);
                     Add2Calendar.addEvent2Cal(calevent);
                   },
                   icon: const Icon(Icons.edit_calendar),
