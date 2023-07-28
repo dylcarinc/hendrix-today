@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 import 'package:hendrix_today_app/firebase_options.dart';
@@ -15,6 +16,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  final fcmToken = await FirebaseMessaging.instance.getToken();
+  await FirebaseMessaging.instance.subscribeToTopic("new_events");
 
   FirebaseUIAuth.configureProviders([
     EmailAuthProvider(),
