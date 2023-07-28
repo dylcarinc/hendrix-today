@@ -56,5 +56,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Adding_Events_To_Calendar</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Adding_Events_To_Calendar</string>
 </dict>
 </plist>
