@@ -17,8 +17,8 @@ Future<void> main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  final fcmToken = await FirebaseMessaging.instance.getToken();
-  await FirebaseMessaging.instance.subscribeToTopic("new_events");
+//  final fcmToken = await FirebaseMessaging.instance.getToken();
+//  await FirebaseMessaging.instance.subscribeToTopic("new_events");
 
   FirebaseUIAuth.configureProviders([
     EmailAuthProvider(),
