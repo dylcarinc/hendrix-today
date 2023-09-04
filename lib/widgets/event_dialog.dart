@@ -28,6 +28,12 @@ class EventDialog extends StatelessWidget {
     launchUrl(uri);
   }
 
+  void _titleLimiter(String eventTitle) async {
+    if (eventTitle.length > 60) {
+      eventTitle = "${eventTitle.substring(0, 60)}...";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -52,7 +58,9 @@ class EventDialog extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(event.title.toString(),
-                    style: Theme.of(context).textTheme.headlineLarge),
+                    style: Theme.of(context).textTheme.headlineLarge,
+                    maxLines: 5,
+                    overflow: TextOverflow.ellipsis),
                 const SizedBox(height: 5),
                 Text(
                   event.eventType.toString(),
