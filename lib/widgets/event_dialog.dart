@@ -28,12 +28,6 @@ class EventDialog extends StatelessWidget {
     launchUrl(uri);
   }
 
-  void _titleLimiter(String eventTitle) async {
-    if (eventTitle.length > 60) {
-      eventTitle = "${eventTitle.substring(0, 60)}...";
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
