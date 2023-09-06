@@ -37,6 +37,8 @@ class EventCard extends StatelessWidget {
           title: Text(
             event.title.toString(),
             style: Theme.of(context).textTheme.headlineMedium,
+            maxLines: 4,
+            overflow: TextOverflow.ellipsis,
           ),
           subtitle: Text(
             event.displayDate(),

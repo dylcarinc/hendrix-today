@@ -52,7 +52,9 @@ class EventDialog extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(event.title.toString(),
-                    style: Theme.of(context).textTheme.headlineLarge),
+                    style: Theme.of(context).textTheme.headlineLarge,
+                    maxLines: 5,
+                    overflow: TextOverflow.ellipsis),
                 const SizedBox(height: 5),
                 Text(
                   event.eventType.toString(),
