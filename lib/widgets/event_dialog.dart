@@ -16,20 +16,9 @@ import 'package:add_2_calendar/add_2_calendar.dart';
 /// To ensure Users can see titles of extreme length, this widget has been
 /// made a Stateful Widget.
 
-class EventDialog extends StatefulWidget {
+class EventDialog extends StatelessWidget {
   const EventDialog({super.key, required this.event});
   final HDXEvent event;
-
-  // Ignore This
-  @override
-  State createState() => _EventState(event: event);
-}
-
-class _EventState extends State<EventDialog> {
-  _EventState({required this.event});
-  final HDXEvent event;
-  int maximumLines = 4;
-  bool extended = false;
 
   /// Attempts to begin a draft email to the [HDXEvent.contactEmail].
   ///
@@ -66,12 +55,7 @@ class _EventState extends State<EventDialog> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  event.title.toString(),
-                  style: Theme.of(context).textTheme.headlineLarge,
-                  maxLines: maximumLines,
-                ),
-                _buildTextButton(),
+                EventDialogTitle(event: event),
                 Text(
                   event.eventType.toString(),
                   style: Theme.of(context)
@@ -173,6 +157,36 @@ class _EventState extends State<EventDialog> {
   /// This widget creates an elipsis TextButton that only appears
   /// when the maximum title length has been exceeded. This will
   /// allow users to click and view the whole title should they desire.
+}
+
+class EventDialogTitle extends StatefulWidget {
+  const EventDialogTitle({super.key, required this.event});
+  final HDXEvent event;
+
+  @override
+  // If there is a better way to do this. Let me know!
+  // ignore: no_logic_in_create_state
+  State createState() => _EventTitleState(event: event);
+}
+
+class _EventTitleState extends State<EventDialogTitle> {
+  _EventTitleState({required this.event});
+  final HDXEvent event;
+  int maximumLines = 4;
+  bool extended = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text(
+        event.title.toString(),
+        style: Theme.of(context).textTheme.headlineLarge,
+        maxLines: maximumLines,
+      ),
+      _buildTextButton()
+    ]);
+  }
+
   Widget _buildTextButton() {
     if (event.title.length < 80 || extended) {
       return const SizedBox.shrink();
