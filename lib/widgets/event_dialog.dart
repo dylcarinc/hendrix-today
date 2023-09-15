@@ -55,7 +55,7 @@ class EventDialog extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                EventDialogTitle(event: event),
+                EventDialogTitle(eventTitle: event.title),
                 Text(
                   event.eventType.toString(),
                   style: Theme.of(context)
@@ -160,18 +160,18 @@ class EventDialog extends StatelessWidget {
 }
 
 class EventDialogTitle extends StatefulWidget {
-  const EventDialogTitle({super.key, required this.event});
-  final HDXEvent event;
+  const EventDialogTitle({super.key, required this.eventTitle});
+  final String eventTitle;
 
   @override
   // If there is a better way to do this. Let me know!
   // ignore: no_logic_in_create_state
-  State createState() => _EventTitleState(event: event);
+  State createState() => _EventTitleState(eventTitle: eventTitle);
 }
 
 class _EventTitleState extends State<EventDialogTitle> {
-  _EventTitleState({required this.event});
-  final HDXEvent event;
+  _EventTitleState({required this.eventTitle});
+  final String eventTitle;
   int maximumLines = 4;
   bool extended = false;
 
@@ -179,7 +179,7 @@ class _EventTitleState extends State<EventDialogTitle> {
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(
-        event.title.toString(),
+        eventTitle.toString(),
         style: Theme.of(context).textTheme.headlineLarge,
         maxLines: maximumLines,
       ),
@@ -188,7 +188,7 @@ class _EventTitleState extends State<EventDialogTitle> {
   }
 
   Widget _buildTextButton() {
-    if (event.title.length < 80 || extended) {
+    if (eventTitle.length < 80 || extended) {
       return const SizedBox.shrink();
     } else {
       return TextButton(
