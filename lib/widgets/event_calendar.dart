@@ -27,7 +27,10 @@ class _EventCalendarState extends State<EventCalendar> {
   /// Gets the events/announcements/etc. for the given day.
   List<HDXEvent> _getEventsForDay(DateTime day) {
     final appState = Provider.of<AppState>(context, listen: false);
-    return appState.events.where((HDXEvent e) => e.matchesDate(day)).toList();
+    return appState.events
+        .where((HDXEvent e) =>
+            e.matchesDate(day) && e.inPostingRange(DateTime.now()))
+        .toList();
   }
 
   /// Called when a day is selected on the [TableCalendar].

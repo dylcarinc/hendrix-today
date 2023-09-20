@@ -33,7 +33,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
     final eventList = appState.events
-        .where((HDXEvent e) => e.matchesDate(_selectedDay))
+        .where((HDXEvent e) =>
+            e.matchesDate(_selectedDay) && e.inPostingRange(DateTime.now()))
         .toList();
 
     return Scaffold(
