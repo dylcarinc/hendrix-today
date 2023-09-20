@@ -53,8 +53,11 @@ class EventCard extends StatelessWidget {
           },
           trailing: isRead
               ? null
-              : Icon(Icons.priority_high,
-                  color: Theme.of(context).colorScheme.primary),
+              : Icon(
+                  Icons.new_releases,
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 35,
+                ),
         ),
       ),
     );
