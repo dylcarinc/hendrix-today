@@ -12,6 +12,10 @@ import 'package:add_2_calendar/add_2_calendar.dart';
 /// This dialog holds all [HDXEvent] information accessible to the user, so its
 /// layout must be thoughtfully planned. This widget conforms to the Hendrix
 /// College style guide.
+///
+/// To ensure Users can see titles of extreme length, this widget has been
+/// made a Stateful Widget.
+
 class EventDialog extends StatelessWidget {
   const EventDialog({super.key, required this.event});
   final HDXEvent event;
@@ -51,9 +55,7 @@ class EventDialog extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(event.title.toString(),
-                    style: Theme.of(context).textTheme.headlineLarge),
-                const SizedBox(height: 5),
+                EventDialogTitle(eventTitle: event.title),
                 Text(
                   event.eventType.toString(),
                   style: Theme.of(context)
@@ -150,5 +152,61 @@ class EventDialog extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  /// This widget creates an elipsis TextButton that only appears
+  /// when the maximum title length has been exceeded. This will
+  /// allow users to click and view the whole title should they desire.
+}
+
+class EventDialogTitle extends StatefulWidget {
+  const EventDialogTitle({super.key, required this.eventTitle});
+  final String eventTitle;
+
+  @override
+  // If there is a better way to do this. Let me know!
+  // ignore: no_logic_in_create_state
+  State createState() => _EventTitleState(eventTitle: eventTitle);
+}
+
+class _EventTitleState extends State<EventDialogTitle> {
+  _EventTitleState({required this.eventTitle});
+  final String eventTitle;
+  int maximumLines = 4;
+  bool extended = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text(
+        eventTitle.toString(),
+        style: Theme.of(context).textTheme.headlineLarge,
+        maxLines: maximumLines,
+      ),
+      _buildTextButton()
+    ]);
+  }
+
+  Widget _buildTextButton() {
+    if (eventTitle.length < 80 || extended) {
+      return const SizedBox.shrink();
+    } else {
+      return TextButton(
+          onPressed: () {
+            setState(() {
+              maximumLines = 20;
+              extended = true;
+            });
+          },
+          child: const Text(
+            "...",
+            style: TextStyle(
+              // No remaining TextStyles remained, this was the only option.
+              color: Color.fromARGB(255, 202, 81, 39),
+              fontWeight: FontWeight.bold,
+              fontSize: 25,
+            ),
+          ));
+    }
   }
 }
