@@ -24,8 +24,10 @@ class _SearchScreenState extends State<SearchScreen> {
   /// The search term to be applied to the results list; is empty by default.
   String searchQuery = "";
 
-  List<HDXEvent> _applySearchFilter(List<HDXEvent> events) =>
-      events.where((HDXEvent e) => e.containsString(searchQuery)).toList();
+  List<HDXEvent> _applySearchFilter(List<HDXEvent> events) => events
+      .where((HDXEvent e) =>
+          e.containsString(searchQuery) && e.inPostingRange(DateTime.now()))
+      .toList();
 
   @override
   Widget build(BuildContext context) {

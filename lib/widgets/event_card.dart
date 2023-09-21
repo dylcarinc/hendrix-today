@@ -37,6 +37,8 @@ class EventCard extends StatelessWidget {
           title: Text(
             event.title.toString(),
             style: Theme.of(context).textTheme.headlineMedium,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
           ),
           subtitle: Text(
             event.displayDate(),
@@ -51,8 +53,11 @@ class EventCard extends StatelessWidget {
           },
           trailing: isRead
               ? null
-              : Icon(Icons.priority_high,
-                  color: Theme.of(context).colorScheme.primary),
+              : Icon(
+                  Icons.new_releases,
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 35,
+                ),
         ),
       ),
     );
