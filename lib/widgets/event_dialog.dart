@@ -23,9 +23,15 @@ class EventDialog extends StatelessWidget {
   /// Attempts to begin a draft email to the [HDXEvent.contactEmail].
   ///
   /// Fails if the [event]'s contact email cannot be parsed into a [Uri].
-  void _tryEmailContact() async {
-    final subject = 'Hendrix Today - response to "${event.title}"';
-    final mailto = 'mailto:${event.contactEmail}?subject=$subject';
+  void _tryEmailContact(bool contact) async {
+    String mailto = "";
+    if (contact) {
+      final subject = 'Hendrix Today - response to "${event.title}"';
+      mailto = 'mailto:${event.contactEmail}?subject=$subject';
+    } else {
+      final subject = 'Hendrix Today - report on "${event.title}"';
+      mailto = 'mailto:prstu2@hendrix.edu?subject=$subject';
+    }
     final uri = Uri.tryParse(mailto);
     if (uri == null) return;
     // skip the `canLaunchUrl(uri)` check because mailto: links fail
@@ -51,7 +57,7 @@ class EventDialog extends StatelessWidget {
             ),
             padding: const EdgeInsetsDirectional.only(start: 8.0, end: 20.0),
             // minimum height to contain all 3 side buttons
-            constraints: const BoxConstraints(minHeight: 160.0),
+            constraints: const BoxConstraints(minHeight: 185.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -104,7 +110,7 @@ class EventDialog extends StatelessWidget {
                   visualDensity: VisualDensity.compact,
                   padding: const EdgeInsets.only(right: 2.0),
                   color: Theme.of(context).colorScheme.primary,
-                  onPressed: () => _tryEmailContact(),
+                  onPressed: () => _tryEmailContact(true),
                   icon: const Icon(Icons.mail_outlined),
                 ),
                 IconButton(
@@ -124,6 +130,13 @@ class EventDialog extends StatelessWidget {
                     Add2Calendar.addEvent2Cal(calevent);
                   },
                   icon: const Icon(Icons.edit_calendar),
+                ),
+                IconButton(
+                  visualDensity: VisualDensity.compact,
+                  padding: const EdgeInsets.only(right: 2.0),
+                  color: Theme.of(context).colorScheme.primary,
+                  onPressed: () => _tryEmailContact(false),
+                  icon: const Icon(Icons.report_problem_outlined),
                 ),
               ],
             ),
