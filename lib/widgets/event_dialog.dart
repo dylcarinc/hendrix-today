@@ -6,6 +6,8 @@ import 'package:hendrix_today_app/widgets/rich_description.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:add_2_calendar/add_2_calendar.dart';
+import 'package:html/parser.dart' show parse;
+import 'package:html/dom.dart' show Document, Node;
 
 /// A detailed display of an [HDXEvent] built on the [AlertDialog] widget.
 ///
@@ -36,6 +38,31 @@ class EventDialog extends StatelessWidget {
     if (uri == null) return;
     // skip the `canLaunchUrl(uri)` check because mailto: links fail
     launchUrl(uri);
+  }
+
+  String _parseDescription(desc) {
+    final List<String> rtItems = [];
+    final Document doc = parse(desc);
+    final Node body = doc.body!;
+
+    // remove all non-anchor tags (for safety)
+    body.children.removeWhere((e) => e.localName != "a");
+
+    while (body.hasChildNodes()) {
+      final Node child = body.firstChild!;
+      final String text = child.text ?? "";
+
+      if (child.nodeType == Node.TEXT_NODE) {
+        rtItems.add(text);
+      } else if (child.nodeType == Node.ELEMENT_NODE) {
+        final String hrefLink = child.attributes["href"].toString();
+        rtItems.add("$text($hrefLink)");
+      }
+
+      child.remove();
+    }
+    final modifiedDesc = rtItems.toString();
+    return modifiedDesc.substring(1, modifiedDesc.length - 1);
   }
 
   @override
@@ -102,7 +129,7 @@ class EventDialog extends StatelessWidget {
                   visualDensity: VisualDensity.compact,
                   color: Theme.of(context).colorScheme.primary,
                   onPressed: () => Share.share(
-                      '"${event.title}" -${event.desc}',
+                      '"${event.title}" -${_parseDescription(event.desc)}',
                       subject: 'Check out this event!'),
                   icon: const Icon(Icons.share),
                 ),
