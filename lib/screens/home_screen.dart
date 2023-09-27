@@ -31,9 +31,10 @@ class _HomeScreenState extends State<HomeScreen> {
             event.eventType.matchesFilter(eventTypeFilter) &&
             event.inPostingRange(DateTime.now()))
         .toList();
+    /*
     final isEverythingRead =
         homePageEvents.every((event) => appState.hasBeenRead(event.id));
-
+    */
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
@@ -56,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 }),
               ),
               const Spacer(),
+              /* Removing the Readall button 
               if (!isEverythingRead)
                 ElevatedButton(
                   onPressed: () {
@@ -67,6 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   child: const Icon(Icons.checklist_rtl),
                 ),
+                */
               const SizedBox(width: 5),
             ],
           ),
