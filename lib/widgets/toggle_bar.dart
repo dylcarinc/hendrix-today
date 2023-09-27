@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hendrix_today_app/widgets/root_app.dart';
 
+import 'package:auto_size_text/auto_size_text.dart'; //https://pub.dev/packages/auto_size_text
+
 class ToggleBar extends StatelessWidget {
   const ToggleBar({
     super.key,
@@ -34,7 +36,8 @@ class ToggleBar extends StatelessWidget {
           elevation: 5,
           color: color,
           child: SwitchListTile(
-            title: Text(
+            title: AutoSizeText(
+              maxFontSize: 20,
               titleString,
               style: Theme.of(context).textTheme.displaySmall,
               textAlign: TextAlign.center,

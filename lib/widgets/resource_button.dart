@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:auto_size_text/auto_size_text.dart'; //https://pub.dev/packages/auto_size_text
+
 /// Attempts to launch [url].
 ///
 /// Fails if [url] is an invalid [Uri] or if the device does not support the
@@ -57,7 +59,9 @@ class ResourceButton extends StatelessWidget {
         color: color,
         child: ListTile(
           minVerticalPadding: 10.0,
-          title: Text(
+          title: AutoSizeText(
+            // new addition here
+            maxFontSize: 22,
             titleString,
             style: Theme.of(context).textTheme.displayMedium,
             textAlign: TextAlign.center,
