@@ -6,6 +6,8 @@ import 'package:hendrix_today_app/widgets/rich_description.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:add_2_calendar/add_2_calendar.dart';
+import 'package:html/parser.dart' show parse;
+import 'package:html/dom.dart' show Document, Node;
 
 /// A detailed display of an [HDXEvent] built on the [AlertDialog] widget.
 ///
@@ -23,13 +25,44 @@ class EventDialog extends StatelessWidget {
   /// Attempts to begin a draft email to the [HDXEvent.contactEmail].
   ///
   /// Fails if the [event]'s contact email cannot be parsed into a [Uri].
-  void _tryEmailContact() async {
-    final subject = 'Hendrix Today - response to "${event.title}"';
-    final mailto = 'mailto:${event.contactEmail}?subject=$subject';
+  void _tryEmailContact(bool contact) async {
+    String mailto = "";
+    if (contact) {
+      final subject = 'Hendrix Today - response to "${event.title}"';
+      mailto = 'mailto:${event.contactEmail}?subject=$subject';
+    } else {
+      final subject = 'Hendrix Today - report on "${event.title}"';
+      mailto = 'mailto:prstu2@hendrix.edu?subject=$subject';
+    }
     final uri = Uri.tryParse(mailto);
     if (uri == null) return;
     // skip the `canLaunchUrl(uri)` check because mailto: links fail
     launchUrl(uri);
+  }
+
+  String _parseDescription(desc) {
+    final List<String> rtItems = [];
+    final Document doc = parse(desc);
+    final Node body = doc.body!;
+
+    // remove all non-anchor tags (for safety)
+    body.children.removeWhere((e) => e.localName != "a");
+
+    while (body.hasChildNodes()) {
+      final Node child = body.firstChild!;
+      final String text = child.text ?? "";
+
+      if (child.nodeType == Node.TEXT_NODE) {
+        rtItems.add(text);
+      } else if (child.nodeType == Node.ELEMENT_NODE) {
+        final String hrefLink = child.attributes["href"].toString();
+        rtItems.add("$text($hrefLink)");
+      }
+
+      child.remove();
+    }
+    final modifiedDesc = rtItems.toString();
+    return modifiedDesc.substring(1, modifiedDesc.length - 1);
   }
 
   @override
@@ -51,7 +84,7 @@ class EventDialog extends StatelessWidget {
             ),
             padding: const EdgeInsetsDirectional.only(start: 8.0, end: 20.0),
             // minimum height to contain all 3 side buttons
-            constraints: const BoxConstraints(minHeight: 160.0),
+            constraints: const BoxConstraints(minHeight: 185.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -96,7 +129,7 @@ class EventDialog extends StatelessWidget {
                   visualDensity: VisualDensity.compact,
                   color: Theme.of(context).colorScheme.primary,
                   onPressed: () => Share.share(
-                      '"${event.title}" -${event.desc}',
+                      '"${event.title}" -${_parseDescription(event.desc)}',
                       subject: 'Check out this event!'),
                   icon: const Icon(Icons.share),
                 ),
@@ -104,7 +137,7 @@ class EventDialog extends StatelessWidget {
                   visualDensity: VisualDensity.compact,
                   padding: const EdgeInsets.only(right: 2.0),
                   color: Theme.of(context).colorScheme.primary,
-                  onPressed: () => _tryEmailContact(),
+                  onPressed: () => _tryEmailContact(true),
                   icon: const Icon(Icons.mail_outlined),
                 ),
                 IconButton(
@@ -124,6 +157,13 @@ class EventDialog extends StatelessWidget {
                     Add2Calendar.addEvent2Cal(calevent);
                   },
                   icon: const Icon(Icons.edit_calendar),
+                ),
+                IconButton(
+                  visualDensity: VisualDensity.compact,
+                  padding: const EdgeInsets.only(right: 2.0),
+                  color: Theme.of(context).colorScheme.primary,
+                  onPressed: () => _tryEmailContact(false),
+                  icon: const Icon(Icons.report_problem_outlined),
                 ),
               ],
             ),
