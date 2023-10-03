@@ -61,7 +61,7 @@ class ResourcesScreen extends StatelessWidget {
                   titleString: "public safety",
                   icon: Icons.phone,
                   color: Theme.of(context).colorScheme.primary,
-                  url: "tel:+5014507711"),
+                  url: "tel:+15014507711"),
               const SizedBox(height: 20),
               ResourceButton(
                   key: const Key('MapButton'),
