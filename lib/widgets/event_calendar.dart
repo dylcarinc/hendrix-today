@@ -51,7 +51,10 @@ class _EventCalendarState extends State<EventCalendar> {
   DateTime _getCalendarStartDate() {
     final appState = Provider.of<AppState>(context);
     DateTime min = _focusedDay;
-    for (HDXEvent e in appState.events) {
+    final eventList = appState.events
+        .where((HDXEvent e) => e.inPostingRange(DateTime.now()))
+        .toList();
+    for (HDXEvent e in eventList) {
       if (e.date.isBefore(min)) {
         min = e.date;
       }
@@ -66,7 +69,10 @@ class _EventCalendarState extends State<EventCalendar> {
   DateTime _getCalendarEndDate() {
     final appState = Provider.of<AppState>(context);
     DateTime max = _focusedDay;
-    for (HDXEvent e in appState.events) {
+    final eventList = appState.events
+        .where((HDXEvent e) => e.inPostingRange(DateTime.now()))
+        .toList();
+    for (HDXEvent e in eventList) {
       if (e.date.isAfter(max)) {
         max = e.date;
       }
