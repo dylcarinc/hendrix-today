@@ -70,11 +70,10 @@ class ResourceButton extends StatelessWidget {
               Icon(icon, size: 60, color: Theme.of(context).iconTheme.color),
           onTap: () {
             _tryLaunchUrl(url);
-/*            _tryLaunchUrl(url).then(
+            /*_tryLaunchUrl(url).then(
                 (value) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text(value),
-                    )));
-                    */
+                    )));*/ // For easy debugging
           },
         ),
       ),
