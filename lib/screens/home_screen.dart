@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:hendrix_today_app/objects/app_state.dart';
+import 'package:hendrix_today_app/objects/event.dart';
 import 'package:hendrix_today_app/objects/event_type.dart';
 import 'package:hendrix_today_app/widgets/event_list.dart';
 import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
@@ -22,6 +23,12 @@ class _HomeScreenState extends State<HomeScreen> {
   /// The [EventTypeFilter] to apply to the home page event list; defaults to
   /// [EventTypeFilter.all].
   EventTypeFilter eventTypeFilter = EventTypeFilter.all;
+  String searchQuery = "";
+
+  List<HDXEvent> _applySearchFilter(List<HDXEvent> events) => events
+      .where((HDXEvent e) =>
+          e.containsString(searchQuery) && e.inPostingRange(DateTime.now()))
+      .toList();
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
             event.eventType.matchesFilter(eventTypeFilter) &&
             event.inPostingRange(DateTime.now()))
         .toList();
-    /*
-    final isEverythingRead =
-        homePageEvents.every((event) => appState.hasBeenRead(event.id));
-    */
+    final searchResults = _applySearchFilter(appState.events);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
@@ -57,19 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 }),
               ),
               const Spacer(),
-              /* Removing the Readall button 
-              if (!isEverythingRead)
-                ElevatedButton(
-                  onPressed: () {
-                    final appState =
-                        Provider.of<AppState>(context, listen: false);
-                    for (final event in homePageEvents) {
-                      appState.markEventAsRead(event);
-                    }
-                  },
-                  child: const Icon(Icons.checklist_rtl),
-                ),
-                */
               const SizedBox(width: 5),
             ],
           ),
@@ -141,6 +132,20 @@ class _FilterDropdown extends StatelessWidget {
           selectedItemBuilder: (context) =>
               dropdownItemsList(context, selectedStyle),
         ),
+      ),
+    );
+  }
+}
+
+class _EmptySearchLabel extends StatelessWidget {
+  const _EmptySearchLabel();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 10),
+        child: Text("There are no events containing that query."),
       ),
     );
   }
