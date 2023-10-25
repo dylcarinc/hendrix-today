@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:hendrix_today_app/objects/app_state.dart';
-import 'package:hendrix_today_app/objects/event.dart';
+//import 'package:hendrix_today_app/objects/event.dart';
 import 'package:hendrix_today_app/objects/event_type.dart';
 import 'package:hendrix_today_app/widgets/event_list.dart';
 import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
-
 import 'package:provider/provider.dart';
 
 /// The home page for Hendrix Today.
@@ -25,10 +24,10 @@ class _HomeScreenState extends State<HomeScreen> {
   EventTypeFilter eventTypeFilter = EventTypeFilter.all;
   String searchQuery = "";
 
-  List<HDXEvent> _applySearchFilter(List<HDXEvent> events) => events
+  /* List<HDXEvent> _applySearchFilter(List<HDXEvent> events) => events
       .where((HDXEvent e) =>
           e.containsString(searchQuery) && e.inPostingRange(DateTime.now()))
-      .toList();
+      .toList(); */
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
             event.eventType.matchesFilter(eventTypeFilter) &&
             event.inPostingRange(DateTime.now()))
         .toList();
-    final searchResults = _applySearchFilter(appState.events);
+    //final searchResults = _applySearchFilter(appState.events);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
@@ -62,6 +62,22 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const Spacer(),
               const SizedBox(width: 5),
+              TextField(
+                key: const Key('SearchInput'),
+                onChanged: (newQuery) => setState(() {
+                  searchQuery = newQuery;
+                }),
+                decoration: InputDecoration(
+                    labelText: 'Enter search query',
+                    labelStyle: Theme.of(context)
+                        .textTheme
+                        .labelLarge
+                        ?.copyWith(
+                            color: Theme.of(context).colorScheme.tertiary),
+                    focusColor: Theme.of(context).colorScheme.primary,
+                    suffixIcon: const Icon(Icons.search),
+                    iconColor: Theme.of(context).colorScheme.secondary),
+              ),
             ],
           ),
           if (homePageEvents.isNotEmpty)
@@ -137,7 +153,7 @@ class _FilterDropdown extends StatelessWidget {
   }
 }
 
-class _EmptySearchLabel extends StatelessWidget {
+/*class _EmptySearchLabel extends StatelessWidget {
   const _EmptySearchLabel();
 
   @override
@@ -149,4 +165,4 @@ class _EmptySearchLabel extends StatelessWidget {
       ),
     );
   }
-}
+}*/
