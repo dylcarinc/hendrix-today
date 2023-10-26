@@ -31,7 +31,7 @@ class EventDialog extends StatelessWidget {
       final subject = 'Hendrix Today - response to "${event.title}"';
       mailto = 'mailto:${event.contactEmail}?subject=$subject';
     } else {
-      final subject = 'Hendrix Today - report on "${event.title}"';
+      final subject = 'Hendrix Today - report correction for "${event.title}"';
       mailto = 'mailto:prstu2@hendrix.edu?subject=$subject';
     }
     final uri = Uri.tryParse(mailto);
