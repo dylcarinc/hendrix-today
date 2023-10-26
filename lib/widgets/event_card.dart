@@ -40,10 +40,7 @@ class EventCard extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-          subtitle: Text(
-            event.displayDate(),
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
+          subtitle: _eventDeadline(context),
           onTap: () {
             showDialog(
               context: context,
@@ -61,5 +58,19 @@ class EventCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _eventDeadline(context) {
+    if (event.displayDeadline() != null) {
+      return Text(
+        "${event.displayDate()} - Deadline on ${event.displayDeadline()}",
+        style: Theme.of(context).textTheme.headlineSmall,
+      );
+    } else {
+      return Text(
+        event.displayDate(),
+        style: Theme.of(context).textTheme.headlineSmall,
+      );
+    }
   }
 }
