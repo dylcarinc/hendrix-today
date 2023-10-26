@@ -58,10 +58,10 @@ class ResourceButton extends StatelessWidget {
         elevation: 5,
         color: color,
         child: ListTile(
-          minVerticalPadding: 10.0,
+          minVerticalPadding: 30.0,
           title: AutoSizeText(
             // new addition here
-            maxFontSize: 22,
+            maxFontSize: 20,
             titleString,
             style: Theme.of(context).textTheme.displayMedium,
             textAlign: TextAlign.center,
