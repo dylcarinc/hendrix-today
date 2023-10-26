@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:hendrix_today_app/objects/app_state.dart';
-import 'package:hendrix_today_app/objects/event.dart';
 import 'package:hendrix_today_app/objects/event_type.dart';
 import 'package:hendrix_today_app/widgets/event_list.dart';
 import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
@@ -24,20 +23,15 @@ class _HomeScreenState extends State<HomeScreen> {
   EventTypeFilter eventTypeFilter = EventTypeFilter.all;
   String searchQuery = "";
 
-  List<HDXEvent> _applySearchFilter(List<HDXEvent> events) => events
-      .where((HDXEvent e) =>
-          e.containsString(searchQuery) && e.inPostingRange(DateTime.now()))
-      .toList();
-
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
     final homePageEvents = appState.events
         .where((event) =>
             event.eventType.matchesFilter(eventTypeFilter) &&
-            event.inPostingRange(DateTime.now()))
+            event.inPostingRange(DateTime.now()) &&
+            event.containsString(searchQuery))
         .toList();
-    final searchResults = _applySearchFilter(appState.events);
 
     return Scaffold(
       appBar: AppBar(
@@ -72,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 searchQuery = newQuery;
               }),
               decoration: InputDecoration(
-                  labelText: 'Search',
+                  labelText: ' Search',
                   labelStyle: Theme.of(context)
                       .textTheme
                       .labelLarge
@@ -150,20 +144,6 @@ class _FilterDropdown extends StatelessWidget {
           selectedItemBuilder: (context) =>
               dropdownItemsList(context, selectedStyle),
         ),
-      ),
-    );
-  }
-}
-
-class _EmptySearchLabel extends StatelessWidget {
-  const _EmptySearchLabel();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 10),
-        child: Text("There are no events containing that query."),
       ),
     );
   }
