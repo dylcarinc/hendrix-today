@@ -189,7 +189,7 @@ class EventDialog extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 2.0),
                   color: Theme.of(context).colorScheme.primary,
                   onPressed: () => _tryEmailContact(false),
-                  icon: const Icon(Icons.report_problem_outlined),
+                  icon: const Icon(Icons.feedback_outlined),
                 ),
               ],
             ),
