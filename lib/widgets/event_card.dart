@@ -54,9 +54,9 @@ class EventCard extends StatelessWidget {
           trailing: isRead
               ? null
               : Icon(
-                  Icons.new_releases,
+                  Icons.circle_rounded,
                   color: Theme.of(context).colorScheme.primary,
-                  size: 35,
+                  size: 21,
                 ),
         ),
       ),
