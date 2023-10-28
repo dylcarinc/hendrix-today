@@ -40,10 +40,7 @@ class EventCard extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-          subtitle: Text(
-            event.displayDate(),
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
+          subtitle: _eventDeadline(context),
           onTap: () {
             showDialog(
               context: context,
@@ -54,12 +51,26 @@ class EventCard extends StatelessWidget {
           trailing: isRead
               ? null
               : Icon(
-                  Icons.new_releases,
+                  Icons.circle_rounded,
                   color: Theme.of(context).colorScheme.primary,
-                  size: 35,
+                  size: 21,
                 ),
         ),
       ),
     );
+  }
+
+  Widget _eventDeadline(context) {
+    if (event.displayDeadline() != null) {
+      return Text(
+        "${event.displayDate()} - Deadline on ${event.displayDeadline()}",
+        style: Theme.of(context).textTheme.headlineSmall,
+      );
+    } else {
+      return Text(
+        event.displayDate(),
+        style: Theme.of(context).textTheme.headlineSmall,
+      );
+    }
   }
 }

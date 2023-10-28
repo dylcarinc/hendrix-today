@@ -58,23 +58,39 @@ class ResourceButton extends StatelessWidget {
         elevation: 5,
         color: color,
         child: ListTile(
-          minVerticalPadding: 10.0,
+          minVerticalPadding: 30.0,
           title: AutoSizeText(
             // new addition here
-            maxFontSize: 22,
+            maxFontSize: 20,
             titleString,
             style: Theme.of(context).textTheme.displayMedium,
             textAlign: TextAlign.center,
           ),
           leading:
               Icon(icon, size: 60, color: Theme.of(context).iconTheme.color),
-          onTap: () {
-            _tryLaunchUrl(url);
-            /*_tryLaunchUrl(url).then(
+          onTap: () => showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: const Text('This is an external link. Continue?'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'Cancel'),
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () => _tryLaunchUrl(url),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+          )
+/*            _tryLaunchUrl(url).then(
                 (value) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text(value),
-                    )));*/ // For easy debugging
-          },
+                    )));
+                    */
+          
+          
         ),
       ),
     );

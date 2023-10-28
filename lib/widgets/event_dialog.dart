@@ -31,13 +31,37 @@ class EventDialog extends StatelessWidget {
       final subject = 'Hendrix Today - response to "${event.title}"';
       mailto = 'mailto:${event.contactEmail}?subject=$subject';
     } else {
-      final subject = 'Hendrix Today - report on "${event.title}"';
+      final subject = 'Hendrix Today - report correction for "${event.title}"';
       mailto = 'mailto:prstu2@hendrix.edu?subject=$subject';
     }
     final uri = Uri.tryParse(mailto);
     if (uri == null) return;
     // skip the `canLaunchUrl(uri)` check because mailto: links fail
     launchUrl(uri);
+  }
+
+  _dialogSize(BuildContext context, String orientation) {
+    var screenHeight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
+    const originalHeight = 25.0;
+    const originalWidth = 50.0;
+
+    if (orientation.contains("v")) {
+      if (screenHeight >= 1200) {
+        return 300.0 + originalHeight;
+      } else {
+        return originalHeight;
+      }
+    }
+    if (orientation.contains("h")) {
+      if (screenWidth >= 500) {
+        return 150.0 + originalWidth;
+      } else {
+        return originalWidth;
+      }
+    }
+
+    return screenWidth;
   }
 
   String _parseDescription(desc) {
@@ -68,7 +92,9 @@ class EventDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      insetPadding: const EdgeInsets.symmetric(vertical: 25, horizontal: 50),
+      insetPadding: EdgeInsets.symmetric(
+          vertical: _dialogSize(context, "v"),
+          horizontal: _dialogSize(context, "h")),
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(0.0))),
       titlePadding: const EdgeInsets.fromLTRB(0, 24, 18, 0),
@@ -163,7 +189,7 @@ class EventDialog extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 2.0),
                   color: Theme.of(context).colorScheme.primary,
                   onPressed: () => _tryEmailContact(false),
-                  icon: const Icon(Icons.report_problem_outlined),
+                  icon: const Icon(Icons.feedback_outlined),
                 ),
               ],
             ),
