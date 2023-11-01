@@ -4,7 +4,6 @@ import 'package:hendrix_today_app/objects/app_state.dart';
 import 'package:hendrix_today_app/objects/event_type.dart';
 import 'package:hendrix_today_app/widgets/event_list.dart';
 import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
-
 import 'package:provider/provider.dart';
 
 /// The home page for Hendrix Today.
@@ -22,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   /// The [EventTypeFilter] to apply to the home page event list; defaults to
   /// [EventTypeFilter.all].
   EventTypeFilter eventTypeFilter = EventTypeFilter.all;
+  String searchQuery = "";
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
     final homePageEvents = appState.events
         .where((event) =>
             event.eventType.matchesFilter(eventTypeFilter) &&
-            event.inPostingRange(DateTime.now()))
+            event.inPostingRange(DateTime.now()) &&
+            event.containsString(searchQuery))
         .toList();
-    /*
-    final isEverythingRead =
-        homePageEvents.every((event) => appState.hasBeenRead(event.id));
-    */
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
@@ -57,21 +55,26 @@ class _HomeScreenState extends State<HomeScreen> {
                 }),
               ),
               const Spacer(),
-              /* Removing the Readall button 
-              if (!isEverythingRead)
-                ElevatedButton(
-                  onPressed: () {
-                    final appState =
-                        Provider.of<AppState>(context, listen: false);
-                    for (final event in homePageEvents) {
-                      appState.markEventAsRead(event);
-                    }
-                  },
-                  child: const Icon(Icons.checklist_rtl),
-                ),
-                */
               const SizedBox(width: 5),
             ],
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
+            child: TextField(
+              key: const Key('SearchInput'),
+              onChanged: (newQuery) => setState(() {
+                searchQuery = newQuery;
+              }),
+              decoration: InputDecoration(
+                  labelText: ' Search',
+                  labelStyle: Theme.of(context)
+                      .textTheme
+                      .labelLarge
+                      ?.copyWith(color: Theme.of(context).colorScheme.tertiary),
+                  focusColor: Theme.of(context).colorScheme.primary,
+                  suffixIcon: const Icon(Icons.search),
+                  iconColor: Theme.of(context).colorScheme.secondary),
+            ),
           ),
           if (homePageEvents.isNotEmpty)
             Flexible(
