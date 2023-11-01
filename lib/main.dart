@@ -48,8 +48,10 @@ Future<void> main() async {
     }
   });
 
-  final fcmToken = await FirebaseMessaging.instance.getToken();
-  await FirebaseMessaging.instance.subscribeToTopic("new_events");
+  String? apnsToken = await messaging.getAPNSToken();
+  print(apnsToken);
+  String? fcmToken = await messaging.getToken();
+  await messaging.subscribeToTopic("new_events");
   print(fcmToken);
 
   FirebaseUIAuth.configureProviders([
