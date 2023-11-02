@@ -40,22 +40,12 @@ class FloatingNavButtons extends StatelessWidget {
           ),
         ),
         Container(
-          key: const Key('SearchButton'),
-          margin: const EdgeInsets.all(10),
-          child: FloatingActionButton.small(
-            heroTag: null,
-            onPressed: () => _navigate(context, '/search'),
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            child: const Icon(Icons.search),
-          ),
-        ),
-        Container(
           key: const Key('ResourcesButton'),
           margin: const EdgeInsets.all(10),
           child: FloatingActionButton.small(
             heroTag: null,
             onPressed: () => _navigate(context, '/resources'),
-            backgroundColor: Theme.of(context).colorScheme.tertiary,
+            backgroundColor: Theme.of(context).colorScheme.primary,
             child: const Icon(Icons.info_outline),
           ),
         ),
