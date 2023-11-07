@@ -14,6 +14,24 @@ class FloatingNavButtons extends StatelessWidget {
     Navigator.pushReplacementNamed(context, toRoute);
   }
 
+  /// Changes the Floating Nav Button to be Orange on the Current Page
+  /// Yes, I know that the check is rudimentary, but the current amount of
+  /// pages draws a thin line between having to make a new
+  /// data structure and not. So, for now this will be the solution.
+  _currentPage(context, String thisPage) {
+    final String? currentRoute = ModalRoute.of(context)?.settings.name;
+    if (currentRoute != '/home' &&
+        currentRoute != '/calendar' &&
+        currentRoute != '/resources' &&
+        thisPage == '/home') {
+      return Theme.of(context).colorScheme.primary;
+    } else if (currentRoute == thisPage) {
+      return Theme.of(context).colorScheme.primary;
+    } else {
+      Theme.of(context).colorScheme.tertiary;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Wrap(
@@ -25,7 +43,7 @@ class FloatingNavButtons extends StatelessWidget {
           child: FloatingActionButton.small(
             heroTag: null, // See https://stackoverflow.com/q/51125024
             onPressed: () => _navigate(context, '/home'),
-            backgroundColor: Theme.of(context).colorScheme.primary,
+            backgroundColor: _currentPage(context, '/home'),
             child: const Icon(Icons.home),
           ),
         ),
@@ -35,7 +53,7 @@ class FloatingNavButtons extends StatelessWidget {
           child: FloatingActionButton.small(
             heroTag: null,
             onPressed: () => _navigate(context, '/calendar'),
-            backgroundColor: Theme.of(context).colorScheme.tertiary,
+            backgroundColor: _currentPage(context, '/calendar'),
             child: const Icon(Icons.calendar_month),
           ),
         ),
@@ -45,7 +63,7 @@ class FloatingNavButtons extends StatelessWidget {
           child: FloatingActionButton.small(
             heroTag: null,
             onPressed: () => _navigate(context, '/resources'),
-            backgroundColor: Theme.of(context).colorScheme.primary,
+            backgroundColor: _currentPage(context, '/resources'),
             child: const Icon(Icons.info_outline),
           ),
         ),
