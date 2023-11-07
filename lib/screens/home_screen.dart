@@ -22,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   /// [EventTypeFilter.all].
   EventTypeFilter eventTypeFilter = EventTypeFilter.all;
   String searchQuery = "";
+  final _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
             child: TextField(
               key: const Key('SearchInput'),
+              controller: _controller,
               onChanged: (newQuery) => setState(() {
                 searchQuery = newQuery;
               }),
@@ -72,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       .labelLarge
                       ?.copyWith(color: Theme.of(context).colorScheme.tertiary),
                   focusColor: Theme.of(context).colorScheme.primary,
-                  suffixIcon: const Icon(Icons.search),
+                  suffixIcon: _searchIcon(context),
                   iconColor: Theme.of(context).colorScheme.secondary),
             ),
           ),
@@ -94,6 +96,22 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: const FloatingNavButtons(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
+  }
+
+  Widget _searchIcon(context) {
+    if (searchQuery == "") {
+      return Icon(Icons.search, color: Theme.of(context).colorScheme.primary);
+    } else {
+      return IconButton(
+        icon: const Icon(Icons.close),
+        onPressed: () {
+          setState(() {
+            searchQuery = "";
+            _controller.clear();
+          });
+        },
+      );
+    }
   }
 }
 
