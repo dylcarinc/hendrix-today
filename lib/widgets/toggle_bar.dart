@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hendrix_today_app/widgets/root_app.dart';
+import 'package:hendrix_today_app/objects/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'package:auto_size_text/auto_size_text.dart'; //https://pub.dev/packages/auto_size_text
 
@@ -26,6 +28,7 @@ class ToggleBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool darkmode = Theme.of(context).brightness == Brightness.dark;
+    final themeProvider = Provider.of<ThemeProvider>(context);
 
     return SizedBox(
       height: 60,
@@ -43,7 +46,7 @@ class ToggleBar extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             value: darkmode,
-            onChanged: (bool value) => RootApp.toggleTheme(context),
+            onChanged: (bool value) => themeProvider.toggleTheme(value),
             secondary: Icon(icon, color: Theme.of(context).iconTheme.color),
           )),
     );
