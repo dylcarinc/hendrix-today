@@ -20,6 +20,35 @@ Future<String> _tryLaunchUrl(String url) async {
   }
 }
 
+// This checks if you've previously checked Do Not Show Again box
+class DoNotShowBox extends ChangeNotifier{
+    DoNotShowBox() {
+    getCheckBoxInit();
+  }
+  
+
+  getCheckBoxInit() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    bool? isChecked = sharedPreferences.getBool("is_checked");
+    if (isChecked == null) {
+      AlertDialogBox(url); // if you haven't checked it yet, then go ahead and show the alert dialog box 
+    } else if (isChecked) {
+      _tryLaunchUrl(url); // if you have checked it, then go ahead and just launch the url
+    } else {
+      AlertDialogBox(url); // otherwise just show the alertdialog box
+    } // I think I am confused on what I should do in this function
+    notifyListeners();
+  }
+
+void toggleIsChecked(bool isOn) async {
+    //isChecked = isOn ? ThemeMode.dark : ThemeMode.light; 
+    notifyListeners();
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setBool("is_dark",
+      isChecked == true); //Update this as per your condition.
+  }
+}
+
 class AlertDialogBox extends StatefulWidget {
   const AlertDialogBox({super.key, required this.url});
   final String url;
@@ -30,28 +59,24 @@ class AlertDialogBox extends StatefulWidget {
 class _AlertDialogBoxState extends State<AlertDialogBox> {
   _AlertDialogBoxState({required this.url});
   final String url;
-  late bool _selected;
 
   @override
   void initState() {
-    _selected = false;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     //https://www.geeksforgeeks.org/flutter-outputting-widgets-conditionally/
-    return (
-      
-      AlertDialog(
+    return (AlertDialog(
       title: const Text('This is an external link. Continue?'),
       actions: <Widget>[
         Column(
           children: [
-            Row(
+            const Row(
               children: [
                 CheckboxExample(),
-                Text("Don't show this again", style: TextStyle(fontSize:11 )),
+                Text("Don't show this again", style: TextStyle(fontSize: 11)),
               ],
             ),
             Padding(
@@ -101,11 +126,8 @@ class _CheckboxExampleState extends State<CheckboxExample> {
       checkColor: Colors.black,
       fillColor: MaterialStateProperty.resolveWith(getColor),
       value: isChecked,
-      onChanged: (bool? value) {
-        setState(() {
-          isChecked = value!;
-        });
-      },
+      //this is where I want to toggle it and remember that the user doesn't want to look at this again
+      onChanged: (bool? value) => DoNotShowBox.toggleIsChecked(value!)
     );
   }
 }
