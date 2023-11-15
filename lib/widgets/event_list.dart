@@ -16,12 +16,34 @@ class EventList extends StatelessWidget {
       shrinkWrap: true,
       physics: const ScrollPhysics(),
       children: [
-        for (HDXEvent e in events) EventCard(event: e),
+        ..._eventListing(context, events),
         const SizedBox(height: 85),
       ],
     );
   }
+
+  List<Widget> _eventListing(context, events) {
+    HDXEvent? previousEvent = null;
+    List<Widget> eventList = [];
+    for (HDXEvent e in events) {
+      if (previousEvent == null) {
+        eventList.add(Text(e.displayDate(),
+            style: Theme.of(context).textTheme.displaySmall));
+        eventList.add(EventCard(event: e));
+      } else if (e.matchesDate(previousEvent.date)) {
+        eventList.add(EventCard(event: e));
+      } else {
+        eventList.add(const SizedBox(height: 20));
+        eventList.add(Text(e.displayDate(),
+            style: Theme.of(context).textTheme.displaySmall));
+        eventList.add(EventCard(event: e));
+      }
+      previousEvent = e;
+    }
+    return eventList;
+  }
 }
+
 
 //  ````````````````````````````````
 // my dog put her paw on by keyboard and wrote that.  who am i to tell her she cant code.
