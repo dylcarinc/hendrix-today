@@ -42,7 +42,6 @@ class ResourcesScreen extends StatelessWidget {
             children: <Widget>[
               const SizedBox(height: 10),
               ResourceButton(
-                  
                   key: const Key('SubmitEventButton'),
                   titleString: "submit event",
                   icon: Icons.add,
@@ -55,7 +54,8 @@ class ResourcesScreen extends StatelessWidget {
                   titleString: "reserve room",
                   icon: Icons.meeting_room,
                   color: Theme.of(context).colorScheme.tertiary,
-                  url: 'https://www.aaiscloud.com/HendrixC/events/EventReqForm.aspx?id=a7fcc274-cc27-4980-8cf2-ee1581df1879#viewmode%3Dedit'),
+                  url:
+                      'https://www.aaiscloud.com/HendrixC/events/EventReqForm.aspx?id=a7fcc274-cc27-4980-8cf2-ee1581df1879#viewmode%3Dedit'),
               const SizedBox(height: 10),
               ResourceButton(
                   key: const Key('CafMenuButton'),

@@ -50,48 +50,45 @@ class ResourceButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 100,
-      width: 300,
+    return Container(
+      padding: const EdgeInsets.fromLTRB(55.0, 8.0, 55.0, 8.0),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
         elevation: 5,
         color: color,
         child: ListTile(
-          minVerticalPadding: 30.0,
-          title: AutoSizeText(
-            // new addition here
-            maxFontSize: 20,
-            titleString,
-            style: Theme.of(context).textTheme.displayMedium,
-            textAlign: TextAlign.center,
-          ),
-          leading:
-              Icon(icon, size: 60, color: Theme.of(context).iconTheme.color),
-          onTap: () => showDialog<String>(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: const Text('This is an external link. Continue?'),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'Cancel'),
-                  child: const Text('Cancel'),
-                ),
-                TextButton(
-                  onPressed: () => _tryLaunchUrl(url),
-                  child: const Text('OK'),
-                ),
-              ],
+            title: AutoSizeText(
+              // new addition here
+              maxFontSize: 20,
+              titleString,
+              style: Theme.of(context).textTheme.displayMedium,
+              textAlign: TextAlign.center,
             ),
-          )
+            leading:
+                Icon(icon, size: 60, color: Theme.of(context).iconTheme.color),
+            onTap: () => showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: const Text('This is an external link. Continue?'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'Cancel'),
+                        child: const Text('Cancel'),
+                      ),
+                      TextButton(
+                        onPressed: () => _tryLaunchUrl(url),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+                )
 /*            _tryLaunchUrl(url).then(
                 (value) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text(value),
                     )));
                     */
-          
-          
-        ),
+
+            ),
       ),
     );
   }
