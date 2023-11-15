@@ -21,31 +21,41 @@ Future<String> _tryLaunchUrl(String url) async {
 }
 
 // This checks if you've previously checked Do Not Show Again box
-class DoNotShowBox extends ChangeNotifier{
-    DoNotShowBox() {
-    getCheckBoxInit();
+class DoNotShowBox extends ChangeNotifier {
+  DoNotShowBox(String url) {
+    getCheckBoxInit(url);
   }
-  
 
-  getCheckBoxInit() async {
+  static getCheckBox() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     bool? isChecked = sharedPreferences.getBool("is_checked");
     if (isChecked == null) {
-      AlertDialogBox(url); // if you haven't checked it yet, then go ahead and show the alert dialog box 
-    } else if (isChecked) {
-      _tryLaunchUrl(url); // if you have checked it, then go ahead and just launch the url
+      return false;
     } else {
-      AlertDialogBox(url); // otherwise just show the alertdialog box
+      return isChecked;
+    }
+  }
+
+  getCheckBoxInit(url) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    bool? isChecked = sharedPreferences.getBool("is_checked");
+    if (isChecked == null) {
+      AlertDialogBox(
+          url:
+              url); // if you haven't checked it yet, then go ahead and show the alert dialog box
+    } else if (isChecked) {
+      _tryLaunchUrl(
+          url); // if you have checked it, then go ahead and just launch the url
+    } else {
+      AlertDialogBox(url: url); // otherwise just show the alertdialog box
     } // I think I am confused on what I should do in this function
     notifyListeners();
   }
 
-void toggleIsChecked(bool isOn) async {
-    //isChecked = isOn ? ThemeMode.dark : ThemeMode.light; 
-    notifyListeners();
+  static void toggleIsChecked(bool isChecked) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setBool("is_dark",
-      isChecked == true); //Update this as per your condition.
+    sharedPreferences.setBool(
+        "is_checked", isChecked); //Update this as per your condition.
   }
 }
 
@@ -88,7 +98,8 @@ class _AlertDialogBoxState extends State<AlertDialogBox> {
                     child: const Text('Cancel'),
                   ),
                   TextButton(
-                    onPressed: () => _tryLaunchUrl(url),
+                    onPressed: () =>
+                        {Navigator.pop(context), _tryLaunchUrl(url)},
                     child: const Text('OK'),
                   ),
                 ],
@@ -127,7 +138,13 @@ class _CheckboxExampleState extends State<CheckboxExample> {
       fillColor: MaterialStateProperty.resolveWith(getColor),
       value: isChecked,
       //this is where I want to toggle it and remember that the user doesn't want to look at this again
-      onChanged: (bool? value) => DoNotShowBox.toggleIsChecked(value!)
+      onChanged: (bool? value) {
+        DoNotShowBox.toggleIsChecked(value!);
+        setState(() {
+          isChecked = value!;
+        });
+        DoNotShowBox.getCheckBox();
+      },
     );
   }
 }
