@@ -32,6 +32,30 @@ class ResourceButton extends StatelessWidget {
   /// of the app.
   final Color color;
 
+  Future<String> _tryLaunchUrl(String url) async {
+    final uri = Uri.tryParse(url);
+    if (uri == null) {
+      return 'Could not launch $url: invalid URI';
+    }
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+      return "Success!";
+    } else {
+      return 'Could not launch $url: not supported according to `canLaunchUrl`';
+    }
+  }
+
+  dialogOrLaunch(context, url) async {
+    bool doNotShow = await DoNotShowBox.getCheckBox();
+    if (doNotShow == false) {
+      showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialogBox(url: url));
+    } else {
+      _tryLaunchUrl(url);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -54,9 +78,7 @@ class ResourceButton extends StatelessWidget {
                 Icon(icon, size: 60, color: Theme.of(context).iconTheme.color),
             onTap: () {
               //if the checkbox is checked then don't build this alertdialog box
-              showDialog<String>(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialogBox(url: url));
+              dialogOrLaunch(context, url);
             }),
       ),
     );

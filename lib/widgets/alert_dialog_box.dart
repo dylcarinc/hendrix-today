@@ -22,10 +22,6 @@ Future<String> _tryLaunchUrl(String url) async {
 
 // This checks if you've previously checked Do Not Show Again box
 class DoNotShowBox extends ChangeNotifier {
-  DoNotShowBox(String url) {
-    getCheckBoxInit(url);
-  }
-
   static getCheckBox() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     bool? isChecked = sharedPreferences.getBool("is_checked");
@@ -34,22 +30,6 @@ class DoNotShowBox extends ChangeNotifier {
     } else {
       return isChecked;
     }
-  }
-
-  getCheckBoxInit(url) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    bool? isChecked = sharedPreferences.getBool("is_checked");
-    if (isChecked == null) {
-      AlertDialogBox(
-          url:
-              url); // if you haven't checked it yet, then go ahead and show the alert dialog box
-    } else if (isChecked) {
-      _tryLaunchUrl(
-          url); // if you have checked it, then go ahead and just launch the url
-    } else {
-      AlertDialogBox(url: url); // otherwise just show the alertdialog box
-    } // I think I am confused on what I should do in this function
-    notifyListeners();
   }
 
   static void toggleIsChecked(bool isChecked) async {
@@ -143,7 +123,6 @@ class _CheckboxExampleState extends State<CheckboxExample> {
         setState(() {
           isChecked = value!;
         });
-        DoNotShowBox.getCheckBox();
       },
     );
   }
