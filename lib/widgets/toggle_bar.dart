@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hendrix_today_app/widgets/root_app.dart';
 import 'package:hendrix_today_app/objects/theme_provider.dart';
 import 'package:provider/provider.dart';
 

@@ -58,15 +58,13 @@ class ResourceButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 100,
-      width: 300,
+    return Container(
+      padding: const EdgeInsets.fromLTRB(55.0, 8.0, 55.0, 8.0),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
         elevation: 5,
         color: color,
         child: ListTile(
-            minVerticalPadding: 30.0,
             title: AutoSizeText(
               // new addition here
               maxFontSize: 20,
@@ -90,3 +88,6 @@ class ResourceButton extends StatelessWidget {
                       content: Text(value),
                     )));
                     */
+          
+          
+
