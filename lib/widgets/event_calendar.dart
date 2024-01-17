@@ -29,7 +29,7 @@ class _EventCalendarState extends State<EventCalendar> {
     final appState = Provider.of<AppState>(context, listen: false);
     return appState.events
         .where((HDXEvent e) =>
-            e.matchesDate(day) && e.inPostingRange(DateTime.now()))
+            e.matchesDate(day) && e.inPostingRangeCal(DateTime.now()))
         .toList();
   }
 
@@ -70,7 +70,7 @@ class _EventCalendarState extends State<EventCalendar> {
     final appState = Provider.of<AppState>(context);
     DateTime max = _focusedDay;
     final eventList = appState.events
-        .where((HDXEvent e) => e.inPostingRange(DateTime.now()))
+        .where((HDXEvent e) => e.inPostingRangeCal(DateTime.now()))
         .toList();
     for (HDXEvent e in eventList) {
       if (e.date.isAfter(max)) {

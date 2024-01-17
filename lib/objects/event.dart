@@ -217,4 +217,7 @@ class HDXEvent {
       DateUtils.isSameDay(day, beginPosting) ||
       DateUtils.isSameDay(day, endPosting) ||
       (day.isAfter(beginPosting) && day.isBefore(endPosting));
+
+  bool inPostingRangeCal(DateTime day) =>
+      DateUtils.isSameDay(day, endPosting) || day.isBefore(endPosting);
 }
