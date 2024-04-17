@@ -144,7 +144,9 @@ class HDXEvent {
 
     final Timestamp? maybeDate = cast(data["date"]);
     if (maybeDate == null) return null;
-    final DateTime date = maybeDate.toDate();
+    final DateTime date = (maybeDate.toDate().isBefore(DateTime.now()))
+        ? DateTime.now()
+        : maybeDate.toDate();
 
     final String? time = cast(data["time"]);
     final String? location = cast(data["location"]);
@@ -191,10 +193,7 @@ class HDXEvent {
   /// Formats the [date] in a human-readable form.
   ///
   /// Example: `2023-06-14` becomes `Wed, Jun 14, 2023`
-  String displayDate() =>
-      (date.isBefore(DateTime.now()) && inPostingRange(DateTime.now()))
-          ? DateFormat('EEE, MMM d, yyyy').format(DateTime.now())
-          : DateFormat('EEE, MMM d, yyyy').format(date);
+  String displayDate() => DateFormat('EEE, MMM d, yyyy').format(date);
 
   /// Formats the [applyDeadline] in a human-readable form.
   ///

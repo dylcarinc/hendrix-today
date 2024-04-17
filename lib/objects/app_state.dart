@@ -25,6 +25,7 @@ class AppState extends ChangeNotifier {
   final FirebaseFirestore firestore;
 
   Future<void> _init() async {
+    isLoading = true;
     _initReadItems();
     _initFirebase();
   }
@@ -47,6 +48,7 @@ class AppState extends ChangeNotifier {
               (item) => (id: item['id'] as int, event: item['event'] as String))
           .toList();
     });
+    isLoading = false;
   }
 
   /// Listens for login and Firestore changes, updates the event list, then
@@ -80,6 +82,8 @@ class AppState extends ChangeNotifier {
       notifyListeners();
     });
   }
+
+  bool isLoading = true;
 
   /// Returns `true` if an item with an ID of [id] exists in [_readItemsDb].
   bool hasBeenRead(int id) {
