@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             )
           else
-            const Center(child: Text('Nothing to show!')),
+            const Center(child: Text('Nothing to show!')), // Sometimes it is still loading events at this point.
         ],
       ),
       floatingActionButton: const FloatingNavButtons(),

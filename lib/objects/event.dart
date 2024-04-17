@@ -191,7 +191,10 @@ class HDXEvent {
   /// Formats the [date] in a human-readable form.
   ///
   /// Example: `2023-06-14` becomes `Wed, Jun 14, 2023`
-  String displayDate() => DateFormat('EEE, MMM d, yyyy').format(date);
+  String displayDate() =>
+      (date.isBefore(DateTime.now()) && inPostingRange(DateTime.now()))
+          ? DateFormat('EEE, MMM d, yyyy').format(DateTime.now())
+          : DateFormat('EEE, MMM d, yyyy').format(date);
 
   /// Formats the [applyDeadline] in a human-readable form.
   ///

@@ -72,6 +72,13 @@ class ResourcesScreen extends StatelessWidget {
                   url: "tel:+15014507711"),
               const SizedBox(height: 10),
               ResourceButton(
+                  key: const Key('TitleIXButton'),
+                  titleString: "title IX",
+                  icon: Icons.work,
+                  color: Theme.of(context).colorScheme.tertiary,
+                  url: "https://www.hendrix.edu/titleix"),
+              const SizedBox(height: 10),
+              ResourceButton(
                   key: const Key('MapButton'),
                   titleString: "map",
                   icon: Icons.map,
