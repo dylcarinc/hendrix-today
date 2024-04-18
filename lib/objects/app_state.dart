@@ -25,7 +25,6 @@ class AppState extends ChangeNotifier {
   final FirebaseFirestore firestore;
 
   Future<void> _init() async {
-    isLoading = true;
     _initReadItems();
     _initFirebase();
   }
