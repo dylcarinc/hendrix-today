@@ -144,7 +144,9 @@ class HDXEvent {
 
     final Timestamp? maybeDate = cast(data["date"]);
     if (maybeDate == null) return null;
-    final DateTime date = maybeDate.toDate();
+    final DateTime date = (maybeDate.toDate().isBefore(DateTime.now()))
+        ? DateTime.now()
+        : maybeDate.toDate();
 
     final String? time = cast(data["time"]);
     final String? location = cast(data["location"]);
@@ -210,6 +212,10 @@ class HDXEvent {
 
   /// Checks if [date] is the same day as [match].
   bool matchesDate(DateTime match) => DateUtils.isSameDay(date, match);
+
+  /// Check if [applyDeadline] is the same day as [match].
+  bool matchesDeadline(DateTime match) =>
+      applyDeadline == null ? false : DateUtils.isSameDay(applyDeadline, match);
 
   /// Checks if [day] falls between [beginPosting] and [endPosting] (including
   /// those start and end dates).

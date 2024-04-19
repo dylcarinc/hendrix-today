@@ -89,6 +89,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             )
+          else if (appState.isLoading)
+            const Center(child: Text('Loading...'))
           else
             const Center(child: Text('Nothing to show!')),
         ],

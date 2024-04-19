@@ -34,7 +34,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
     final appState = Provider.of<AppState>(context);
     final eventList = appState.events
         .where((HDXEvent e) =>
-            e.matchesDate(_selectedDay) && e.inPostingRangeCal(DateTime.now()))
+            (e.matchesDate(_selectedDay) || e.matchesDeadline(_selectedDay)) &&
+            e.inPostingRangeCal(DateTime.now()))
         .toList();
 
     return Scaffold(

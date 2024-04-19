@@ -33,6 +33,7 @@ enum EventType {
         return event;
       case "announcement":
       case "announcements":
+      case "lost & found":
         return announcement;
       case "meeting":
       case "meetings":
