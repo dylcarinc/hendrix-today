@@ -5,6 +5,8 @@ import 'package:hendrix_today_app/objects/event_type.dart';
 import 'package:hendrix_today_app/widgets/event_list.dart';
 import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
 import 'package:hendrix_today_app/widgets/notification_check.dart';
+import 'package:hendrix_today_app/widgets/permission_widget.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 /// The home page for Hendrix Today.
@@ -46,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const NotificationCheck(),
+          const PermissionWidget(Permission.notification),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
