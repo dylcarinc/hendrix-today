@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 /// Permission widget containing information about the passed [Permission]
@@ -17,7 +18,7 @@ class _PermissionState extends State<PermissionWidget>
   _PermissionState(this._permission);
 
   final Permission _permission;
-  PermissionStatus _permissionStatus = PermissionStatus.denied;
+  PermissionStatus _permissionStatus = PermissionStatus.granted;
 
   @override
   void initState() {
@@ -32,6 +33,7 @@ class _PermissionState extends State<PermissionWidget>
     super.dispose();
   }
 
+  //https://stackoverflow.com/questions/53128438/android-onresume-method-equivalent-in-flutter
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
@@ -61,30 +63,25 @@ class _PermissionState extends State<PermissionWidget>
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        _permission.toString(),
-        style: Theme.of(context).textTheme.bodyLarge,
-      ),
-      subtitle: Text(
-        _permissionStatus.toString(),
-        style: TextStyle(color: getPermissionColor()),
-      ),
-      trailing: (_permission is PermissionWithService)
-          ? IconButton(
-              icon: const Icon(
-                Icons.info,
-                color: Colors.white,
+    return _permissionStatus != PermissionStatus.granted
+        ? ColoredBox(
+            color: Color.fromARGB(251, 181, 68, 98),
+            child: ListTile(
+              title: Text(
+                "notifications denied :(",
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
-              onPressed: () {
-                checkServiceStatus(
-                    context, _permission as PermissionWithService);
-              })
-          : null,
-      onTap: () {
-        requestPermission(_permission);
-      },
-    );
+              subtitle: Text(
+                "tap here to allow. we will only ping you once a day, we promise!",
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+              leading: Icon(Icons.notifications_off,
+                  color: Theme.of(context).canvasColor),
+              onTap: () {
+                requestPermission(_permission);
+              },
+            ))
+        : const SizedBox.shrink();
   }
 
   void checkServiceStatus(
