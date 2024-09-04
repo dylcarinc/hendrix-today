@@ -4,7 +4,6 @@ import 'package:hendrix_today_app/objects/app_state.dart';
 import 'package:hendrix_today_app/objects/event_type.dart';
 import 'package:hendrix_today_app/widgets/event_list.dart';
 import 'package:hendrix_today_app/widgets/floating_nav_buttons.dart';
-import 'package:hendrix_today_app/widgets/notification_check.dart';
 import 'package:hendrix_today_app/widgets/permission_widget.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+// https://pub.dev/packages/permission_handler/example
 /// Permission widget containing information about the passed [Permission]
 class PermissionWidget extends StatefulWidget {
   /// Constructs a [PermissionWidget] for the supplied [Permission]
