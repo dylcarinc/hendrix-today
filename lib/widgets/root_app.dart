@@ -90,7 +90,7 @@ class _RootAppState extends State<RootApp> {
                   return null;
               }
             },
-            initialRoute: '/start',
+            initialRoute: '/home',
             navigatorKey: navigatorKey,
           );
         }));

@@ -29,7 +29,7 @@ class EventList extends StatelessWidget {
       if (previousEvent == null) {
         eventList.add(Padding(
           padding: const EdgeInsets.only(left: 8.0),
-          child: Text(DateFormat('EEEE').format(e.date),
+          child: Text(e.displayHeader(),
               style: Theme.of(context).textTheme.displaySmall),
         ));
         eventList.add(EventCard(event: e));
@@ -39,7 +39,7 @@ class EventList extends StatelessWidget {
         eventList.add(const SizedBox(height: 20));
         eventList.add(Padding(
           padding: const EdgeInsets.only(left: 8.0),
-          child: Text(DateFormat('EEEE').format(e.date),
+          child: Text(e.displayHeader(),
               style: Theme.of(context).textTheme.displaySmall),
         ));
         eventList.add(EventCard(event: e));
