@@ -74,3 +74,20 @@ class EventCard extends StatelessWidget {
     }
   }
 }
+
+/// A Separator widget that displays the day for a group of [HDXEvent].
+class EventHeader extends StatelessWidget {
+  const EventHeader({super.key, required this.event});
+
+  /// The [HDXEvent] from which to display information.
+  final HDXEvent event;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 8.0),
+      child: Text(event.displayHeader(),
+          style: Theme.of(context).textTheme.displaySmall),
+    );
+  }
+}
