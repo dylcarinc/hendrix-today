@@ -48,6 +48,13 @@ class EventCard extends StatelessWidget {
             );
             appState.markEventAsRead(event);
           },
+          leading: event.hip
+              ? Icon(
+                  Icons.local_activity,
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 21,
+                )
+              : null,
           trailing: isRead
               ? null
               : Icon(
