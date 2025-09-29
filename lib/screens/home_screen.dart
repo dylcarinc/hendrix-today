@@ -63,7 +63,6 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(width: 5),
               IconButton(
                 onPressed: () {
-                  print("search click");
                   setState(() {
                     showSearchbar = !showSearchbar;
                   });
@@ -73,27 +72,38 @@ class _HomeScreenState extends State<HomeScreen> {
               )
             ],
           ),
-          if (showSearchbar)
-            Padding(
-              padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
-              child: TextField(
-                key: const Key('SearchInput'),
-                controller: _controller,
-                onChanged: (newQuery) => setState(() {
-                  searchQuery = newQuery;
-                }),
-                decoration: InputDecoration(
-                    labelText: ' Search',
-                    labelStyle: Theme.of(context)
-                        .textTheme
-                        .labelLarge
-                        ?.copyWith(
-                            color: Theme.of(context).colorScheme.tertiary),
-                    focusColor: Theme.of(context).colorScheme.primary,
-                    suffixIcon: _searchIcon(context),
-                    iconColor: Theme.of(context).colorScheme.secondary),
-              ),
-            ),
+          AnimatedSwitcher(
+              duration: const Duration(milliseconds: 600),
+              transitionBuilder: (child, animation) {
+                return SizeTransition(
+                  sizeFactor: animation,
+                  axis: Axis.vertical,
+                  child: child,
+                );
+              },
+              child: showSearchbar
+                  ? Padding(
+                      padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
+                      child: TextField(
+                        key: const Key('SearchInput'),
+                        controller: _controller,
+                        onChanged: (newQuery) => setState(() {
+                          searchQuery = newQuery;
+                        }),
+                        decoration: InputDecoration(
+                            labelText: ' Search',
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .labelLarge
+                                ?.copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.tertiary),
+                            focusColor: Theme.of(context).colorScheme.primary,
+                            suffixIcon: _searchIcon(context),
+                            iconColor: Theme.of(context).colorScheme.secondary),
+                      ),
+                    )
+                  : const SizedBox.shrink()),
           if (homePageEvents.isNotEmpty)
             Flexible(
               child: SizedBox(
