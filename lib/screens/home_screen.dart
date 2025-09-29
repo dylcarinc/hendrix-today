@@ -25,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   EventTypeFilter eventTypeFilter = EventTypeFilter.all;
   String searchQuery = "";
   final _controller = TextEditingController();
+  bool showSearchbar = false;
 
   @override
   Widget build(BuildContext context) {
@@ -60,27 +61,39 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const Spacer(),
               const SizedBox(width: 5),
+              IconButton(
+                onPressed: () {
+                  print("search click");
+                  setState(() {
+                    showSearchbar = !showSearchbar;
+                  });
+                },
+                icon: const Icon(Icons.search),
+                color: Theme.of(context).colorScheme.primary,
+              )
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
-            child: TextField(
-              key: const Key('SearchInput'),
-              controller: _controller,
-              onChanged: (newQuery) => setState(() {
-                searchQuery = newQuery;
-              }),
-              decoration: InputDecoration(
-                  labelText: ' Search',
-                  labelStyle: Theme.of(context)
-                      .textTheme
-                      .labelLarge
-                      ?.copyWith(color: Theme.of(context).colorScheme.tertiary),
-                  focusColor: Theme.of(context).colorScheme.primary,
-                  suffixIcon: _searchIcon(context),
-                  iconColor: Theme.of(context).colorScheme.secondary),
+          if (showSearchbar)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
+              child: TextField(
+                key: const Key('SearchInput'),
+                controller: _controller,
+                onChanged: (newQuery) => setState(() {
+                  searchQuery = newQuery;
+                }),
+                decoration: InputDecoration(
+                    labelText: ' Search',
+                    labelStyle: Theme.of(context)
+                        .textTheme
+                        .labelLarge
+                        ?.copyWith(
+                            color: Theme.of(context).colorScheme.tertiary),
+                    focusColor: Theme.of(context).colorScheme.primary,
+                    suffixIcon: _searchIcon(context),
+                    iconColor: Theme.of(context).colorScheme.secondary),
+              ),
             ),
-          ),
           if (homePageEvents.isNotEmpty)
             Flexible(
               child: SizedBox(
@@ -105,7 +118,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _searchIcon(context) {
     if (searchQuery == "") {
-      return Icon(Icons.search, color: Theme.of(context).colorScheme.primary);
+      return const SizedBox.shrink();
+      //return Icon(Icons.search, color: Theme.of(context).colorScheme.primary);
     } else {
       return IconButton(
         icon: const Icon(Icons.close),
@@ -113,6 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
           setState(() {
             searchQuery = "";
             _controller.clear();
+            // showSearchbar = false;
           });
         },
       );
