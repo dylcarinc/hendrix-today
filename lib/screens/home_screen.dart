@@ -67,7 +67,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     showSearchbar = !showSearchbar;
                   });
                 },
-                icon: const Icon(Icons.search),
+                icon: showSearchbar
+                    ? const Icon(
+                        Icons.arrow_drop_up,
+                        size: 32,
+                      )
+                    : const Icon(
+                        Icons.search,
+                      ),
                 color: Theme.of(context).colorScheme.primary,
               )
             ],
@@ -85,6 +92,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   ? Padding(
                       padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
                       child: TextField(
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(
+                                color: Theme.of(context).colorScheme.primary),
                         key: const Key('SearchInput'),
                         controller: _controller,
                         onChanged: (newQuery) => setState(() {
